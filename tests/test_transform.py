@@ -1,6 +1,6 @@
 from portal.externals.VidiRest.objects.item import VSItem
 from portal.utils.test_case import PortalBaseTestCase
-from ..transform import transform_shape_to_lta_file, transform_item_to_lta_asset
+from ..transform import transform_shape_to_lta_files, transform_item_to_lta_asset
 
 
 class TestTransform(PortalBaseTestCase):
@@ -32,7 +32,7 @@ class TestTransform(PortalBaseTestCase):
         self.assertEquals(thumbnails[0].metadata[0].value, "0@PAL")
 
     def test_transform_video_shape_to_lta_file(self):
-        file = transform_shape_to_lta_file(self.test_video_proxy_shape)
+        file = transform_shape_to_lta_files(self.test_video_proxy_shape)[0]
         # File
         self.assertEquals(file.id, "VX-2")
         self.assertEquals(file.type, "VIDEO")
@@ -70,12 +70,9 @@ class TestTransform(PortalBaseTestCase):
         self.assertEquals(len(file.container.audioStreams[0].metadata), 5)
 
     def test_transform_shape_to_lta_file_subtitle(self):
-        file = transform_shape_to_lta_file(self.test_subtitle_ttml_shape)
-        self.assertEquals(file.id, "VX-62")
+        file = transform_shape_to_lta_files(self.test_subtitle_ttml_shape)[0]
+        self.assertEquals(file.id, "VX-62_VX-14")
         self.assertEquals(file.type, "SUBTITLE")
         self.assertEquals(file.url, "/APInoauth/storage/VX-1/file/VX-4/0.08703483378792176/VX-4.ttml")
         # Container
         self.assertEquals(file.container.format, "ttml")
-        # Subtitle streams
-        self.assertEquals(len(file.container.subtitleStreams), 1)
-        self.assertEquals(len(file.container.subtitleStreams[0].metadata), 1)

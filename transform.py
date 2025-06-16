@@ -1,33 +1,16 @@
 import logging
+from itertools import chain
 from typing import Optional
 
 from portal.externals.VidiRest.objects.item import VSItem, VSThumbnail
-from portal.externals.VidiRest.objects.shape import VSObject, VSShape, VSComponentBase
+from portal.externals.VidiRest.objects.shape import VSObject, VSShape, VSComponentBase, VSVideoComponent, \
+    VSAudioComponent, VSBinaryComponent, VSSubtitleComponent
 from portal.utils.general import get_site_domain
-from .lta_types import Asset, File, FileType, Container, VideoStream, AudioStream, SubtitleStream, MetadataField, \
-    Timecode
+from .lta_types import Asset, File, Container, VideoStream, AudioStream, SubtitleStream, MetadataField, \
+    Timecode, MIME_TO_FORMAT
+from ...externals.VidiRest.objects.storage import VSFile
 
 log = logging.getLogger(__name__)
-
-SUPPORTED_SUBTITLE_EXTENTIONS = [
-    ".cap",
-    ".fpc",
-    ".imsc",
-    ".itt",
-    ".pac",
-    ".scc",
-    ".srt",
-    ".stl",
-    ".ttml",
-    ".vtt"
-]
-
-SUBTITLE_MIMES = {
-    "application/ttml": "ttml",
-    "application/ttml+xml": "ttml"
-}
-
-MIME_TO_FORMAT = {} | SUBTITLE_MIMES
 
 
 def transform_items_to_lta_assets(items: list[VSItem], force_site_domain=False) -> list[Asset]:
@@ -41,8 +24,9 @@ def transform_item_to_lta_asset(item: VSItem, force_site_domain=False) -> Asset:
 
     metadata: list[MetadataField] = [MetadataField(key="title", value=title)]
 
-    files = [transform_shape_to_lta_file(shape=shape, force_site_domain=force_site_domain) for shape in
-             item.getShapes()]
+    files = list(
+        chain.from_iterable([transform_shape_to_lta_files(shape=shape, force_site_domain=force_site_domain) for shape in
+                             item.getShapes()]))
 
     thumbnails = [
         _transform_thumbnail_to_lta_still_frame_file(
@@ -59,15 +43,39 @@ def transform_item_to_lta_asset(item: VSItem, force_site_domain=False) -> Asset:
     )
 
 
-def transform_shape_to_lta_file(shape: VSShape, force_site_domain=False) -> Optional[File]:
+def transform_shape_to_lta_files(shape: VSShape, force_site_domain=False) -> list[File]:
+    files: list[File] = []
     video_components = shape.getVideoComponents()
     audio_components = shape.getAudioComponents()
     subtitle_components = shape.getSubtitleComponents()
     container_component = shape.getContainerComponent()
     binary_components = shape.getBinaryComponents()
-    file_id = shape.getId()
-    file_type = _get_inferred_type(shape)
-    url: str | None = None
+    video_vs_files = list(chain.from_iterable([video_component.getFiles() for video_component in video_components]))
+
+    # Shapes may have multiple audio components, one file per component
+    for audio_component in audio_components:
+        if _is_same_files(video_vs_files, audio_component.getFiles()):
+            # This component belongs to the video, continue
+            continue
+        files.append(_tranform_audio_component_to_audio_file(
+            audio_component=audio_component,
+            shape=shape,
+            force_site_domain=force_site_domain,
+        ))
+
+    # Shapes may have multiple subtitle files, one file per component
+    for subtitle_or_binary_component in subtitle_components + binary_components:
+        if _is_same_files(video_vs_files, subtitle_or_binary_component.getFiles()):
+            # This component belongs to the video, continue
+            continue
+        files.append(_tranform_subtitle_or_binary_component_to_file(
+            subtitle_or_binary_component=subtitle_or_binary_component,
+            shape=shape,
+            force_site_domain=force_site_domain,
+        ))
+
+    if len(video_components) == 0:
+        return files
 
     container = Container(
         videoStreams=[],
@@ -86,86 +94,154 @@ def transform_shape_to_lta_file(shape: VSShape, force_site_domain=False) -> Opti
             denominator=time_code_denominator
         )
 
-    for file in shape.getAllFiles():
-        uri = file.getURI(method="https") or file.getURI(method="http")
-        url = _get_preview_url(shape, uri, force_site_domain=force_site_domain)
-        if uri is not None:
-            break
-
     for video_component in video_components:
-        video_stream = VideoStream()
-        frame_rate = video_component.getFramerateAsFraction()
-        video_stream.frameRateNumerator = frame_rate["numerator"]
-        video_stream.frameRateDenominator = frame_rate["denominator"]
-        video_stream.timeBaseNumerator, video_stream.timeBaseDenominator = video_component.getTimeBase()
-        video_stream.resolutionWidth = video_component.getResolutionWidth()
-        video_stream.resolutionHeight = video_component.getResolutionHeight()
-        video_stream.codec = video_component.getCodec()
-        video_stream.bitrate = video_component.getBitRate()
-        video_stream.duration = _get_duration(video_component)
-        video_stream.aspectRatioWidth, video_stream.aspectRatioHeight = video_component.getAspectRatio(asString=False)
-        video_stream.metadata = _get_metadatas(video_component)
-        container.videoStreams.append(video_stream)
+        container.videoStreams.append(_transform_video_component_to_video_stream(video_component))
 
     for audio_component in audio_components:
-        audio_stream = AudioStream()
-        audio_stream.timeBaseNumerator, audio_stream.timeBaseDenominator = audio_component.getTimeBase()
-        audio_stream.sampleRate = int(audio_component.getSamplingRate())
-        audio_stream.channels = audio_component.getChannels()
-        audio_stream.codec = audio_component.getCodec()
-        audio_stream.bitrate = audio_component.getBitRate()
-        audio_stream.duration = _get_duration(audio_component)
-        audio_stream.metadata = _get_metadatas(audio_component)
-        container.audioStreams.append(audio_stream)
+        container.audioStreams.append(_transform_audio_component_to_audio_stream(audio_component))
 
-    for subtitle_component in subtitle_components:
-        subtitle_stream = SubtitleStream()
-        subtitle_stream.metadata = _get_metadatas(subtitle_component)
-        container.subtitleStreams.append(subtitle_stream)
+    for subtitle_component in subtitle_components + binary_components:
+        container.subtitleStreams.append(_tranform_subtitle_component_to_subtitle_stream(subtitle_component))
 
     metadata: list[MetadataField] = []
     metadata += [MetadataField(key="tag", value=tag) for tag in shape.getTags()]
 
-    if file_type == "SUBTITLE":
-        for binary_component in binary_components:
-            subtitle_stream = SubtitleStream()
-            subtitle_stream.metadata = _get_metadatas(binary_component)
-            container.subtitleStreams.append(subtitle_stream)
+    files.append(
+        File(
+            id=shape.getId(),
+            type=None,
+            fileName=_get_filename(video_vs_files),
+            url=_get_url(video_vs_files, shape=shape, force_site_domain=force_site_domain),
+            container=container,
+            metadata=metadata
+        )
+    )
+
+    return files
+
+
+def _is_same_files(a: list[VSFile], b: list[VSFile]) -> bool:
+    if len(a) != len(b):
+        return False
+    for i in range(len(a)):
+        if a[i].getId() != b[i].getId():
+            return False
+    return True
+
+
+def _tranform_subtitle_or_binary_component_to_file(
+        subtitle_or_binary_component: VSBinaryComponent | VSSubtitleComponent, shape: VSShape,
+        force_site_domain=False) -> File:
+    file_id = f"{shape.getId()}_{subtitle_or_binary_component.getId()}"
+    vs_files = subtitle_or_binary_component.getFiles()
+    container = Container(
+        videoStreams=[],
+        audioStreams=[],
+        subtitleStreams=[],
+        format=_get_container_format(shape)
+    )
 
     return File(
         id=file_id,
-        fileName=shape.getFirstFileName(),
-        type=file_type,
-        url=url,
-        container=container,
-        metadata=metadata
+        type=None,
+        fileName=_get_filename(vs_files),
+        url=_get_url(vs_files, shape=shape, force_site_domain=force_site_domain),
+        metadata=_get_metadatas(subtitle_or_binary_component),
+        container=container
     )
-
-
-def _get_inferred_type(shape: VSShape) -> FileType:
-    video_components = shape.getVideoComponents()
-    audio_components = shape.getAudioComponents()
-    # Process video components
-    if len(video_components) > 0:
-        return "VIDEO"
-    if len(audio_components) > 0:
-        return "AUDIO"
-    if _is_subtitle(shape):
-        return "SUBTITLE"
-    return "UNKNOWN"
-
-
-def _is_subtitle(shape: VSShape) -> bool:
-    if shape.getMimeType() in SUBTITLE_MIMES:
-        return True
-    if shape.getFirstFileName().lower().endswith(tuple(SUPPORTED_SUBTITLE_EXTENTIONS)):
-        return True
-    return False
 
 
 def _get_container_format(shape: VSShape) -> str:
     mime_type = shape.getMimeType()
     return MIME_TO_FORMAT.get(mime_type, mime_type)
+
+
+def _tranform_audio_component_to_audio_file(audio_component: VSAudioComponent, shape: VSShape,
+                                            force_site_domain=False) -> File:
+    file_id = f"{shape.getId()}_{audio_component.getId()}"
+    vs_files = audio_component.getFiles()
+    container = Container(
+        videoStreams=[],
+        audioStreams=[_transform_audio_component_to_audio_stream(audio_component)],
+        subtitleStreams=[],
+    )
+    return File(
+        id=file_id,
+        type=None,
+        fileName=_get_filename(vs_files),
+        url=_get_url(vs_files, shape=shape, force_site_domain=force_site_domain),
+        metadata=_get_metadatas(audio_component),
+        container=container,
+    )
+
+
+def _get_filename(files: list[VSFile]) -> str:
+    file_names: dict[int, str] = {}
+
+    for file in files:
+        path = file.getPath()
+        if not path or path.strip() == "":
+            file_names[1001] = path
+            continue
+        elif 1000 not in file_names:
+            file_names[1000] = path
+
+        upper_path = path.upper()
+        if upper_path.endswith(".MP4"):
+            file_names[1] = path
+        elif upper_path.endswith(".WEBM"):
+            file_names[2] = path
+        elif upper_path.endswith(".ADTS"):
+            file_names[3] = path
+        elif upper_path.endswith(".MP3"):
+            file_names[4] = path
+        elif upper_path.endswith(".WAV"):
+            file_names[5] = path
+
+    return file_names.get(min(file_names.keys()), "")
+
+
+def _get_url(files: list[VSFile], shape: VSShape, force_site_domain=True) -> str | None:
+    for file in files:
+        uri = file.getURI(method="https") or file.getURI(method="http")
+        url = _get_preview_url(shape, uri, force_site_domain=force_site_domain)
+        if uri is not None:
+            return url
+    return None
+
+
+def _transform_video_component_to_video_stream(video_component: VSVideoComponent) -> VideoStream:
+    video_stream = VideoStream()
+    frame_rate = video_component.getFramerateAsFraction()
+    video_stream.frameRateNumerator = frame_rate["numerator"]
+    video_stream.frameRateDenominator = frame_rate["denominator"]
+    video_stream.timeBaseNumerator, video_stream.timeBaseDenominator = video_component.getTimeBase()
+    video_stream.resolutionWidth = video_component.getResolutionWidth()
+    video_stream.resolutionHeight = video_component.getResolutionHeight()
+    video_stream.codec = video_component.getCodec()
+    video_stream.bitrate = video_component.getBitRate()
+    video_stream.duration = _get_duration(video_component)
+    video_stream.aspectRatioWidth, video_stream.aspectRatioHeight = video_component.getAspectRatio(asString=False)
+    video_stream.metadata = _get_metadatas(video_component)
+    return video_stream
+
+
+def _transform_audio_component_to_audio_stream(audio_component: VSAudioComponent) -> AudioStream:
+    audio_stream = AudioStream()
+    audio_stream.timeBaseNumerator, audio_stream.timeBaseDenominator = audio_component.getTimeBase()
+    audio_stream.sampleRate = int(audio_component.getSamplingRate())
+    audio_stream.channels = audio_component.getChannels()
+    audio_stream.codec = audio_component.getCodec()
+    audio_stream.bitrate = audio_component.getBitRate()
+    audio_stream.duration = _get_duration(audio_component)
+    audio_stream.metadata = _get_metadatas(audio_component)
+    return audio_stream
+
+
+def _tranform_subtitle_component_to_subtitle_stream(subtitle_component: VSComponentBase) -> SubtitleStream:
+    subtitle_stream = SubtitleStream()
+    subtitle_stream.metadata = _get_metadatas(subtitle_component)
+    return subtitle_stream
 
 
 def _get_preview_url(vs_object: VSObject, uri: str | None, force_site_domain=False) -> str | None:

@@ -59,15 +59,62 @@ class Container:
 
 FileType = Literal["VIDEO", "AUDIO", "SUBTITLE", "STILL_FRAME", "SPRITE_MAP", "WAVEFORM", "UNKNOWN"]
 
+SUPPORTED_SUBTITLE_EXTENTIONS = [
+    ".cap",
+    ".fpc",
+    ".imsc",
+    ".itt",
+    ".pac",
+    ".scc",
+    ".srt",
+    ".stl",
+    ".ttml",
+    ".vtt"
+]
+
+SUBTITLE_MIMES = {
+    "application/ttml": "ttml",
+    "application/ttml+xml": "ttml"
+}
+
+MIME_TO_FORMAT = {} | SUBTITLE_MIMES
 
 @dataclass
 class File:
+    url: str
     id: Optional[str]
     fileName: Optional[str]
-    type: FileType
-    url: str
     container: Optional[Container]
+    type: Optional[FileType]
+    _type: Optional[FileType] = field(init=False, repr=False)
     metadata: Optional[List[MetadataField]] = field(default_factory=list)
+
+    @property
+    def type(self) -> Optional[FileType]:
+        if self._type is not None:
+            return self._type
+        return self.__get_inferred_type()
+
+    @type.setter
+    def type(self, value: Optional[FileType]):
+        self._type = value
+
+    def __get_inferred_type(self) -> FileType:
+        if self.container:
+            if len(self.container.videoStreams) > 0:
+                return "VIDEO"
+            elif len(self.container.audioStreams) > 0:
+                return "AUDIO"
+            elif self.__is_subtitle():
+                return "SUBTITLE"
+        return "UNKNOWN"
+
+    def __is_subtitle(self) -> bool:
+        if self.container and self.container.format in SUBTITLE_MIMES:
+            return True
+        if self.fileName.lower().endswith(tuple(SUPPORTED_SUBTITLE_EXTENTIONS)):
+            return True
+        return False
 
 
 @dataclass
