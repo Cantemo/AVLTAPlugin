@@ -13,8 +13,12 @@ def get_vidispine_auth() -> tuple[str, str]:
     return settings.VIDISPINE_USERNAME, settings.VIDISPINE_PASSWORD
 
 
-def vidispine_request(method: str, path: str, **kwargs) -> Response:
-    response = requests.request(method, get_vidispine_url(path), auth=get_vidispine_auth(), **kwargs)
+def vidispine_request(method: str, path: str, runas: Optional[str] = None, **kwargs) -> Response:
+    headers = kwargs.pop("headers", {})
+    headers["Accept"] = "application/json"
+    if runas is not None:
+        headers["RunAs"] = str(runas)
+    response = requests.request(method, get_vidispine_url(path), auth=get_vidispine_auth(), headers=headers, **kwargs)
     response.raise_for_status()
     return response
 
@@ -31,6 +35,7 @@ def import_shape_raw(
         notification_data: Optional[str] = None,
         priority: Optional[str] = None,
         jobmetadata: Optional[list[str]] = None,
+        runas: Optional[str] = None,
 ) -> Response:
     params = dict(
         tag=tag,
@@ -43,4 +48,4 @@ def import_shape_raw(
         priority=priority,
         jobmetadata=jobmetadata,
     )
-    return vidispine_request("POST", f"/item/{item_id}/shape/raw", params=params, data=data)
+    return vidispine_request("POST", f"/item/{item_id}/shape/raw", params=params, data=data, runas=runas)

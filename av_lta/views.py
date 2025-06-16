@@ -14,6 +14,7 @@ from django.http import QueryDict
 from django.shortcuts import redirect
 from django.urls import reverse
 from django.views import View
+from requests import HTTPError
 from rest_framework.exceptions import NotFound
 from rest_framework.parsers import BaseParser
 from rest_framework.renderers import JSONRenderer
@@ -136,7 +137,9 @@ class SubtitlePublishView(CView):
             parts = file_id.split("_")
             shape_id = parts[0] if len(parts) > 0 else None
             component_id = parts[1] if len(parts) > 1 else None
-            item_ids = request.query_params.get("itemIds").split(",")
+            item_ids = list(filter(None, request.query_params.get("itemIds", "").split(",")))
+            if len(item_ids) < 1:
+                raise BadRequest("No items could be found")
             raw_ttml_contents = request.data
             item_helper = ItemHelper(runas=request.user)
             items: list[VSItem] = item_helper.getItems(item_ids=item_ids, content={
@@ -155,21 +158,30 @@ class SubtitlePublishView(CView):
                 shape=shape,
                 component=component,
                 data=raw_ttml_contents,
-                item_helper=item_helper
+                item_helper=item_helper,
+                runas=request.user,
             )
 
             return Response()
+        except HTTPError as e:
+            log.exception("Failed to publish ttml")
+            vs_error = e.response.json()
+            return Response(status=e.response.status_code, data=vs_error, exception=True)
+        except NotFound as e:
+            raise e
+        except BadRequest as e:
+            raise e
         except Exception:
             log.exception("Failed to publish ttml")
             raise BadRequest("Failed to publish ttml")
 
     def export_to_new_shape_on_item(self, item: VSItem, shape: VSShape,
                                     component: VSSubtitleComponent | VSBinaryComponent, data: str,
-                                    item_helper: ItemHelper):
+                                    item_helper: ItemHelper, runas: str):
         item_id = item.json_object["id"]
         filename = get_filename(shape.getAllFiles()) if component is None else get_filename(component.getFiles())
         self._create_shape_if_needed(shape_tag=plugin_settings.shape_tag, item_helper=item_helper)
-        import_shape_raw(item_id=item_id, data=data, filename=filename, tag=plugin_settings.shape_tag)
+        import_shape_raw(item_id=item_id, data=data, filename=filename, tag=plugin_settings.shape_tag, runas=runas)
 
     @staticmethod
     def _create_shape_if_needed(shape_tag: str, item_helper: ItemHelper) -> bool:
