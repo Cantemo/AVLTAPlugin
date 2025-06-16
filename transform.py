@@ -110,7 +110,7 @@ def transform_shape_to_lta_files(shape: VSShape, force_site_domain=False) -> lis
         File(
             id=shape.getId(),
             type=None,
-            fileName=_get_filename(video_vs_files),
+            fileName=get_filename(video_vs_files),
             url=_get_url(video_vs_files, shape=shape, force_site_domain=force_site_domain),
             container=container,
             metadata=metadata
@@ -144,7 +144,7 @@ def _tranform_subtitle_or_binary_component_to_file(
     return File(
         id=file_id,
         type=None,
-        fileName=_get_filename(vs_files),
+        fileName=get_filename(vs_files),
         url=_get_url(vs_files, shape=shape, force_site_domain=force_site_domain),
         metadata=_get_metadatas(subtitle_or_binary_component),
         container=container
@@ -168,14 +168,14 @@ def _tranform_audio_component_to_audio_file(audio_component: VSAudioComponent, s
     return File(
         id=file_id,
         type=None,
-        fileName=_get_filename(vs_files),
+        fileName=get_filename(vs_files),
         url=_get_url(vs_files, shape=shape, force_site_domain=force_site_domain),
         metadata=_get_metadatas(audio_component),
         container=container,
     )
 
 
-def _get_filename(files: list[VSFile]) -> str:
+def get_filename(files: list[VSFile]) -> str:
     file_names: dict[int, str] = {}
 
     for file in files:

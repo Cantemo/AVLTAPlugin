@@ -90,8 +90,7 @@ class TestLaunchTemplateView(PortalBaseTestCase):
 
         # Check endpoints section
         self.assertIn("publish", response.data["endpoints"])
-        self.assertIn("download", response.data["endpoints"]["publish"])
-        self.assertTrue(response.data["endpoints"]["publish"]["download"])
+        self.assertIn("http", response.data["endpoints"]["publish"])
 
         # Check settings section
         self.assertIn("licenseKey", response.data["settings"])
