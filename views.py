@@ -1,12 +1,19 @@
 import logging
+import re
 from dataclasses import dataclass, asdict
-from urllib.parse import urlencode
+from pathlib import Path
+from urllib.parse import urlencode, urlparse
 
 import VidiRest.schemas.xmlSchema as VSXMLSchema
+import requests
+from bs4 import BeautifulSoup
 from django.conf import settings
 from django.core.exceptions import BadRequest
+from django.http import HttpResponse
+from django.http import QueryDict
 from django.shortcuts import redirect
 from django.urls import reverse
+from django.views import View
 from rest_framework.exceptions import NotFound
 from rest_framework.parsers import BaseParser
 from rest_framework.renderers import JSONRenderer
@@ -17,6 +24,7 @@ from portal.utils.general import get_site_domain
 from portal.vidispine.iexception import NotFoundError
 from portal.vidispine.iitem import ItemHelper
 from .lta_types import LaunchTemplate, Data, Endpoints, Endpoint, Settings, HttpEndpoint
+from .settings import AV_LTA_APPS_URL
 from .transform import transform_items_to_lta_assets, get_filename
 from .utils import clean_nones
 from .vs_helpers import import_shape_raw
@@ -26,20 +34,15 @@ from ...externals.VidiRest.objects.shape import VSShape, VSSubtitleComponent, VS
 log = logging.getLogger(__name__)
 
 
-# TODO: Move this to db
 @dataclass
 class PluginSettings(object):
-    launch_url: str
-    license_key: str
     force_site_domain: bool
     shape_tag: str
 
 
 plugin_settings = PluginSettings(
-    license_key="73E3F4EDC1CB113CA1FFA9B0EB348EFAU6A491CA3DA6078640802A68E16B2421C",
     force_site_domain=True,
     shape_tag="av-subtitle",
-    launch_url="https://av.localhost/launch/"
     # launch_url="https://apps.accurate.video/launch/"
 )
 
@@ -59,12 +62,11 @@ class OpenApplicationView(CView):
             "launchTemplate": get_site_domain() + reverse(
                 "av_lta:get_launch_template"
             ) + f"?{urlencode(launch_template_query_params)}",
-            "authMethod": "token",
-            "authTokenPrefix": "Basic",
-            "token": "YWRtaW46YWRtaW4K",
-            "manual": "true"
         }
-        return redirect(f"{plugin_settings.launch_url}{application}/?{urlencode(query_params)}")
+        if settings.DEBUG:
+            query_params["manual"] = "true"
+        launch_url = f"{reverse('av_lta:av_apps')}launch/"
+        return redirect(f"{launch_url}{application}/?{urlencode(query_params)}")
 
 
 class LaunchTemplateView(CView):
@@ -106,7 +108,7 @@ class LaunchTemplateView(CView):
                     )
                 ),
                 settings=Settings(
-                    licenseKey=plugin_settings.license_key
+                    licenseKey=settings.AP_LICENSE_KEY,
                 )
             )
         except NotFoundError:
@@ -128,8 +130,12 @@ class SubtitlePublishView(CView):
 
     def post(self, request):
         try:
+            log.info("Publishing ttml")
+            log.info(request.query_params)
             file_id: str = request.query_params.get("fileId", "")
-            shape_id, component_id = file_id.split("_")
+            parts = file_id.split("_")
+            shape_id = parts[0] if len(parts) > 0 else None
+            component_id = parts[1] if len(parts) > 1 else None
             item_ids = request.query_params.get("itemIds").split(",")
             raw_ttml_contents = request.data
             item_helper = ItemHelper(runas=request.user)
@@ -143,6 +149,7 @@ class SubtitlePublishView(CView):
             component = (self.__find_subtitle_component(shape=shape, component_id=component_id)
                          or self.__find_binary_component(shape=shape, component_id=component_id))
 
+            # Add more export variants here
             self.export_to_new_shape_on_item(
                 item=item,
                 shape=shape,
@@ -195,3 +202,126 @@ class SubtitlePublishView(CView):
             if component_id == component.getId():
                 return component
         return None
+
+
+class ProxyLTAView(View):
+    def get(self, request, path, requests_args=None):
+        url = AV_LTA_APPS_URL
+        requests_args = (requests_args or {}).copy()
+        headers = self.get_headers(request.META)
+        params = request.GET.copy()
+
+        if 'headers' not in requests_args:
+            requests_args['headers'] = {}
+        if 'data' not in requests_args:
+            requests_args['data'] = request.body
+        if 'params' not in requests_args:
+            requests_args['params'] = QueryDict('', mutable=True)
+
+        headers.update(requests_args['headers'])
+        params.update(requests_args['params'])
+
+        for key in list(headers.keys()):
+            if key.lower() == 'content-length':
+                del headers[key]
+
+        requests_args['headers'] = headers
+        requests_args['params'] = params
+
+        if self.has_file_extension(path):
+            # We only want to append the path for CSS, JS, and Fonts etc.
+            # For other paths we just want to route them to the index page and let
+            # the frontend router handle them.
+            url = url + path
+        response = requests.request(request.method, url, **requests_args)
+
+        proxy_response = HttpResponse(
+            response.content,
+            status=response.status_code)
+
+        if "text/html" in response.headers.get("content-type", ""):
+            # We need to rewrite the base tag as we're not serving from root /
+            soup = BeautifulSoup(response.content, "html.parser")
+            base_tag = soup.find("head").find("base")
+            base_tag.attrs.update(
+                href=reverse("av_lta:av_apps")
+            )
+            proxy_response.content = str(soup)
+
+        excluded_headers = {
+            # Hop-by-hop headers
+            # ------------------
+            # Certain response headers should NOT be just tunneled through.  These
+            # are they.  For more info, see:
+            # http://www.w3.org/Protocols/rfc2616/rfc2616-sec13.html#sec13.5.1
+            'connection', 'keep-alive', 'proxy-authenticate',
+            'proxy-authorization', 'te', 'trailers', 'transfer-encoding',
+            'upgrade',
+
+            # Although content-encoding is not listed among the hop-by-hop headers,
+            # it can cause trouble as well. Just let the server set the value as
+            # it should be.
+            'content-encoding',
+
+            # Since the remote server may or may not have sent the content in the
+            # same encoding as Django will, let Django worry about what the length
+            # should be.
+            'content-length',
+        }
+        for key, value in response.headers.items():
+            if key.lower() in excluded_headers:
+                continue
+            elif key.lower() == 'location':
+                # If the location is relative at all, we want it to be absolute to
+                # the upstream server.
+                proxy_response[key] = self.make_absolute_location(response.url, value)
+            else:
+                proxy_response[key] = value
+
+        return proxy_response
+
+    @staticmethod
+    def has_file_extension(url):
+        path = Path(urlparse(url).path)
+        if path.suffix:
+            return True
+        return False
+
+    @staticmethod
+    def make_absolute_location(base_url, location):
+        """
+        Convert a location header into an absolute URL.
+        """
+        absolute_pattern = re.compile(r'^[a-zA-Z]+://.*$')
+        if absolute_pattern.match(location):
+            return location
+
+        parsed_url = urlparse(base_url)
+
+        if location.startswith('//'):
+            # scheme relative
+            return parsed_url.scheme + ':' + location
+
+        elif location.startswith('/'):
+            # host relative
+            return parsed_url.scheme + '://' + parsed_url.netloc + location
+
+        else:
+            # path relative
+            return parsed_url.scheme + '://' + parsed_url.netloc + parsed_url.path.rsplit('/', 1)[0] + '/' + location
+
+    @staticmethod
+    def get_headers(environ):
+        """
+        Retrieve the HTTP headers from a WSGI environment dictionary.  See
+        https://docs.djangoproject.com/en/dev/ref/request-response/#django.http.HttpRequest.META
+        """
+        headers = {}
+        for key, value in environ.items():
+            # Sometimes, things don't like when you send the requesting host through.
+            if key.startswith('HTTP_') and key != 'HTTP_HOST':
+                headers[key[5:].replace('_', '-')] = value
+            elif key in ('CONTENT_TYPE', 'CONTENT_LENGTH'):
+                headers[key.replace('_', '-')] = value
+
+        return headers
