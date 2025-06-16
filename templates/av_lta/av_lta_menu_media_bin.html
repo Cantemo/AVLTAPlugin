@@ -1,0 +1,8 @@
+{% load i18n %}
+{% url 'av_lta:open' as open_url %}
+{% permissionrequired portal_accurate_video_subtitle %}
+<ap-menu-list-item>
+    <a id="av_lta_subtitle_action" href="#"
+       onclick="codemillAVLTAOpenApp(event, 'subtitle', 'mediabin', '{{ open_url }}')">{% trans "Open items in Subtitle" %}</a>
+</ap-menu-list-item>
+{% endpermissionrequired %}

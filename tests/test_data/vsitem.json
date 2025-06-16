@@ -1,0 +1,2924 @@
+{
+  "replace_urls_dict": {
+    "http://127.0.0.1:8080/APInoauth/": "/APInoauth/",
+    "http://localhost:8080/APInoauth/": "/APInoauth/",
+    "http://localhost.localdomain:8080/APInoauth/": "/APInoauth/",
+    "http://vidispine:8080/APInoauth/": "/APInoauth/"
+  },
+  "json_object": {
+    "metadata": {
+      "revision": "VX-11,VX-13,VX-2,VX-3,VX-5,VX-8,VX-7,VX-9",
+      "group": [
+        "Film"
+      ],
+      "timespan": [
+        {
+          "field": [
+            {
+              "name": "shapeTag",
+              "id": [],
+              "value": [
+                {
+                  "value": "original",
+                  "uuid": "0a65e1fd-b17f-4a06-b65d-092977924f22",
+                  "user": "system",
+                  "timestamp": "2025-06-02T13:55:30.077+0000",
+                  "change": "VX-13"
+                },
+                {
+                  "value": "lowres",
+                  "uuid": "6c351b1d-1595-4015-bf60-31baedcd1b64",
+                  "user": "system",
+                  "timestamp": "2025-06-02T13:55:30.077+0000",
+                  "change": "VX-13"
+                }
+              ],
+              "data": [
+                {
+                  "key": "extradata",
+                  "value": "{\"type\": \"tags\", \"readonly\": true}"
+                }
+              ],
+              "type": {
+                "name": "shapeTag",
+                "type": "string-exact",
+                "index": "extend",
+                "data": [
+                  {
+                    "key": "extradata",
+                    "value": "{\"type\": \"tags\", \"readonly\": true}"
+                  }
+                ],
+                "origin": "VX",
+                "system": "true"
+              },
+              "uuid": "d333fb29-127f-46ff-9709-edfd3b077da3",
+              "user": "system",
+              "timestamp": "2025-06-02T13:55:30.077+0000",
+              "change": "VX-13"
+            },
+            {
+              "name": "representativeThumbnail",
+              "id": [],
+              "value": [
+                {
+                  "value": "/API/thumbnail/VX-2/VX-1;version=0/7250@PAL",
+                  "uuid": "73a60cb5-5c6c-4c2a-8e0a-214e49f8f3c6",
+                  "user": "system",
+                  "timestamp": "2025-06-02T13:55:30.077+0000",
+                  "change": "VX-13"
+                }
+              ],
+              "data": [],
+              "type": {
+                "name": "representativeThumbnail",
+                "type": "string-exact",
+                "index": "noindex",
+                "data": [],
+                "origin": "VX"
+              },
+              "uuid": "eace10a5-3ea5-422b-b038-994b9a39b874",
+              "user": "system",
+              "timestamp": "2025-06-02T13:55:30.077+0000",
+              "change": "VX-13"
+            },
+            {
+              "name": "representativeThumbnailNoAuth",
+              "id": [],
+              "value": [
+                {
+                  "value": "/APInoauth/thumbnail/VX-2/VX-1;version=0/7250@PAL?hash=bbf68d405ce8a9aecda0398a80e04da7",
+                  "uuid": "f9c1cda3-ec14-4106-97c0-6e0a3f5641a9",
+                  "user": "system",
+                  "timestamp": "2025-06-02T13:55:30.077+0000",
+                  "change": "VX-13"
+                }
+              ],
+              "data": [],
+              "type": {
+                "name": "representativeThumbnailNoAuth",
+                "type": "string-exact",
+                "index": "noindex",
+                "data": [],
+                "origin": "VX"
+              },
+              "uuid": "2a13e457-734b-4b80-a746-b618d184fc80",
+              "user": "system",
+              "timestamp": "2025-06-02T13:55:30.077+0000",
+              "change": "VX-13"
+            },
+            {
+              "name": "portal_mf201890",
+              "id": [],
+              "value": [
+                {
+                  "value": "",
+                  "uuid": "07b2fdd3-c7dd-46e1-bdf4-164a6670001f",
+                  "user": "admin",
+                  "timestamp": "2025-06-02T13:50:50.854+0000",
+                  "change": "VX-2"
+                }
+              ],
+              "data": [
+                {
+                  "key": "extradata",
+                  "value": "{\"description\": \"The season number of the item\", \"type\": \"integer\",                \"name\": \"Season\", \"Film\": {\"order\": 1, \"representative\": true}, \"order\": 1,                \"sortable\": true}            "
+                }
+              ],
+              "type": {
+                "name": "portal_mf201890",
+                "type": "integer",
+                "integerRestriction": {},
+                "data": [
+                  {
+                    "key": "extradata",
+                    "value": "{\"description\": \"The season number of the item\", \"type\": \"integer\",                \"name\": \"Season\", \"Film\": {\"order\": 1, \"representative\": true}, \"order\": 1,                \"sortable\": true}            "
+                  }
+                ],
+                "origin": "VX"
+              },
+              "uuid": "59d311d0-4d83-4087-b70a-e5e9f27653ee",
+              "user": "admin",
+              "timestamp": "2025-06-02T13:50:50.854+0000",
+              "change": "VX-2"
+            },
+            {
+              "name": "portal_mf551902",
+              "id": [],
+              "value": [
+                {
+                  "value": "",
+                  "uuid": "449bfcd5-9f04-49dd-b9df-0defa7d1547d",
+                  "user": "admin",
+                  "timestamp": "2025-06-02T13:50:50.854+0000",
+                  "change": "VX-2"
+                }
+              ],
+              "data": [
+                {
+                  "key": "extradata",
+                  "value": "{\"description\": \"The episode number of the item\", \"type\": \"integer\",                \"name\": \"Episode\", \"Film\": {\"order\": 2, \"representative\": true}, \"order\": 2,                \"sortable\": true}            "
+                }
+              ],
+              "type": {
+                "name": "portal_mf551902",
+                "type": "integer",
+                "integerRestriction": {},
+                "data": [
+                  {
+                    "key": "extradata",
+                    "value": "{\"description\": \"The episode number of the item\", \"type\": \"integer\",                \"name\": \"Episode\", \"Film\": {\"order\": 2, \"representative\": true}, \"order\": 2,                \"sortable\": true}            "
+                  }
+                ],
+                "origin": "VX"
+              },
+              "uuid": "bae474fb-ae10-4c89-a90d-9e7b92413a92",
+              "user": "admin",
+              "timestamp": "2025-06-02T13:50:50.854+0000",
+              "change": "VX-2"
+            },
+            {
+              "name": "portal_mf619153",
+              "id": [],
+              "value": [
+                {
+                  "value": "",
+                  "uuid": "d96d9cbd-eb9e-442d-b3c9-d83cc64c6265",
+                  "user": "admin",
+                  "timestamp": "2025-06-02T13:50:50.854+0000",
+                  "change": "VX-2"
+                }
+              ],
+              "data": [
+                {
+                  "key": "extradata",
+                  "value": "{\"description\": \"The plot of the item\", \"type\": \"textarea\",                \"name\": \"Description\", \"Film\": {\"order\": 3}, \"order\":                3}            "
+                }
+              ],
+              "type": {
+                "name": "portal_mf619153",
+                "type": "string",
+                "stringRestriction": {
+                  "minLength": 0,
+                  "maxLength": 255
+                },
+                "data": [
+                  {
+                    "key": "extradata",
+                    "value": "{\"description\": \"The plot of the item\", \"type\": \"textarea\",                \"name\": \"Description\", \"Film\": {\"order\": 3}, \"order\":                3}            "
+                  }
+                ],
+                "origin": "VX"
+              },
+              "uuid": "5086569c-2736-4813-b535-54f4751c465b",
+              "user": "admin",
+              "timestamp": "2025-06-02T13:50:50.854+0000",
+              "change": "VX-2"
+            },
+            {
+              "name": "portal_mf257027",
+              "id": [],
+              "value": [
+                {
+                  "value": "",
+                  "uuid": "314b9453-9eb8-4fa3-8285-0427faabd422",
+                  "user": "admin",
+                  "timestamp": "2025-06-02T13:50:50.854+0000",
+                  "change": "VX-2"
+                }
+              ],
+              "data": [
+                {
+                  "key": "extradata",
+                  "value": "{\"description\": \"The language code of the item\", \"type\": \"lookup\",                \"name\": \"Language\", \"Film\": {\"order\": 4, \"representative\": true}, \"order\": 4,                \"sortable\": true}            "
+                }
+              ],
+              "type": {
+                "name": "portal_mf257027",
+                "type": "string-exact",
+                "stringRestriction": {},
+                "data": [
+                  {
+                    "key": "extradata",
+                    "value": "{\"description\": \"The language code of the item\", \"type\": \"lookup\",                \"name\": \"Language\", \"Film\": {\"order\": 4, \"representative\": true}, \"order\": 4,                \"sortable\": true}            "
+                  }
+                ],
+                "origin": "VX"
+              },
+              "uuid": "ec9d420c-470f-4e51-9e65-7a84759a120c",
+              "user": "admin",
+              "timestamp": "2025-06-02T13:50:50.854+0000",
+              "change": "VX-2"
+            },
+            {
+              "name": "portal_mf268857",
+              "id": [],
+              "value": [
+                {
+                  "value": "2025-06-27T00:00:00+02:00",
+                  "uuid": "05c52399-429b-4518-8d7c-54886fd2f6d4",
+                  "user": "admin",
+                  "timestamp": "2025-06-02T13:50:50.854+0000",
+                  "change": "VX-2"
+                }
+              ],
+              "data": [
+                {
+                  "key": "extradata",
+                  "value": "{\"description\": \"The release date for the item\", \"type\": \"date\",                \"name\": \"Release date\", \"Film\": {\"required\": true, \"order\":                5, \"representative\": true}, \"order\": 5, \"sortable\": true}            "
+                }
+              ],
+              "type": {
+                "name": "portal_mf268857",
+                "type": "date",
+                "data": [
+                  {
+                    "key": "extradata",
+                    "value": "{\"description\": \"The release date for the item\", \"type\": \"date\",                \"name\": \"Release date\", \"Film\": {\"required\": true, \"order\":                5, \"representative\": true}, \"order\": 5, \"sortable\": true}            "
+                  }
+                ],
+                "origin": "VX"
+              },
+              "uuid": "4dbb4be7-5b97-4851-9a0a-c7641a30ce50",
+              "user": "admin",
+              "timestamp": "2025-06-02T13:50:50.854+0000",
+              "change": "VX-2"
+            },
+            {
+              "name": "created",
+              "id": [],
+              "value": [
+                {
+                  "value": "2025-06-02T13:50:50.819Z",
+                  "uuid": "71a93c3f-fa2b-498e-84a8-d1e8266784c1",
+                  "user": "system",
+                  "timestamp": "2025-06-02T13:50:50.882+0000",
+                  "change": "VX-3"
+                }
+              ],
+              "data": [],
+              "type": {
+                "name": "created",
+                "type": "date",
+                "data": [],
+                "origin": "VX",
+                "system": "true"
+              },
+              "uuid": "df7dc846-d2d9-493a-a55e-5569f615233a",
+              "user": "system",
+              "timestamp": "2025-06-02T13:50:50.882+0000",
+              "change": "VX-3"
+            },
+            {
+              "name": "title",
+              "id": [],
+              "value": [
+                {
+                  "value": "Bunny_H264_Webproxy_TC2.mp4",
+                  "uuid": "df8747c4-2254-45c2-b3e5-05319ac1019a",
+                  "user": "admin",
+                  "timestamp": "2025-06-02T13:50:51.024+0000",
+                  "change": "VX-5"
+                }
+              ],
+              "data": [],
+              "type": {
+                "name": "title",
+                "type": "string",
+                "data": [],
+                "origin": "VX"
+              },
+              "uuid": "339bb8c0-f068-4a42-bdb6-e3e2e0b6c98a",
+              "user": "admin",
+              "timestamp": "2025-06-02T13:50:51.024+0000",
+              "change": "VX-5"
+            },
+            {
+              "name": "originalFormat",
+              "id": [],
+              "value": [
+                {
+                  "value": "mov,mp4,m4a,3gp,3g2,mj2",
+                  "uuid": "5bac6d48-81ca-4714-9669-d0432e71c4af",
+                  "user": "system",
+                  "timestamp": "2025-06-02T13:51:04.519+0000",
+                  "change": "VX-7"
+                }
+              ],
+              "data": [],
+              "type": {
+                "name": "originalFormat",
+                "type": "string-exact",
+                "data": [],
+                "origin": "VX",
+                "system": "true"
+              },
+              "uuid": "477e12b0-94c0-4746-9f2c-d10772414582",
+              "user": "system",
+              "timestamp": "2025-06-02T13:51:04.519+0000",
+              "change": "VX-7"
+            },
+            {
+              "name": "originalVideoCodec",
+              "id": [],
+              "value": [
+                {
+                  "value": "h264",
+                  "uuid": "8df6ab9d-93f9-44b2-8c38-79e31423d85d",
+                  "user": "system",
+                  "timestamp": "2025-06-02T13:51:04.519+0000",
+                  "change": "VX-7"
+                }
+              ],
+              "data": [],
+              "type": {
+                "name": "originalVideoCodec",
+                "type": "string-exact",
+                "data": [],
+                "origin": "VX",
+                "system": "true"
+              },
+              "uuid": "9bacac0e-6b4c-4615-b500-66477472ae73",
+              "user": "system",
+              "timestamp": "2025-06-02T13:51:04.519+0000",
+              "change": "VX-7"
+            },
+            {
+              "name": "originalAudioCodec",
+              "id": [],
+              "value": [
+                {
+                  "value": "aac",
+                  "uuid": "3b7fd0b4-b326-44af-a61b-0fc165dad7db",
+                  "user": "system",
+                  "timestamp": "2025-06-02T13:51:04.519+0000",
+                  "change": "VX-7"
+                }
+              ],
+              "data": [],
+              "type": {
+                "name": "originalAudioCodec",
+                "type": "string-exact",
+                "data": [],
+                "origin": "VX",
+                "system": "true"
+              },
+              "uuid": "0417aae3-8f7e-4ac0-bc96-45ad25015682",
+              "user": "system",
+              "timestamp": "2025-06-02T13:51:04.519+0000",
+              "change": "VX-7"
+            },
+            {
+              "name": "durationSeconds",
+              "id": [],
+              "value": [
+                {
+                  "value": "572.6",
+                  "uuid": "08f71a42-ce87-4296-919a-8a4dc517324b",
+                  "user": "system",
+                  "timestamp": "2025-06-02T13:51:04.519+0000",
+                  "change": "VX-7"
+                }
+              ],
+              "data": [],
+              "type": {
+                "name": "durationSeconds",
+                "type": "float",
+                "data": [],
+                "origin": "VX",
+                "system": "true"
+              },
+              "uuid": "af3c17f1-0d90-4c67-b584-aec1885fea25",
+              "user": "system",
+              "timestamp": "2025-06-02T13:51:04.519+0000",
+              "change": "VX-7"
+            },
+            {
+              "name": "durationTimeCode",
+              "id": [],
+              "value": [
+                {
+                  "value": "572600000@1000000",
+                  "uuid": "3fe9db4a-6161-4af6-9c77-0c34c665ec13",
+                  "user": "system",
+                  "timestamp": "2025-06-02T13:51:04.519+0000",
+                  "change": "VX-7"
+                }
+              ],
+              "data": [],
+              "type": {
+                "name": "durationTimeCode",
+                "type": "string-noindex",
+                "data": [],
+                "origin": "VX",
+                "system": "true"
+              },
+              "uuid": "f021fe5f-fec1-435d-817b-a0ce52fa5cfb",
+              "user": "system",
+              "timestamp": "2025-06-02T13:51:04.519+0000",
+              "change": "VX-7"
+            },
+            {
+              "name": "originalWidth",
+              "id": [],
+              "value": [
+                {
+                  "value": "512",
+                  "uuid": "5b0e2f91-5c19-4906-8864-1e4a72a56989",
+                  "user": "system",
+                  "timestamp": "2025-06-02T13:51:04.519+0000",
+                  "change": "VX-7"
+                }
+              ],
+              "data": [],
+              "type": {
+                "name": "originalWidth",
+                "type": "integer",
+                "data": [],
+                "origin": "VX",
+                "system": "true"
+              },
+              "uuid": "ba76cba7-de9f-462b-a10e-3f95c37fd8b0",
+              "user": "system",
+              "timestamp": "2025-06-02T13:51:04.519+0000",
+              "change": "VX-7"
+            },
+            {
+              "name": "originalHeight",
+              "id": [],
+              "value": [
+                {
+                  "value": "288",
+                  "uuid": "ac6e28ca-706c-4fda-af4d-5672b5f62a7b",
+                  "user": "system",
+                  "timestamp": "2025-06-02T13:51:04.519+0000",
+                  "change": "VX-7"
+                }
+              ],
+              "data": [],
+              "type": {
+                "name": "originalHeight",
+                "type": "integer",
+                "data": [],
+                "origin": "VX",
+                "system": "true"
+              },
+              "uuid": "e53143ed-0677-4a09-92d7-25aed44edd2c",
+              "user": "system",
+              "timestamp": "2025-06-02T13:51:04.519+0000",
+              "change": "VX-7"
+            },
+            {
+              "name": "mimeType",
+              "id": [],
+              "value": [
+                {
+                  "value": "video/mp4",
+                  "uuid": "401daec8-be4e-4f3b-8e28-d5632555b8c0",
+                  "user": "system",
+                  "timestamp": "2025-06-02T13:51:04.519+0000",
+                  "change": "VX-7"
+                }
+              ],
+              "data": [],
+              "type": {
+                "name": "mimeType",
+                "type": "string-exact",
+                "data": [],
+                "origin": "VX",
+                "system": "true"
+              },
+              "uuid": "1e7f0fc7-e92d-4cbe-968a-774812c786d3",
+              "user": "system",
+              "timestamp": "2025-06-02T13:51:04.519+0000",
+              "change": "VX-7"
+            },
+            {
+              "name": "itemId",
+              "id": [],
+              "value": [
+                {
+                  "value": "VX-1",
+                  "uuid": "31011d5a-6a38-4ac3-b134-3f38d4e2cea0",
+                  "user": "system",
+                  "timestamp": "2025-06-02T13:51:04.519+0000",
+                  "change": "VX-7"
+                }
+              ],
+              "data": [],
+              "type": {
+                "name": "itemId",
+                "type": "string-exact",
+                "data": [],
+                "origin": "VX",
+                "system": "true"
+              },
+              "uuid": "26b252cd-c9f8-4c4e-b038-9ca3b62263f8",
+              "user": "system",
+              "timestamp": "2025-06-02T13:51:04.519+0000",
+              "change": "VX-7"
+            },
+            {
+              "name": "originalUri",
+              "id": [],
+              "value": [
+                {
+                  "value": "file:///srv/media1/Bunny_H264_Webproxy_TC2.mp4",
+                  "uuid": "3a396a83-2842-4670-b6ea-c31275836b35",
+                  "user": "system",
+                  "timestamp": "2025-06-02T13:51:04.519+0000",
+                  "change": "VX-7"
+                }
+              ],
+              "data": [],
+              "type": {
+                "name": "originalUri",
+                "type": "string-exact",
+                "data": [],
+                "origin": "VX"
+              },
+              "uuid": "e1ce5ae6-3a9c-4145-935e-c0282481a038",
+              "user": "system",
+              "timestamp": "2025-06-02T13:51:04.519+0000",
+              "change": "VX-7"
+            },
+            {
+              "name": "portal_ingested",
+              "id": [],
+              "value": [
+                {
+                  "value": "2025-06-02T13:51:04.636Z",
+                  "uuid": "7f9754e9-aeb1-459d-95fb-71d9f795af6c",
+                  "user": "admin",
+                  "timestamp": "2025-06-02T13:51:04.731+0000",
+                  "change": "VX-8"
+                }
+              ],
+              "data": [],
+              "type": {
+                "name": "portal_ingested",
+                "type": "date-sortable",
+                "data": [],
+                "origin": "VX"
+              },
+              "uuid": "1b98b9c7-0e27-450d-89d4-eff00d8ae150",
+              "user": "admin",
+              "timestamp": "2025-06-02T13:51:04.731+0000",
+              "change": "VX-8"
+            },
+            {
+              "name": "original_mimetype",
+              "id": [],
+              "value": [
+                {
+                  "value": "video/mp4",
+                  "uuid": "61f80307-c95b-4229-ba39-98dcc2c9a915",
+                  "user": "admin",
+                  "timestamp": "2025-06-02T13:51:04.822+0000",
+                  "change": "VX-9"
+                }
+              ],
+              "data": [],
+              "type": {
+                "name": "original_mimetype",
+                "type": "string",
+                "data": [],
+                "origin": "VX"
+              },
+              "uuid": "fa860ec4-f653-4373-b025-caa50364f67e",
+              "user": "admin",
+              "timestamp": "2025-06-02T13:51:04.822+0000",
+              "change": "VX-9"
+            },
+            {
+              "name": "originalFilename",
+              "id": [],
+              "value": [
+                {
+                  "value": "Bunny_H264_Webproxy_TC2.mp4",
+                  "uuid": "71472f17-97dd-4786-baa1-342fa169c51e",
+                  "user": "system",
+                  "timestamp": "2025-06-02T13:55:29.670+0000",
+                  "change": "VX-11"
+                }
+              ],
+              "data": [],
+              "type": {
+                "name": "originalFilename",
+                "type": "string-exact",
+                "data": [],
+                "origin": "VX",
+                "system": "true"
+              },
+              "uuid": "7109e52d-c3a7-4741-bccd-6da276adf998",
+              "user": "system",
+              "timestamp": "2025-06-02T13:55:29.670+0000",
+              "change": "VX-11"
+            },
+            {
+              "name": "mediaType",
+              "id": [],
+              "value": [
+                {
+                  "value": "video",
+                  "uuid": "6e6f2b10-ac54-4276-8654-57b1b4eba13d",
+                  "user": "system",
+                  "timestamp": "2025-06-02T13:55:29.670+0000",
+                  "change": "VX-11"
+                }
+              ],
+              "data": [],
+              "type": {
+                "name": "mediaType",
+                "type": "string-exact",
+                "data": [],
+                "origin": "VX",
+                "system": "true"
+              },
+              "uuid": "97021b7b-1854-42f2-8a27-6e60707a619e",
+              "user": "system",
+              "timestamp": "2025-06-02T13:55:29.670+0000",
+              "change": "VX-11"
+            },
+            {
+              "name": "__user",
+              "value": [
+                {
+                  "value": "admin"
+                }
+              ]
+            },
+            {
+              "name": "user",
+              "value": [
+                {
+                  "value": "admin"
+                }
+              ]
+            },
+            {
+              "name": "__owner",
+              "value": [
+                {
+                  "value": "admin"
+                }
+              ]
+            },
+            {
+              "name": "__metadata_last_modified",
+              "value": [
+                {
+                  "value": "2025-06-02T13:55:30.077Z"
+                }
+              ]
+            },
+            {
+              "name": "__placeholder_shape_size",
+              "value": [
+                {
+                  "value": "0"
+                }
+              ]
+            },
+            {
+              "name": "__shape_size",
+              "value": [
+                {
+                  "value": "2"
+                }
+              ]
+            },
+            {
+              "name": "__shape",
+              "value": [
+                {
+                  "value": "VX-1"
+                }
+              ]
+            },
+            {
+              "name": "__shape",
+              "value": [
+                {
+                  "value": "VX-2"
+                }
+              ]
+            },
+            {
+              "name": "__version_count",
+              "value": [
+                {
+                  "value": "1"
+                }
+              ]
+            },
+            {
+              "name": "__version",
+              "value": [
+                {
+                  "value": "0"
+                }
+              ]
+            },
+            {
+              "name": "__shapetag_lowres_hash",
+              "value": [
+                {
+                  "value": "3bcf0d1714ef899a324107332a4b72ad6f0a660d"
+                }
+              ]
+            },
+            {
+              "name": "__shapetag_original_hash",
+              "value": [
+                {
+                  "value": "b5a6031698a79f101eef31113461bfe74f6facba"
+                }
+              ]
+            },
+            {
+              "name": "__shape_last_added",
+              "value": [
+                {
+                  "value": "2025-06-02T13:55:29.139Z"
+                }
+              ]
+            },
+            {
+              "name": "__storage_original",
+              "value": [
+                {
+                  "value": "VX-1"
+                }
+              ]
+            },
+            {
+              "name": "__storage_original_size",
+              "value": [
+                {
+                  "value": "1"
+                }
+              ]
+            },
+            {
+              "name": "__storage_lowres",
+              "value": [
+                {
+                  "value": "VX-1"
+                }
+              ]
+            },
+            {
+              "name": "__storage_lowres_size",
+              "value": [
+                {
+                  "value": "1"
+                }
+              ]
+            },
+            {
+              "name": "__storage_size",
+              "value": [
+                {
+                  "value": "1"
+                }
+              ]
+            },
+            {
+              "name": "__storage",
+              "value": [
+                {
+                  "value": "VX-1"
+                }
+              ]
+            },
+            {
+              "name": "__storagegroup_size",
+              "value": [
+                {
+                  "value": "0"
+                }
+              ]
+            },
+            {
+              "name": "__sequence_size",
+              "value": [
+                {
+                  "value": "0"
+                }
+              ]
+            },
+            {
+              "name": "__collection_size",
+              "value": [
+                {
+                  "value": "0"
+                }
+              ]
+            },
+            {
+              "name": "__ancestor_collection_size",
+              "value": [
+                {
+                  "value": "0"
+                }
+              ]
+            }
+          ],
+          "group": [],
+          "start": "-INF",
+          "end": "+INF"
+        }
+      ]
+    },
+    "thumbnails": {
+      "uri": [
+        "http://vidispine:8080/APInoauth/thumbnail/VX-2/VX-1;version=0/0@PAL?hash=2708d1da27db2bafd356887d87425603",
+        "http://vidispine:8080/APInoauth/thumbnail/VX-2/VX-1;version=0/250@PAL?hash=87b6d29076821107eb46e1149341aa92",
+        "http://vidispine:8080/APInoauth/thumbnail/VX-2/VX-1;version=0/500@PAL?hash=2f44e7b0e944e245d8d60e53a9d2e9b6",
+        "http://vidispine:8080/APInoauth/thumbnail/VX-2/VX-1;version=0/750@PAL?hash=ce79f026ad126966d3e1cb0bc2dc283f",
+        "http://vidispine:8080/APInoauth/thumbnail/VX-2/VX-1;version=0/1000@PAL?hash=90e5184b879354fe2643cf7854bd0407",
+        "http://vidispine:8080/APInoauth/thumbnail/VX-2/VX-1;version=0/1250@PAL?hash=2fa9ebdddfbf60d92148f9e80cbd92dd",
+        "http://vidispine:8080/APInoauth/thumbnail/VX-2/VX-1;version=0/1500@PAL?hash=029a9dfe26d52f2e479ec9c134f6b6c9",
+        "http://vidispine:8080/APInoauth/thumbnail/VX-2/VX-1;version=0/1750@PAL?hash=62150d6f138fc2df2407a07fc654eb3e",
+        "http://vidispine:8080/APInoauth/thumbnail/VX-2/VX-1;version=0/2000@PAL?hash=08a1fabe54b72d80ebb0ad4a0c017610",
+        "http://vidispine:8080/APInoauth/thumbnail/VX-2/VX-1;version=0/2250@PAL?hash=f3b560ed6967511baa25a77d702e28ba",
+        "http://vidispine:8080/APInoauth/thumbnail/VX-2/VX-1;version=0/2500@PAL?hash=14edfa64ad8c139be6284ae012cffa33",
+        "http://vidispine:8080/APInoauth/thumbnail/VX-2/VX-1;version=0/2750@PAL?hash=8b78fcbd2dbf18c4ee26f348c90a97d1",
+        "http://vidispine:8080/APInoauth/thumbnail/VX-2/VX-1;version=0/3000@PAL?hash=d1658927334e5b092b4b12e7468328bf",
+        "http://vidispine:8080/APInoauth/thumbnail/VX-2/VX-1;version=0/3250@PAL?hash=22abb70813f6fca9d2b081d2e4243ee5",
+        "http://vidispine:8080/APInoauth/thumbnail/VX-2/VX-1;version=0/3500@PAL?hash=172f5c433da1c75ef7cf3a43477f5bd4",
+        "http://vidispine:8080/APInoauth/thumbnail/VX-2/VX-1;version=0/3750@PAL?hash=26c878f0e223304c0f0b9ab329072a8d",
+        "http://vidispine:8080/APInoauth/thumbnail/VX-2/VX-1;version=0/4000@PAL?hash=1f05f277a63278835c8c461ea5216cd2",
+        "http://vidispine:8080/APInoauth/thumbnail/VX-2/VX-1;version=0/4250@PAL?hash=a476ad6f79d3c3c0438385beff8a31e4",
+        "http://vidispine:8080/APInoauth/thumbnail/VX-2/VX-1;version=0/4500@PAL?hash=80ea9719796cc858e03f49a360e607e2",
+        "http://vidispine:8080/APInoauth/thumbnail/VX-2/VX-1;version=0/4750@PAL?hash=6362e8ddb278f88b29ab447b70b21303",
+        "http://vidispine:8080/APInoauth/thumbnail/VX-2/VX-1;version=0/5000@PAL?hash=9a34013dc68f724960c6a66f4581826d",
+        "http://vidispine:8080/APInoauth/thumbnail/VX-2/VX-1;version=0/5250@PAL?hash=04feba9241f8cc7363080d4d341c5031",
+        "http://vidispine:8080/APInoauth/thumbnail/VX-2/VX-1;version=0/5500@PAL?hash=e9faf9a3cc931b5c29d83aee2ea70b1f",
+        "http://vidispine:8080/APInoauth/thumbnail/VX-2/VX-1;version=0/5750@PAL?hash=1eecc5de75f7f3e13907d4208e3d26e1",
+        "http://vidispine:8080/APInoauth/thumbnail/VX-2/VX-1;version=0/6000@PAL?hash=68b8f3a856f6ada205987d026cdb4664",
+        "http://vidispine:8080/APInoauth/thumbnail/VX-2/VX-1;version=0/6250@PAL?hash=cc5ac5c6bdb2a74209f885d716bcc8fa",
+        "http://vidispine:8080/APInoauth/thumbnail/VX-2/VX-1;version=0/6500@PAL?hash=fb8746ac9bfdc0bd0ff9878024218500",
+        "http://vidispine:8080/APInoauth/thumbnail/VX-2/VX-1;version=0/6750@PAL?hash=5c0278eb4504c3bc0eb2f30bfb3a7e9e",
+        "http://vidispine:8080/APInoauth/thumbnail/VX-2/VX-1;version=0/7000@PAL?hash=4274b304f32c1b6bd16bb2d092f35205",
+        "http://vidispine:8080/APInoauth/thumbnail/VX-2/VX-1;version=0/7250@PAL?hash=bbf68d405ce8a9aecda0398a80e04da7",
+        "http://vidispine:8080/APInoauth/thumbnail/VX-2/VX-1;version=0/7500@PAL?hash=d20cb19bae1f6c9c908dfb231a346051",
+        "http://vidispine:8080/APInoauth/thumbnail/VX-2/VX-1;version=0/7750@PAL?hash=d776fe00f6e369c57054e1cc2234b2c6",
+        "http://vidispine:8080/APInoauth/thumbnail/VX-2/VX-1;version=0/8000@PAL?hash=7e60713b081e2f57616294d78a93248e",
+        "http://vidispine:8080/APInoauth/thumbnail/VX-2/VX-1;version=0/8250@PAL?hash=07018b65017916140a692fb39994a249",
+        "http://vidispine:8080/APInoauth/thumbnail/VX-2/VX-1;version=0/8500@PAL?hash=d397c2b5f1b451d4b8ff6dc021c57c7e",
+        "http://vidispine:8080/APInoauth/thumbnail/VX-2/VX-1;version=0/8750@PAL?hash=4490b48a0b65fb96e66ba18b76673861",
+        "http://vidispine:8080/APInoauth/thumbnail/VX-2/VX-1;version=0/9000@PAL?hash=b0546a8bf35a049ad80c2572c19a7ebd",
+        "http://vidispine:8080/APInoauth/thumbnail/VX-2/VX-1;version=0/9250@PAL?hash=690266141a962f856e60d06a68539ce0",
+        "http://vidispine:8080/APInoauth/thumbnail/VX-2/VX-1;version=0/9500@PAL?hash=5b5f5e2a731f26ceb7e925279ed2a23b",
+        "http://vidispine:8080/APInoauth/thumbnail/VX-2/VX-1;version=0/9750@PAL?hash=198693f1086a2ee40164df1cc04657a5",
+        "http://vidispine:8080/APInoauth/thumbnail/VX-2/VX-1;version=0/10000@PAL?hash=594a98eb142837d052533a111e503f19",
+        "http://vidispine:8080/APInoauth/thumbnail/VX-2/VX-1;version=0/10250@PAL?hash=70a105c1c163246a97d59d75ef4f8504",
+        "http://vidispine:8080/APInoauth/thumbnail/VX-2/VX-1;version=0/10500@PAL?hash=1d1ddc2ad91c5397d5caca44fb97d150",
+        "http://vidispine:8080/APInoauth/thumbnail/VX-2/VX-1;version=0/10750@PAL?hash=41889b4cc7fb7fe40c641534a405b9d2",
+        "http://vidispine:8080/APInoauth/thumbnail/VX-2/VX-1;version=0/11000@PAL?hash=f3f230380f8364b381678fb4d44374bf",
+        "http://vidispine:8080/APInoauth/thumbnail/VX-2/VX-1;version=0/11250@PAL?hash=7f5376e8548a7c226995a9d1445be33b",
+        "http://vidispine:8080/APInoauth/thumbnail/VX-2/VX-1;version=0/11500@PAL?hash=05ecfb5cae49a2695915d275cd773848",
+        "http://vidispine:8080/APInoauth/thumbnail/VX-2/VX-1;version=0/11750@PAL?hash=0922ce028458d568f1607b585f9f06c0",
+        "http://vidispine:8080/APInoauth/thumbnail/VX-2/VX-1;version=0/12000@PAL?hash=8e771ea74b4b85dcb0c78dceb51364fc",
+        "http://vidispine:8080/APInoauth/thumbnail/VX-2/VX-1;version=0/12250@PAL?hash=51552911f8f905519e04f40b98599850",
+        "http://vidispine:8080/APInoauth/thumbnail/VX-2/VX-1;version=0/12500@PAL?hash=aa6e74b7cc3e0fc5b36e28eec57abc68",
+        "http://vidispine:8080/APInoauth/thumbnail/VX-2/VX-1;version=0/12750@PAL?hash=01d0cc9a62f2114722845e277d8fba78",
+        "http://vidispine:8080/APInoauth/thumbnail/VX-2/VX-1;version=0/13000@PAL?hash=a652fb782f534bec6488f98e950e4a9d",
+        "http://vidispine:8080/APInoauth/thumbnail/VX-2/VX-1;version=0/13250@PAL?hash=53114434a3a0f90bf3b83607e9680070",
+        "http://vidispine:8080/APInoauth/thumbnail/VX-2/VX-1;version=0/13500@PAL?hash=b9164c2be8e73d26fdd93b7af0e3d5bc",
+        "http://vidispine:8080/APInoauth/thumbnail/VX-2/VX-1;version=0/13750@PAL?hash=e6401d06198d389b70a4535489f22d72",
+        "http://vidispine:8080/APInoauth/thumbnail/VX-2/VX-1;version=0/14000@PAL?hash=cd81ead156981a4222f704d6dcd14b52",
+        "http://vidispine:8080/APInoauth/thumbnail/VX-2/VX-1;version=0/14250@PAL?hash=f2b135e12933f76ae946b1f7eae3238e"
+      ]
+    },
+    "files": {
+      "uri": [
+        "http://vidispine:8080/APInoauth/storage/VX-1/file/VX-2/0.818499829971718/VX-2.mp4",
+        "http://vidispine:8080/APInoauth/storage/VX-1/file/VX-1/0.9621225611442025/VX-1.mp4"
+      ]
+    },
+    "shape": [
+      {
+        "id": "VX-2",
+        "created": "2025-06-02T13:55:29.139+0000",
+        "essenceVersion": 0,
+        "tag": [
+          "lowres"
+        ],
+        "mimeType": [
+          "video/mp4"
+        ],
+        "containerComponent": {
+          "duration": {
+            "samples": 572600000,
+            "timeBase": {
+              "numerator": 1,
+              "denominator": 1000000
+            }
+          },
+          "format": "mov,mp4,m4a,3gp,3g2,mj2",
+          "firstSMPTETimecode": "00:00:00:00",
+          "startTimecode": 0,
+          "startTimestamp": {
+            "samples": 0,
+            "timeBase": {
+              "numerator": 1,
+              "denominator": 44100
+            }
+          },
+          "roundedTimeBase": 25,
+          "dropFrame": false,
+          "timeCodeTimeBase": {
+            "numerator": 1,
+            "denominator": 25
+          },
+          "mediaInfo": {
+            "property": [
+              {
+                "key": "Audio codecs",
+                "value": "AAC LC"
+              },
+              {
+                "key": "Audio_Format_List",
+                "value": "AAC LC"
+              },
+              {
+                "key": "Audio_Format_WithHint_List",
+                "value": "AAC LC"
+              },
+              {
+                "key": "Codec ID",
+                "value": "isom"
+              },
+              {
+                "key": "Codec ID/Url",
+                "value": "http://www.apple.com/quicktime/download/standalone.html"
+              },
+              {
+                "key": "CodecID_Compatible",
+                "value": "isom/iso2/avc1/mp41"
+              },
+              {
+                "key": "Codecs Video",
+                "value": "AVC"
+              },
+              {
+                "key": "Commercial name",
+                "value": "MPEG-4"
+              },
+              {
+                "key": "Count",
+                "value": "331"
+              },
+              {
+                "key": "Count of audio streams",
+                "value": "1"
+              },
+              {
+                "key": "Count of stream of this kind",
+                "value": "1"
+              },
+              {
+                "key": "Count of video streams",
+                "value": "1"
+              },
+              {
+                "key": "DataSize",
+                "value": "188281184"
+              },
+              {
+                "key": "Duration",
+                "value": "572600"
+              },
+              {
+                "key": "Encoded date",
+                "value": "UTC 2025-06-02 13:51:05"
+              },
+              {
+                "key": "File extension",
+                "value": "mp4"
+              },
+              {
+                "key": "File last modification date",
+                "value": "UTC 2025-06-02 13:55:28"
+              },
+              {
+                "key": "File last modification date (local)",
+                "value": "2025-06-02 13:55:28"
+              },
+              {
+                "key": "File name extension",
+                "value": "Bunny_H264_Webproxy_TC2_lowres.mp4"
+              },
+              {
+                "key": "File size",
+                "value": "189314903"
+              },
+              {
+                "key": "FooterSize",
+                "value": "0"
+              },
+              {
+                "key": "Format",
+                "value": "MPEG-4"
+              },
+              {
+                "key": "Format profile",
+                "value": "Base Media"
+              },
+              {
+                "key": "Format/Extensions usually used",
+                "value": "braw mov mp4 m4v m4a m4b m4p m4r 3ga 3gpa 3gpp 3gp 3gpp2 3g2 k3g jpm jpx mqv ismv isma ismt f4a f4b f4v"
+              },
+              {
+                "key": "Frame count",
+                "value": "14315"
+              },
+              {
+                "key": "Frame rate",
+                "value": "25.000"
+              },
+              {
+                "key": "HeaderSize",
+                "value": "1033719"
+              },
+              {
+                "key": "Internet media type",
+                "value": "video/mp4"
+              },
+              {
+                "key": "IsStreamable",
+                "value": "Yes"
+              },
+              {
+                "key": "Kind of stream",
+                "value": "General"
+              },
+              {
+                "key": "OtherCount",
+                "value": "1"
+              },
+              {
+                "key": "Other_Codec_List",
+                "value": "QuickTime TC"
+              },
+              {
+                "key": "Other_Format_List",
+                "value": "QuickTime TC"
+              },
+              {
+                "key": "Other_Format_WithHint_List",
+                "value": "QuickTime TC"
+              },
+              {
+                "key": "Other_Language_List",
+                "value": "English"
+              },
+              {
+                "key": "Overall bit rate",
+                "value": "2644986"
+              },
+              {
+                "key": "Proportion of this stream",
+                "value": "0.00546"
+              },
+              {
+                "key": "Stream identifier",
+                "value": "0"
+              },
+              {
+                "key": "Stream size",
+                "value": "1033752"
+              },
+              {
+                "key": "Tagged date",
+                "value": "UTC 2025-06-02 13:51:05"
+              },
+              {
+                "key": "Video_Format_List",
+                "value": "AVC"
+              },
+              {
+                "key": "Video_Format_WithHint_List",
+                "value": "AVC"
+              },
+              {
+                "key": "Writing application",
+                "value": "Lavf58.76.100"
+              }
+            ]
+          },
+          "file": [
+            {
+              "id": "VX-2",
+              "path": "Bunny_H264_Webproxy_TC2_lowres.mp4",
+              "uri": [
+                "http://vidispine:8080/APInoauth/storage/VX-1/file/VX-2/0.818499829971718/VX-2.mp4"
+              ],
+              "state": "CLOSED",
+              "size": 189314903,
+              "hash": "3bcf0d1714ef899a324107332a4b72ad6f0a660d",
+              "timestamp": "2025-06-02T13:55:51.153+0000",
+              "refreshFlag": 1,
+              "storage": "VX-1",
+              "metadata": {
+                "field": [
+                  {
+                    "key": "created",
+                    "value": "1748872528471"
+                  },
+                  {
+                    "key": "mtime",
+                    "value": "1748872528471"
+                  }
+                ]
+              }
+            }
+          ],
+          "id": "VX-4",
+          "metadata": [
+            {
+              "key": "creation_time",
+              "value": "2025-06-02T13:51:05.000000Z"
+            },
+            {
+              "key": "componentOriginalFilename",
+              "value": "Bunny_H264_Webproxy_TC2_lowres.mp4"
+            },
+            {
+              "key": "drop_frame",
+              "value": "false"
+            },
+            {
+              "key": "major_brand",
+              "value": "isom"
+            },
+            {
+              "key": "rounded_time_base",
+              "value": "25"
+            },
+            {
+              "key": "encoder",
+              "value": "Lavf58.76.100"
+            },
+            {
+              "key": "start_timecode",
+              "value": "0"
+            },
+            {
+              "key": "compatible_brands",
+              "value": "isomiso2avc1mp41"
+            },
+            {
+              "key": "minor_version",
+              "value": "512"
+            }
+          ]
+        },
+        "audioComponent": [
+          {
+            "channelCount": 2,
+            "channelLayout": 3,
+            "sampleFormat": "AV_SAMPLE_FMT_FLTP",
+            "frameSize": 1024,
+            "mediaInfo": {
+              "property": [
+                {
+                  "key": "Alternate group",
+                  "value": "1"
+                },
+                {
+                  "key": "Bit rate",
+                  "value": "132300"
+                },
+                {
+                  "key": "Bit rate mode",
+                  "value": "CBR"
+                },
+                {
+                  "key": "Channel layout",
+                  "value": "L R"
+                },
+                {
+                  "key": "Channel positions",
+                  "value": "2/0/0"
+                },
+                {
+                  "key": "Channel(s)",
+                  "value": "2"
+                },
+                {
+                  "key": "Codec ID",
+                  "value": "mp4a-40-2"
+                },
+                {
+                  "key": "Commercial name",
+                  "value": "AAC"
+                },
+                {
+                  "key": "Compression mode",
+                  "value": "Lossy"
+                },
+                {
+                  "key": "Count",
+                  "value": "285"
+                },
+                {
+                  "key": "Count of stream of this kind",
+                  "value": "1"
+                },
+                {
+                  "key": "Default",
+                  "value": "Yes"
+                },
+                {
+                  "key": "Delay",
+                  "value": "0"
+                },
+                {
+                  "key": "Delay relative to video",
+                  "value": "0"
+                },
+                {
+                  "key": "Delay, origin",
+                  "value": "Container"
+                },
+                {
+                  "key": "Delay_DropFrame",
+                  "value": "No"
+                },
+                {
+                  "key": "Duration",
+                  "value": "572586"
+                },
+                {
+                  "key": "Encoded date",
+                  "value": "UTC 2025-06-02 13:51:05"
+                },
+                {
+                  "key": "Format",
+                  "value": "AAC"
+                },
+                {
+                  "key": "Format settings, SBR",
+                  "value": "No (Explicit)"
+                },
+                {
+                  "key": "Format/Info",
+                  "value": "Advanced Audio Codec Low Complexity"
+                },
+                {
+                  "key": "Format_AdditionalFeatures",
+                  "value": "LC"
+                },
+                {
+                  "key": "Frame count",
+                  "value": "24659"
+                },
+                {
+                  "key": "Frame rate",
+                  "value": "43.066"
+                },
+                {
+                  "key": "ID",
+                  "value": "1"
+                },
+                {
+                  "key": "Kind of stream",
+                  "value": "Audio"
+                },
+                {
+                  "key": "Proportion of this stream",
+                  "value": "0.04924"
+                },
+                {
+                  "key": "Samples count",
+                  "value": "25251043"
+                },
+                {
+                  "key": "Samples per frame",
+                  "value": "1024"
+                },
+                {
+                  "key": "Sampling rate",
+                  "value": "44100"
+                },
+                {
+                  "key": "Source duration",
+                  "value": "572635"
+                },
+                {
+                  "key": "Source frame count",
+                  "value": "24662"
+                },
+                {
+                  "key": "Source stream size",
+                  "value": "9321839"
+                },
+                {
+                  "key": "Source_Duration_LastFrame",
+                  "value": "-16"
+                },
+                {
+                  "key": "Source_StreamSize_Proportion",
+                  "value": "0.04924"
+                },
+                {
+                  "key": "Stream identifier",
+                  "value": "0"
+                },
+                {
+                  "key": "Stream size",
+                  "value": "9321818"
+                },
+                {
+                  "key": "StreamOrder",
+                  "value": "0"
+                },
+                {
+                  "key": "Tagged date",
+                  "value": "UTC 2025-06-02 13:51:05"
+                }
+              ],
+              "Bit_rate_mode": "CBR"
+            },
+            "file": [
+              {
+                "id": "VX-2",
+                "path": "Bunny_H264_Webproxy_TC2_lowres.mp4",
+                "uri": [
+                  "http://vidispine:8080/APInoauth/storage/VX-1/file/VX-2/0.818499829971718/VX-2.mp4"
+                ],
+                "state": "CLOSED",
+                "size": 189314903,
+                "hash": "3bcf0d1714ef899a324107332a4b72ad6f0a660d",
+                "timestamp": "2025-06-02T13:55:51.153+0000",
+                "refreshFlag": 1,
+                "storage": "VX-1",
+                "metadata": {
+                  "field": [
+                    {
+                      "key": "created",
+                      "value": "1748872528471"
+                    },
+                    {
+                      "key": "mtime",
+                      "value": "1748872528471"
+                    }
+                  ]
+                }
+              }
+            ],
+            "id": "VX-5",
+            "metadata": [
+              {
+                "key": "creation_time",
+                "value": "2025-06-02T13:51:05.000000Z"
+              },
+              {
+                "key": "componentOriginalFilename",
+                "value": "Bunny_H264_Webproxy_TC2_lowres.mp4"
+              },
+              {
+                "key": "handler_name",
+                "value": "SoundHandler"
+              },
+              {
+                "key": "vendor_id",
+                "value": "[0][0][0][0]"
+              },
+              {
+                "key": "language",
+                "value": "und"
+              }
+            ],
+            "codec": "aac",
+            "timeBase": {
+              "numerator": 1,
+              "denominator": 44100
+            },
+            "itemTrack": "A1",
+            "essenceStreamId": 0,
+            "bitrate": 130230,
+            "numberOfPackets": 24659,
+            "extradata": "121056E500",
+            "pid": 1,
+            "duration": {
+              "samples": 25251043,
+              "timeBase": {
+                "numerator": 1,
+                "denominator": 44100
+              }
+            },
+            "profile": 1,
+            "edl": {
+              "timeScale": {
+                "numerator": 1,
+                "denominator": 1000
+              },
+              "entry": [
+                {
+                  "start": 0,
+                  "length": 572586,
+                  "mediaRate": 65536
+                }
+              ]
+            },
+            "startTimestamp": {
+              "samples": 0,
+              "timeBase": {
+                "numerator": 1,
+                "denominator": 44100
+              }
+            }
+          }
+        ],
+        "videoComponent": [
+          {
+            "resolution": {
+              "width": 1280,
+              "height": 720
+            },
+            "pixelFormat": "yuv420p",
+            "maxBFrames": 0,
+            "pixelAspectRatio": {
+              "horizontal": 1,
+              "vertical": 1
+            },
+            "fieldOrder": "progressive",
+            "codecTimeBase": {
+              "numerator": 1,
+              "denominator": 50
+            },
+            "averageFrameRate": {
+              "numerator": 25,
+              "denominator": 1
+            },
+            "realBaseFrameRate": {
+              "numerator": 25,
+              "denominator": 1
+            },
+            "displayWidth": {
+              "numerator": 1280,
+              "denominator": 1
+            },
+            "displayHeight": {
+              "numerator": 720,
+              "denominator": 1
+            },
+            "containerSAR": {
+              "horizontal": 1,
+              "vertical": 1
+            },
+            "colr_primaries": 1,
+            "colr_transfer_function": 1,
+            "colr_matrix": 1,
+            "ticks_per_frame": 2,
+            "bitDepth": 8,
+            "bitsPerPixel": 12,
+            "colorPrimaries": "BT709",
+            "mediaInfo": {
+              "Format_Settings_GOP": "M=1, N=12",
+              "property": [
+                {
+                  "key": "Bit depth",
+                  "value": "8"
+                },
+                {
+                  "key": "Bit rate",
+                  "value": "2500305"
+                },
+                {
+                  "key": "Bit rate mode",
+                  "value": "CBR"
+                },
+                {
+                  "key": "Bits/(Pixel*Frame)",
+                  "value": "0.109"
+                },
+                {
+                  "key": "Buffer size",
+                  "value": "749952"
+                },
+                {
+                  "key": "Chroma subsampling",
+                  "value": "4:2:0"
+                },
+                {
+                  "key": "Codec ID",
+                  "value": "avc1"
+                },
+                {
+                  "key": "Codec ID/Info",
+                  "value": "Advanced Video Coding"
+                },
+                {
+                  "key": "Codec configuration box",
+                  "value": "avcC"
+                },
+                {
+                  "key": "Color primaries",
+                  "value": "BT.709"
+                },
+                {
+                  "key": "Color range",
+                  "value": "Limited"
+                },
+                {
+                  "key": "Color space",
+                  "value": "YUV"
+                },
+                {
+                  "key": "Commercial name",
+                  "value": "AVC"
+                },
+                {
+                  "key": "Count",
+                  "value": "382"
+                },
+                {
+                  "key": "Count of stream of this kind",
+                  "value": "1"
+                },
+                {
+                  "key": "Delay",
+                  "value": "0"
+                },
+                {
+                  "key": "Delay, origin",
+                  "value": "Container"
+                },
+                {
+                  "key": "Delay_DropFrame",
+                  "value": "No"
+                },
+                {
+                  "key": "Delay_Settings",
+                  "value": "DropFrame=No / 24HourMax=No / IsVisual=No"
+                },
+                {
+                  "key": "Display aspect ratio",
+                  "value": "1.778"
+                },
+                {
+                  "key": "Duration",
+                  "value": "572600"
+                },
+                {
+                  "key": "Encoded date",
+                  "value": "UTC 2025-06-02 13:51:05"
+                },
+                {
+                  "key": "Format",
+                  "value": "AVC"
+                },
+                {
+                  "key": "Format profile",
+                  "value": "High@L3.2"
+                },
+                {
+                  "key": "Format settings",
+                  "value": "CABAC / 1 Ref Frames"
+                },
+                {
+                  "key": "Format settings, CABAC",
+                  "value": "Yes"
+                },
+                {
+                  "key": "Format settings, GOP",
+                  "value": "M=1, N=12"
+                },
+                {
+                  "key": "Format settings, Reference frames",
+                  "value": "1"
+                },
+                {
+                  "key": "Format/Info",
+                  "value": "Advanced Video Codec"
+                },
+                {
+                  "key": "Format/Url",
+                  "value": "http://developers.videolan.org/x264.html"
+                },
+                {
+                  "key": "Frame count",
+                  "value": "14315"
+                },
+                {
+                  "key": "Frame rate",
+                  "value": "25.000"
+                },
+                {
+                  "key": "Frame rate mode",
+                  "value": "CFR"
+                },
+                {
+                  "key": "FrameRate_Den",
+                  "value": "1"
+                },
+                {
+                  "key": "FrameRate_Num",
+                  "value": "25"
+                },
+                {
+                  "key": "Height",
+                  "value": "720"
+                },
+                {
+                  "key": "ID",
+                  "value": "2"
+                },
+                {
+                  "key": "Internet media type",
+                  "value": "video/H264"
+                },
+                {
+                  "key": "Kind of stream",
+                  "value": "Video"
+                },
+                {
+                  "key": "Matrix coefficients",
+                  "value": "BT.709"
+                },
+                {
+                  "key": "Pixel aspect ratio",
+                  "value": "1.000"
+                },
+                {
+                  "key": "Proportion of this stream",
+                  "value": "0.94530"
+                },
+                {
+                  "key": "Rotation",
+                  "value": "0.000"
+                },
+                {
+                  "key": "Sampled_Height",
+                  "value": "720"
+                },
+                {
+                  "key": "Sampled_Width",
+                  "value": "1280"
+                },
+                {
+                  "key": "Scan type",
+                  "value": "Progressive"
+                },
+                {
+                  "key": "Standard",
+                  "value": "PAL"
+                },
+                {
+                  "key": "Stream identifier",
+                  "value": "0"
+                },
+                {
+                  "key": "Stream size",
+                  "value": "178959333"
+                },
+                {
+                  "key": "StreamOrder",
+                  "value": "1"
+                },
+                {
+                  "key": "Tagged date",
+                  "value": "UTC 2025-06-02 13:51:05"
+                },
+                {
+                  "key": "Transfer characteristics",
+                  "value": "BT.709"
+                },
+                {
+                  "key": "Width",
+                  "value": "1280"
+                },
+                {
+                  "key": "colour_description_present",
+                  "value": "Yes"
+                },
+                {
+                  "key": "colour_description_present_Source",
+                  "value": "Stream"
+                },
+                {
+                  "key": "colour_primaries_Source",
+                  "value": "Stream"
+                },
+                {
+                  "key": "colour_range_Source",
+                  "value": "Stream"
+                },
+                {
+                  "key": "matrix_coefficients_Source",
+                  "value": "Stream"
+                },
+                {
+                  "key": "transfer_characteristics_Source",
+                  "value": "Stream"
+                }
+              ],
+              "Bit_rate_mode": "CBR"
+            },
+            "file": [
+              {
+                "id": "VX-2",
+                "path": "Bunny_H264_Webproxy_TC2_lowres.mp4",
+                "uri": [
+                  "http://vidispine:8080/APInoauth/storage/VX-1/file/VX-2/0.818499829971718/VX-2.mp4"
+                ],
+                "state": "CLOSED",
+                "size": 189314903,
+                "hash": "3bcf0d1714ef899a324107332a4b72ad6f0a660d",
+                "timestamp": "2025-06-02T13:55:51.153+0000",
+                "refreshFlag": 1,
+                "storage": "VX-1",
+                "metadata": {
+                  "field": [
+                    {
+                      "key": "created",
+                      "value": "1748872528471"
+                    },
+                    {
+                      "key": "mtime",
+                      "value": "1748872528471"
+                    }
+                  ]
+                }
+              }
+            ],
+            "id": "VX-6",
+            "metadata": [
+              {
+                "key": "creation_time",
+                "value": "2025-06-02T13:51:05.000000Z"
+              },
+              {
+                "key": "maxCodedPictureOffset",
+                "value": "0"
+              },
+              {
+                "key": "componentOriginalFilename",
+                "value": "Bunny_H264_Webproxy_TC2_lowres.mp4"
+              },
+              {
+                "key": "handler_name",
+                "value": "VideoHandler"
+              },
+              {
+                "key": "vendor_id",
+                "value": "[0][0][0][0]"
+              },
+              {
+                "key": "language",
+                "value": "und"
+              },
+              {
+                "key": "timecode",
+                "value": "00:00:00:00"
+              }
+            ],
+            "codec": "h264",
+            "timeBase": {
+              "numerator": 1,
+              "denominator": 12800
+            },
+            "itemTrack": "V1",
+            "essenceStreamId": 1,
+            "bitrate": 2500305,
+            "numberOfPackets": 14315,
+            "extradata": "01640020FFE1002967640020AC2CA805005BB014A0202028000003000800000301971300026258005B8FF8C7076858BA8001000468EF3525FDF8F800",
+            "pid": 2,
+            "duration": {
+              "samples": 7329280,
+              "timeBase": {
+                "numerator": 1,
+                "denominator": 12800
+              }
+            },
+            "profile": 100,
+            "level": 32,
+            "edl": {
+              "timeScale": {
+                "numerator": 1,
+                "denominator": 1000
+              },
+              "entry": [
+                {
+                  "start": 0,
+                  "length": 572600,
+                  "mediaRate": 65536
+                }
+              ]
+            },
+            "startTimestamp": {
+              "samples": 0,
+              "timeBase": {
+                "numerator": 1,
+                "denominator": 12800
+              }
+            }
+          }
+        ]
+      },
+      {
+        "id": "VX-1",
+        "created": "2025-06-02T13:50:50.901+0000",
+        "essenceVersion": 0,
+        "tag": [
+          "original"
+        ],
+        "mimeType": [
+          "video/mp4"
+        ],
+        "containerComponent": {
+          "duration": {
+            "samples": 572600000,
+            "timeBase": {
+              "numerator": 1,
+              "denominator": 1000000
+            }
+          },
+          "format": "mov,mp4,m4a,3gp,3g2,mj2",
+          "startTimestamp": {
+            "samples": 0,
+            "timeBase": {
+              "numerator": 1,
+              "denominator": 48000
+            }
+          },
+          "mediaInfo": {
+            "property": [
+              {
+                "key": "Audio codecs",
+                "value": "AAC LC"
+              },
+              {
+                "key": "Audio_Format_List",
+                "value": "AAC LC"
+              },
+              {
+                "key": "Audio_Format_WithHint_List",
+                "value": "AAC LC"
+              },
+              {
+                "key": "Codec ID",
+                "value": "isom"
+              },
+              {
+                "key": "Codec ID/Url",
+                "value": "http://www.apple.com/quicktime/download/standalone.html"
+              },
+              {
+                "key": "CodecID_Compatible",
+                "value": "isom/iso2/avc1/mp41"
+              },
+              {
+                "key": "Codecs Video",
+                "value": "AVC"
+              },
+              {
+                "key": "Commercial name",
+                "value": "MPEG-4"
+              },
+              {
+                "key": "Count",
+                "value": "331"
+              },
+              {
+                "key": "Count of audio streams",
+                "value": "1"
+              },
+              {
+                "key": "Count of stream of this kind",
+                "value": "1"
+              },
+              {
+                "key": "Count of video streams",
+                "value": "1"
+              },
+              {
+                "key": "DataSize",
+                "value": "52390323"
+              },
+              {
+                "key": "Duration",
+                "value": "572600"
+              },
+              {
+                "key": "Encoded date",
+                "value": "UTC 1970-01-01 00:00:00"
+              },
+              {
+                "key": "File extension",
+                "value": "mp4"
+              },
+              {
+                "key": "File last modification date",
+                "value": "UTC 2025-06-02 13:26:03"
+              },
+              {
+                "key": "File last modification date (local)",
+                "value": "2025-06-02 13:26:03"
+              },
+              {
+                "key": "File name extension",
+                "value": "Bunny_H264_Webproxy_TC2.mp4"
+              },
+              {
+                "key": "File size",
+                "value": "53307654"
+              },
+              {
+                "key": "FooterSize",
+                "value": "0"
+              },
+              {
+                "key": "Format",
+                "value": "MPEG-4"
+              },
+              {
+                "key": "Format profile",
+                "value": "Base Media"
+              },
+              {
+                "key": "Format/Extensions usually used",
+                "value": "braw mov mp4 m4v m4a m4b m4p m4r 3ga 3gpa 3gpp 3gp 3gpp2 3g2 k3g jpm jpx mqv ismv isma ismt f4a f4b f4v"
+              },
+              {
+                "key": "Frame count",
+                "value": "14315"
+              },
+              {
+                "key": "Frame rate",
+                "value": "25.000"
+              },
+              {
+                "key": "HeaderSize",
+                "value": "917331"
+              },
+              {
+                "key": "Internet media type",
+                "value": "video/mp4"
+              },
+              {
+                "key": "IsStreamable",
+                "value": "Yes"
+              },
+              {
+                "key": "Kind of stream",
+                "value": "General"
+              },
+              {
+                "key": "Overall bit rate",
+                "value": "744780"
+              },
+              {
+                "key": "Overall bit rate mode",
+                "value": "VBR"
+              },
+              {
+                "key": "Proportion of this stream",
+                "value": "0.01721"
+              },
+              {
+                "key": "Stream identifier",
+                "value": "0"
+              },
+              {
+                "key": "Stream size",
+                "value": "917339"
+              },
+              {
+                "key": "Tagged date",
+                "value": "UTC 1970-01-01 00:00:00"
+              },
+              {
+                "key": "Video_Format_List",
+                "value": "AVC"
+              },
+              {
+                "key": "Video_Format_WithHint_List",
+                "value": "AVC"
+              },
+              {
+                "key": "Writing application",
+                "value": "Lavf52.61.0"
+              }
+            ]
+          },
+          "file": [
+            {
+              "id": "VX-1",
+              "path": "Bunny_H264_Webproxy_TC2.mp4",
+              "uri": [
+                "http://vidispine:8080/APInoauth/storage/VX-1/file/VX-1/0.9621225611442025/VX-1.mp4"
+              ],
+              "state": "CLOSED",
+              "size": 53307654,
+              "hash": "b5a6031698a79f101eef31113461bfe74f6facba",
+              "timestamp": "2025-06-02T13:47:50.227+0000",
+              "refreshFlag": 1,
+              "storage": "VX-1",
+              "metadata": {
+                "field": [
+                  {
+                    "key": "atime",
+                    "value": "1748870784673"
+                  },
+                  {
+                    "key": "created",
+                    "value": "1748870763740"
+                  },
+                  {
+                    "key": "mtime",
+                    "value": "1748870763740"
+                  }
+                ]
+              }
+            }
+          ],
+          "id": "VX-1",
+          "metadata": [
+            {
+              "key": "creation_time",
+              "value": "1970-01-01T00:00:00.000000Z"
+            },
+            {
+              "key": "componentOriginalFilename",
+              "value": "Bunny_H264_Webproxy_TC2.mp4"
+            },
+            {
+              "key": "major_brand",
+              "value": "isom"
+            },
+            {
+              "key": "encoder",
+              "value": "Lavf52.61.0"
+            },
+            {
+              "key": "compatible_brands",
+              "value": "isomiso2avc1mp41"
+            },
+            {
+              "key": "minor_version",
+              "value": "512"
+            }
+          ]
+        },
+        "audioComponent": [
+          {
+            "channelCount": 2,
+            "channelLayout": 3,
+            "sampleFormat": "AV_SAMPLE_FMT_FLTP",
+            "frameSize": 1024,
+            "mediaInfo": {
+              "property": [
+                {
+                  "key": "Bit rate",
+                  "value": "132300"
+                },
+                {
+                  "key": "Bit rate mode",
+                  "value": "VBR"
+                },
+                {
+                  "key": "Channel layout",
+                  "value": "L R"
+                },
+                {
+                  "key": "Channel positions",
+                  "value": "2/0/0"
+                },
+                {
+                  "key": "Channel(s)",
+                  "value": "2"
+                },
+                {
+                  "key": "Codec ID",
+                  "value": "mp4a-40-2"
+                },
+                {
+                  "key": "Commercial name",
+                  "value": "AAC"
+                },
+                {
+                  "key": "Compression mode",
+                  "value": "Lossy"
+                },
+                {
+                  "key": "Count",
+                  "value": "285"
+                },
+                {
+                  "key": "Count of stream of this kind",
+                  "value": "1"
+                },
+                {
+                  "key": "Duration",
+                  "value": "572587"
+                },
+                {
+                  "key": "Encoded date",
+                  "value": "UTC 1970-01-01 00:00:00"
+                },
+                {
+                  "key": "Format",
+                  "value": "AAC"
+                },
+                {
+                  "key": "Format/Info",
+                  "value": "Advanced Audio Codec Low Complexity"
+                },
+                {
+                  "key": "Format_AdditionalFeatures",
+                  "value": "LC"
+                },
+                {
+                  "key": "Frame count",
+                  "value": "26840"
+                },
+                {
+                  "key": "Frame rate",
+                  "value": "46.875"
+                },
+                {
+                  "key": "ID",
+                  "value": "1"
+                },
+                {
+                  "key": "Kind of stream",
+                  "value": "Audio"
+                },
+                {
+                  "key": "Proportion of this stream",
+                  "value": "0.17793"
+                },
+                {
+                  "key": "Samples count",
+                  "value": "27484176"
+                },
+                {
+                  "key": "Samples per frame",
+                  "value": "1024"
+                },
+                {
+                  "key": "Sampling rate",
+                  "value": "48000"
+                },
+                {
+                  "key": "Stream identifier",
+                  "value": "0"
+                },
+                {
+                  "key": "Stream size",
+                  "value": "9485263"
+                },
+                {
+                  "key": "StreamOrder",
+                  "value": "0"
+                },
+                {
+                  "key": "Tagged date",
+                  "value": "UTC 1970-01-01 00:00:00"
+                }
+              ],
+              "Bit_rate_mode": "VBR"
+            },
+            "file": [
+              {
+                "id": "VX-1",
+                "path": "Bunny_H264_Webproxy_TC2.mp4",
+                "uri": [
+                  "http://vidispine:8080/APInoauth/storage/VX-1/file/VX-1/0.9621225611442025/VX-1.mp4"
+                ],
+                "state": "CLOSED",
+                "size": 53307654,
+                "hash": "b5a6031698a79f101eef31113461bfe74f6facba",
+                "timestamp": "2025-06-02T13:47:50.227+0000",
+                "refreshFlag": 1,
+                "storage": "VX-1",
+                "metadata": {
+                  "field": [
+                    {
+                      "key": "atime",
+                      "value": "1748870784673"
+                    },
+                    {
+                      "key": "created",
+                      "value": "1748870763740"
+                    },
+                    {
+                      "key": "mtime",
+                      "value": "1748870763740"
+                    }
+                  ]
+                }
+              }
+            ],
+            "id": "VX-2",
+            "metadata": [
+              {
+                "key": "creation_time",
+                "value": "1970-01-01T00:00:00.000000Z"
+              },
+              {
+                "key": "componentOriginalFilename",
+                "value": "Bunny_H264_Webproxy_TC2.mp4"
+              },
+              {
+                "key": "handler_name",
+                "value": "SoundHandler"
+              },
+              {
+                "key": "vendor_id",
+                "value": "[0][0][0][0]"
+              },
+              {
+                "key": "language",
+                "value": "und"
+              }
+            ],
+            "codec": "aac",
+            "timeBase": {
+              "numerator": 1,
+              "denominator": 48000
+            },
+            "itemTrack": "A1",
+            "essenceStreamId": 0,
+            "bitrate": 132525,
+            "numberOfPackets": 26840,
+            "extradata": "1190",
+            "pid": 1,
+            "duration": {
+              "samples": 27484160,
+              "timeBase": {
+                "numerator": 1,
+                "denominator": 48000
+              }
+            },
+            "profile": 1,
+            "startTimestamp": {
+              "samples": 0,
+              "timeBase": {
+                "numerator": 1,
+                "denominator": 48000
+              }
+            }
+          }
+        ],
+        "videoComponent": [
+          {
+            "resolution": {
+              "width": 512,
+              "height": 288
+            },
+            "pixelFormat": "yuv420p",
+            "maxBFrames": 0,
+            "pixelAspectRatio": {
+              "horizontal": 1,
+              "vertical": 1
+            },
+            "fieldOrder": "progressive",
+            "codecTimeBase": {
+              "numerator": 1,
+              "denominator": 50
+            },
+            "averageFrameRate": {
+              "numerator": 25,
+              "denominator": 1
+            },
+            "realBaseFrameRate": {
+              "numerator": 25,
+              "denominator": 1
+            },
+            "displayWidth": {
+              "numerator": 512,
+              "denominator": 1
+            },
+            "displayHeight": {
+              "numerator": 288,
+              "denominator": 1
+            },
+            "colr_primaries": 2,
+            "colr_transfer_function": 2,
+            "colr_matrix": 2,
+            "ticks_per_frame": 2,
+            "bitDepth": 8,
+            "bitsPerPixel": 12,
+            "colorPrimaries": "Unspecified",
+            "mediaInfo": {
+              "Format_Settings_GOP": "M=1, N=13",
+              "property": [
+                {
+                  "key": "Bit depth",
+                  "value": "8"
+                },
+                {
+                  "key": "Bit rate",
+                  "value": "600000"
+                },
+                {
+                  "key": "Bits/(Pixel*Frame)",
+                  "value": "0.163"
+                },
+                {
+                  "key": "Chroma subsampling",
+                  "value": "4:2:0"
+                },
+                {
+                  "key": "Codec ID",
+                  "value": "avc1"
+                },
+                {
+                  "key": "Codec ID/Info",
+                  "value": "Advanced Video Coding"
+                },
+                {
+                  "key": "Codec configuration box",
+                  "value": "avcC"
+                },
+                {
+                  "key": "Color space",
+                  "value": "YUV"
+                },
+                {
+                  "key": "Commercial name",
+                  "value": "AVC"
+                },
+                {
+                  "key": "Count",
+                  "value": "382"
+                },
+                {
+                  "key": "Count of stream of this kind",
+                  "value": "1"
+                },
+                {
+                  "key": "Display aspect ratio",
+                  "value": "1.778"
+                },
+                {
+                  "key": "Duration",
+                  "value": "572600"
+                },
+                {
+                  "key": "Encoded date",
+                  "value": "UTC 1970-01-01 00:00:00"
+                },
+                {
+                  "key": "Encoded_Library_Name",
+                  "value": "x264"
+                },
+                {
+                  "key": "Encoded_Library_Version",
+                  "value": "core 83 r1400 20fa784"
+                },
+                {
+                  "key": "Encoding settings",
+                  "value": "cabac=0 / ref=1 / deblock=1:0:0 / analyse=0x1:0 / me=dia / subme=8 / psy=1 / psy_rd=1.0:0.0 / mixed_ref=0 / me_range=16 / chroma_me=0 / trellis=0 / 8x8dct=0 / cqm=0 / deadzone=21,11 / fast_pskip=1 / chroma_qp_offset=-2 / threads=1 / sliced_threads=0 / nr=0 / decimate=1 / mbaff=0 / constrained_intra=0 / bframes=0 / wpredp=0 / keyint=13 / keyint_min=7 / scenecut=0 / intra_refresh=0 / rc=abr / mbtree=0 / bitrate=600 / ratetol=0.0 / qcomp=1.00 / qpmin=10 / qpmax=51 / qpstep=4 / ip_ratio=1.25 / aq=1:1.00"
+                },
+                {
+                  "key": "Format",
+                  "value": "AVC"
+                },
+                {
+                  "key": "Format profile",
+                  "value": "Baseline@L2.1"
+                },
+                {
+                  "key": "Format settings",
+                  "value": "1 Ref Frames"
+                },
+                {
+                  "key": "Format settings, CABAC",
+                  "value": "No"
+                },
+                {
+                  "key": "Format settings, GOP",
+                  "value": "M=1, N=13"
+                },
+                {
+                  "key": "Format settings, Reference frames",
+                  "value": "1"
+                },
+                {
+                  "key": "Format/Info",
+                  "value": "Advanced Video Codec"
+                },
+                {
+                  "key": "Format/Url",
+                  "value": "http://developers.videolan.org/x264.html"
+                },
+                {
+                  "key": "Frame count",
+                  "value": "14315"
+                },
+                {
+                  "key": "Frame rate",
+                  "value": "25.000"
+                },
+                {
+                  "key": "Frame rate mode",
+                  "value": "CFR"
+                },
+                {
+                  "key": "FrameRate_Den",
+                  "value": "1"
+                },
+                {
+                  "key": "FrameRate_Mode_Original",
+                  "value": "VFR"
+                },
+                {
+                  "key": "FrameRate_Num",
+                  "value": "25"
+                },
+                {
+                  "key": "Height",
+                  "value": "288"
+                },
+                {
+                  "key": "ID",
+                  "value": "2"
+                },
+                {
+                  "key": "Internet media type",
+                  "value": "video/H264"
+                },
+                {
+                  "key": "Kind of stream",
+                  "value": "Video"
+                },
+                {
+                  "key": "Pixel aspect ratio",
+                  "value": "1.000"
+                },
+                {
+                  "key": "Proportion of this stream",
+                  "value": "0.80486"
+                },
+                {
+                  "key": "Rotation",
+                  "value": "0.000"
+                },
+                {
+                  "key": "Sampled_Height",
+                  "value": "288"
+                },
+                {
+                  "key": "Sampled_Width",
+                  "value": "512"
+                },
+                {
+                  "key": "Scan type",
+                  "value": "Progressive"
+                },
+                {
+                  "key": "Stream identifier",
+                  "value": "0"
+                },
+                {
+                  "key": "Stream size",
+                  "value": "42905052"
+                },
+                {
+                  "key": "StreamOrder",
+                  "value": "1"
+                },
+                {
+                  "key": "Tagged date",
+                  "value": "UTC 1970-01-01 00:00:00"
+                },
+                {
+                  "key": "Width",
+                  "value": "512"
+                },
+                {
+                  "key": "Writing library",
+                  "value": "x264 core 83 r1400 20fa784"
+                }
+              ]
+            },
+            "file": [
+              {
+                "id": "VX-1",
+                "path": "Bunny_H264_Webproxy_TC2.mp4",
+                "uri": [
+                  "http://vidispine:8080/APInoauth/storage/VX-1/file/VX-1/0.9621225611442025/VX-1.mp4"
+                ],
+                "state": "CLOSED",
+                "size": 53307654,
+                "hash": "b5a6031698a79f101eef31113461bfe74f6facba",
+                "timestamp": "2025-06-02T13:47:50.227+0000",
+                "refreshFlag": 1,
+                "storage": "VX-1",
+                "metadata": {
+                  "field": [
+                    {
+                      "key": "atime",
+                      "value": "1748870784673"
+                    },
+                    {
+                      "key": "created",
+                      "value": "1748870763740"
+                    },
+                    {
+                      "key": "mtime",
+                      "value": "1748870763740"
+                    }
+                  ]
+                }
+              }
+            ],
+            "id": "VX-3",
+            "metadata": [
+              {
+                "key": "creation_time",
+                "value": "1970-01-01T00:00:00.000000Z"
+              },
+              {
+                "key": "maxCodedPictureOffset",
+                "value": "0"
+              },
+              {
+                "key": "componentOriginalFilename",
+                "value": "Bunny_H264_Webproxy_TC2.mp4"
+              },
+              {
+                "key": "handler_name",
+                "value": "VideoHandler"
+              },
+              {
+                "key": "vendor_id",
+                "value": "[0][0][0][0]"
+              },
+              {
+                "key": "language",
+                "value": "und"
+              }
+            ],
+            "codec": "h264",
+            "timeBase": {
+              "numerator": 1,
+              "denominator": 25
+            },
+            "itemTrack": "V1",
+            "essenceStreamId": 1,
+            "bitrate": 599441,
+            "numberOfPackets": 14315,
+            "extradata": "0142C015FFE100166742C015AB404012D0800000030080000019078B175001000468CE32C8",
+            "pid": 2,
+            "duration": {
+              "samples": 14315,
+              "timeBase": {
+                "numerator": 1,
+                "denominator": 25
+              }
+            },
+            "profile": 578,
+            "level": 21,
+            "startTimestamp": {
+              "samples": 0,
+              "timeBase": {
+                "numerator": 1,
+                "denominator": 25
+              }
+            }
+          }
+        ],
+        "metadata": {
+          "field": [
+            {
+              "key": "originalFilename",
+              "value": "Bunny_H264_Webproxy_TC2.mp4"
+            }
+          ]
+        }
+      },
+      {
+        "id": "VX-62",
+        "created": "2025-06-03T12:36:45.826+0000",
+        "essenceVersion": 0,
+        "tag": [
+          "original"
+        ],
+        "mimeType": [
+          "application/ttml+xml"
+        ],
+        "containerComponent": {
+          "mediaInfo": {
+            "property": [
+              {
+                "key": "Commercial name",
+                "value": "TTML"
+              },
+              {
+                "key": "Count",
+                "value": "331"
+              },
+              {
+                "key": "Count of stream of this kind",
+                "value": "1"
+              },
+              {
+                "key": "Count of text streams",
+                "value": "1"
+              },
+              {
+                "key": "Duration",
+                "value": "522550"
+              },
+              {
+                "key": "File extension",
+                "value": "ttml"
+              },
+              {
+                "key": "File last modification date",
+                "value": "UTC 2025-06-03 12:35:03"
+              },
+              {
+                "key": "File last modification date (local)",
+                "value": "2025-06-03 12:35:03"
+              },
+              {
+                "key": "File name extension",
+                "value": "sintel_en.ttml"
+              },
+              {
+                "key": "File size",
+                "value": "5412"
+              },
+              {
+                "key": "Format",
+                "value": "TTML"
+              },
+              {
+                "key": "Format profile",
+                "value": "EBU-TT / IMSC1"
+              },
+              {
+                "key": "Format/Extensions usually used",
+                "value": "dfxp ttml"
+              },
+              {
+                "key": "Format/Info",
+                "value": "Timed Text Markup Language"
+              },
+              {
+                "key": "Format/Url",
+                "value": "https://en.wikipedia.org/wiki/Timed_Text_Markup_Language"
+              },
+              {
+                "key": "Kind of stream",
+                "value": "General"
+              },
+              {
+                "key": "Overall bit rate",
+                "value": "83"
+              },
+              {
+                "key": "Proportion of this stream",
+                "value": "1.00000"
+              },
+              {
+                "key": "Stream identifier",
+                "value": "0"
+              },
+              {
+                "key": "Stream size",
+                "value": "5412"
+              },
+              {
+                "key": "Text codecs",
+                "value": "TTML"
+              },
+              {
+                "key": "Text_Format_List",
+                "value": "TTML"
+              },
+              {
+                "key": "Text_Format_WithHint_List",
+                "value": "TTML"
+              }
+            ]
+          },
+          "file": [
+            {
+              "id": "VX-4",
+              "path": "sintel_en.ttml",
+              "uri": [
+                "http://vidispine:8080/APInoauth/storage/VX-1/file/VX-4/0.08703483378792176/VX-4.ttml"
+              ],
+              "state": "CLOSED",
+              "size": 5412,
+              "hash": "5786e4a89055461d120f4453058cf6722fc65e5c",
+              "timestamp": "2025-06-03T12:35:43.862+0000",
+              "refreshFlag": 1,
+              "storage": "VX-1",
+              "metadata": {
+                "field": [
+                  {
+                    "key": "created",
+                    "value": "1748954103792"
+                  },
+                  {
+                    "key": "mtime",
+                    "value": "1748954103792"
+                  }
+                ]
+              }
+            }
+          ],
+          "id": "VX-7",
+          "metadata": [
+            {
+              "key": "componentOriginalFilename",
+              "value": "sintel_en.ttml"
+            }
+          ]
+        },
+        "subtitleComponent": [
+          {
+            "mediaInfo": {
+              "property": [
+                {
+                  "key": "Commercial name",
+                  "value": "TTML"
+                },
+                {
+                  "key": "Compression mode",
+                  "value": "Lossless"
+                },
+                {
+                  "key": "Count",
+                  "value": "304"
+                },
+                {
+                  "key": "Count of events",
+                  "value": "26"
+                },
+                {
+                  "key": "Count of lines",
+                  "value": "30"
+                },
+                {
+                  "key": "Count of stream of this kind",
+                  "value": "1"
+                },
+                {
+                  "key": "Duration",
+                  "value": "522550"
+                },
+                {
+                  "key": "End time",
+                  "value": "629800"
+                },
+                {
+                  "key": "Format",
+                  "value": "TTML"
+                },
+                {
+                  "key": "Format profile",
+                  "value": "EBU-TT / IMSC1"
+                },
+                {
+                  "key": "Format/Info",
+                  "value": "Timed Text Markup Language"
+                },
+                {
+                  "key": "Format/Url",
+                  "value": "https://en.wikipedia.org/wiki/Timed_Text_Markup_Language"
+                },
+                {
+                  "key": "Frame rate mode",
+                  "value": "CFR"
+                },
+                {
+                  "key": "ID",
+                  "value": ""
+                },
+                {
+                  "key": "Kind of stream",
+                  "value": "Text"
+                },
+                {
+                  "key": "Maximum count of lines per event",
+                  "value": "2"
+                },
+                {
+                  "key": "Start time",
+                  "value": "107250"
+                },
+                {
+                  "key": "Stream identifier",
+                  "value": "0"
+                },
+                {
+                  "key": "StreamOrder",
+                  "value": ""
+                }
+              ]
+            },
+            "file": [
+              {
+                "id": "VX-4",
+                "path": "sintel_en.ttml",
+                "uri": [
+                  "http://vidispine:8080/APInoauth/storage/VX-1/file/VX-4/0.08703483378792176/VX-4.ttml"
+                ],
+                "state": "CLOSED",
+                "size": 5412,
+                "hash": "5786e4a89055461d120f4453058cf6722fc65e5c",
+                "timestamp": "2025-06-03T12:35:43.862+0000",
+                "refreshFlag": 1,
+                "storage": "VX-1",
+                "metadata": {
+                  "field": [
+                    {
+                      "key": "created",
+                      "value": "1748954103792"
+                    },
+                    {
+                      "key": "mtime",
+                      "value": "1748954103792"
+                    }
+                  ]
+                }
+              }
+            ],
+            "id": "VX-14",
+            "metadata": [
+              {
+                "key": "componentOriginalFilename",
+                "value": "sintel_en.ttml"
+              }
+            ],
+            "itemTrack": "t1"
+          }
+        ],
+        "metadata": {
+          "field": [
+            {
+              "key": "originalFilename",
+              "value": "sintel_en.ttml"
+            }
+          ]
+        }
+      }
+    ],
+    "access": [],
+    "timespan": [
+      {
+        "start": "-INF",
+        "end": "+INF"
+      }
+    ],
+    "externalId": [],
+    "id": "VX-1",
+    "start": "-INF",
+    "end": "+INF"
+  },
+  "json_value_constant": "value"
+}

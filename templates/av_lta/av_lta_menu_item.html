@@ -1,0 +1,7 @@
+{% load i18n %}
+{% url 'av_lta:open' as open_url %}
+{% permissionrequired portal_accurate_video_subtitle %}
+<ap-menu-list-item>
+    <a href="{{ open_url }}?application=subtitle&item_ids={{ item_ids }}" target="_blank">{% trans "Open item in Subtitle" %}</a>
+</ap-menu-list-item>
+{% endpermissionrequired %}

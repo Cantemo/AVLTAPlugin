@@ -1,0 +1,38 @@
+<!-- This HTML temlate defines the JavaScript function triggered when clicking AV links for a selection of items -->
+<script>
+    function codemillAVLTAGetSelectedItems(selectionSource) {
+        if(selectionSource === "mediabin") {
+            return cntmo.app.mediaBinSelection;
+        } else {
+            return cntmo.app.page.searchresults.getSelectedItemIds(true);
+        }
+    }
+
+    function codemillAVLTAGetFilteredItemIds(items, mediaTypes) {
+        return items
+            .filter(item => mediaTypes.includes(item.mediaType))
+            .map(item => item.vidispine_id ?? item.parent_id)
+    }
+
+    function codemillAVLTAOpenApp(event, app, selection, base_url) {
+        // Prevent standard click event handling
+        event.preventDefault();
+
+        const selectedItems = codemillAVLTAGetSelectedItems(selection);
+        if(selectedItems.length === 0) {
+            // Nothing to load (should never happen since outside logic will disable the menu choice until something is selected)
+            return;
+        }
+        // Subtitles can have mediaType either "document" or "data" depending on format, let Validate open them
+        const filteredItems = codemillAVLTAGetFilteredItemIds(selectedItems, ["audio", "video", "document", "data"]);
+        if (filteredItems.length === 0) {
+            $.growl(gettext("None of the selected items can be opened"), 'error');
+            return;
+        }
+
+        const url = `${base_url}?application=${app}&item_ids=${filteredItems.join(",")}`;
+
+        // Redirect to app
+        window.open(url, '_blank');
+    }
+</script>
