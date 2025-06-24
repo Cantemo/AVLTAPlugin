@@ -98,6 +98,14 @@ class TestLaunchTemplateView(PortalBaseTestCase):
 
         # Check settings section
         self.assertIn("licenseKey", response.data["settings"])
+        self.assertIn("timeline", response.data["settings"])
+        self.assertIn("waveforms", response.data["settings"]["timeline"])
+        self.assertIn("vidispine", response.data["settings"]["timeline"]["waveforms"])
+        self.assertIn("apiBaseUrl", response.data["settings"]["timeline"]["waveforms"]["vidispine"])
+        self.assertEquals("/AVAPI/", response.data["settings"]["timeline"]["waveforms"]["vidispine"]["apiBaseUrl"])
+        self.assertEquals("vidispine", response.data["settings"]["timeline"]["waveforms"]["active"])
+        self.assertLess(100, response.data["settings"]["timeline"]["waveforms"]["requestDebounceTimeMs"],
+                        "The request debounce time is not recommended to be below 100ms")
 
 
 class TestSubtitlePublishView(PortalBaseTestCase):

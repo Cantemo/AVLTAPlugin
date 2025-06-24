@@ -24,7 +24,8 @@ from portal.generic.baseviews import CView
 from portal.utils.general import get_site_domain
 from portal.vidispine.iexception import NotFoundError
 from portal.vidispine.iitem import ItemHelper
-from .lta_types import LaunchTemplate, Data, Endpoints, Endpoint, Settings, HttpEndpoint
+from .lta_types import LaunchTemplate, Data, Endpoints, Endpoint, Settings, HttpEndpoint, TimelineSettings, \
+    WaveformsSettings, WaveformSettingsVidispine
 from .settings import AV_LTA_APPS_URL
 from .transform import transform_items_to_lta_assets, get_filename
 from .utils import clean_nones
@@ -110,6 +111,17 @@ class LaunchTemplateView(CView):
                 ),
                 settings=Settings(
                     licenseKey=settings.AP_LICENSE_KEY,
+                    timeline=TimelineSettings(
+                        waveforms=WaveformsSettings(
+                            active="vidispine",
+                            vidispine=WaveformSettingsVidispine(
+                                apiBaseUrl="/AVAPI/",
+                                sampleMin=-60,
+                                sampleMax=0
+                            ),
+                            requestDebounceTimeMs=250
+                        )
+                    )
                 )
             )
         except NotFoundError:

@@ -79,6 +79,7 @@ SUBTITLE_MIMES = {
 
 MIME_TO_FORMAT = {} | SUBTITLE_MIMES
 
+
 @dataclass
 class File:
     url: str
@@ -168,8 +169,30 @@ class Endpoints:
 
 
 @dataclass
+class WaveformSettingsVidispine:
+    apiBaseUrl: Optional[str] = None
+    shape: Optional[str] = None
+    tag: Optional[str] = None
+    sampleMin: Optional[int] = None
+    sampleMax: Optional[int] = None
+
+
+@dataclass
+class WaveformsSettings:
+    active: Optional[str] = None
+    vidispine: Optional[WaveformSettingsVidispine] = None
+    requestDebounceTimeMs: Optional[int] = None
+
+
+@dataclass
+class TimelineSettings:
+    waveforms: Optional[WaveformsSettings] = None
+
+
+@dataclass
 class Settings:
     licenseKey: Optional[str] = None
+    timeline: Optional[TimelineSettings] = None
 
 
 @dataclass

@@ -67,7 +67,9 @@ class TestTransform(PortalBaseTestCase):
         self.assertEquals(file.container.audioStreams[0].codec, "aac")
         self.assertEquals(file.container.audioStreams[0].bitrate, 130230)
         self.assertEquals(file.container.audioStreams[0].duration, 25251043)
-        self.assertEquals(len(file.container.audioStreams[0].metadata), 5)
+        self.assertEquals(len(file.container.audioStreams[0].metadata), 6)
+        item_track = next((x for x in file.container.audioStreams[0].metadata if x.key == "itemTrack"), None)
+        self.assertEquals(item_track.value, "A1")
 
     def test_transform_shape_to_lta_file_subtitle(self):
         file = transform_shape_to_lta_files(self.test_subtitle_ttml_shape)[0]

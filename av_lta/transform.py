@@ -165,12 +165,16 @@ def _tranform_audio_component_to_audio_file(audio_component: VSAudioComponent, s
         audioStreams=[_transform_audio_component_to_audio_stream(audio_component)],
         subtitleStreams=[],
     )
+    metadata = _get_metadatas(audio_component)
+    item_track = audio_component.getItemTrack()
+    if item_track is not None:
+        metadata.append(MetadataField(key="itemTrack", value=item_track))
     return File(
         id=file_id,
         type=None,
         fileName=get_filename(vs_files),
         url=_get_url(vs_files, shape=shape, force_site_domain=force_site_domain),
-        metadata=_get_metadatas(audio_component),
+        metadata=metadata,
         container=container,
     )
 
@@ -235,6 +239,9 @@ def _transform_audio_component_to_audio_stream(audio_component: VSAudioComponent
     audio_stream.bitrate = audio_component.getBitRate()
     audio_stream.duration = _get_duration(audio_component)
     audio_stream.metadata = _get_metadatas(audio_component)
+    item_track = audio_component.getItemTrack()
+    if item_track is not None:
+        audio_stream.metadata.append(MetadataField(key="itemTrack", value=item_track))
     return audio_stream
 
 
