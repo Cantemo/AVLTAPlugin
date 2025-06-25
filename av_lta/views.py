@@ -38,14 +38,13 @@ log = logging.getLogger(__name__)
 
 @dataclass
 class PluginSettings(object):
-    force_site_domain: bool
+    force_full_domain: bool
     shape_tag: str
 
 
 plugin_settings = PluginSettings(
-    force_site_domain=True,
+    force_full_domain=False,
     shape_tag="av-subtitle",
-    # launch_url="https://apps.accurate.video/launch/"
 )
 
 
@@ -60,10 +59,13 @@ class OpenApplicationView(CView):
         launch_template_query_params = {
             "item_ids": ",".join(item_ids),
         }
+        launch_template_url = reverse(
+            "av_lta:get_launch_template"
+        ) + f"?{urlencode(launch_template_query_params)}"
+        if plugin_settings.force_full_domain:
+            launch_template_url = f"{get_site_domain()}{launch_template_url}"
         query_params = {
-            "launchTemplate": get_site_domain() + reverse(
-                "av_lta:get_launch_template"
-            ) + f"?{urlencode(launch_template_query_params)}",
+            "launchTemplate": launch_template_url,
         }
         if settings.DEBUG:
             query_params["manual"] = "true"
@@ -95,16 +97,19 @@ class LaunchTemplateView(CView):
         try:
             item_helper = ItemHelper(runas=request.user)
             items = item_helper.getItems(item_ids=item_ids, content=self.__get_content())
+            publish_url = f"{reverse('av_lta:publish')}?itemIds={','.join(item_ids)}"
+            if plugin_settings.force_full_domain:
+                publish_url = f"{get_site_domain()}{publish_url}"
             launch_template = LaunchTemplate(
                 data=Data(
                     assets=transform_items_to_lta_assets(
                         items=items,
-                        force_site_domain=plugin_settings.force_site_domain
+                        force_full_domain=plugin_settings.force_full_domain
                     )),
                 endpoints=Endpoints(
                     publish=Endpoint(
                         http=HttpEndpoint(
-                            url=f"{get_site_domain()}{reverse('av_lta:publish')}?itemIds={','.join(item_ids)}",
+                            url=publish_url,
                             method="POST"
                         )
                     )

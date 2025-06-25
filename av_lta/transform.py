@@ -13,11 +13,11 @@ from ...externals.VidiRest.objects.storage import VSFile
 log = logging.getLogger(__name__)
 
 
-def transform_items_to_lta_assets(items: list[VSItem], force_site_domain=False) -> list[Asset]:
-    return [transform_item_to_lta_asset(item=item, force_site_domain=force_site_domain) for item in items]
+def transform_items_to_lta_assets(items: list[VSItem], force_full_domain=False) -> list[Asset]:
+    return [transform_item_to_lta_asset(item=item, force_full_domain=force_full_domain) for item in items]
 
 
-def transform_item_to_lta_asset(item: VSItem, force_site_domain=False) -> Asset:
+def transform_item_to_lta_asset(item: VSItem, force_full_domain=False) -> Asset:
     asset_id = item.json_object["id"]
 
     title = item.getTitle()
@@ -25,7 +25,7 @@ def transform_item_to_lta_asset(item: VSItem, force_site_domain=False) -> Asset:
     metadata: list[MetadataField] = [MetadataField(key="title", value=title)]
 
     files = list(
-        chain.from_iterable([transform_shape_to_lta_files(shape=shape, force_site_domain=force_site_domain) for shape in
+        chain.from_iterable([transform_shape_to_lta_files(shape=shape, force_full_domain=force_full_domain) for shape in
                              item.getShapes()]))
 
     thumbnails = [
@@ -33,7 +33,7 @@ def transform_item_to_lta_asset(item: VSItem, force_site_domain=False) -> Asset:
             thumbnail=thumbnail,
             item=item,
             index=index,
-            force_site_domain=force_site_domain) for [index, thumbnail] in
+            force_full_domain=force_full_domain) for [index, thumbnail] in
         enumerate(item.getThumbnailObjects())]
 
     return Asset(
@@ -43,7 +43,7 @@ def transform_item_to_lta_asset(item: VSItem, force_site_domain=False) -> Asset:
     )
 
 
-def transform_shape_to_lta_files(shape: VSShape, force_site_domain=False) -> list[File]:
+def transform_shape_to_lta_files(shape: VSShape, force_full_domain=False) -> list[File]:
     files: list[File] = []
     video_components = shape.getVideoComponents()
     audio_components = shape.getAudioComponents()
@@ -60,7 +60,7 @@ def transform_shape_to_lta_files(shape: VSShape, force_site_domain=False) -> lis
         files.append(_tranform_audio_component_to_audio_file(
             audio_component=audio_component,
             shape=shape,
-            force_site_domain=force_site_domain,
+            force_full_domain=force_full_domain,
         ))
 
     # Shapes may have multiple subtitle files, one file per component
@@ -71,7 +71,7 @@ def transform_shape_to_lta_files(shape: VSShape, force_site_domain=False) -> lis
         files.append(_tranform_subtitle_or_binary_component_to_file(
             subtitle_or_binary_component=subtitle_or_binary_component,
             shape=shape,
-            force_site_domain=force_site_domain,
+            force_full_domain=force_full_domain,
         ))
 
     if len(video_components) == 0:
@@ -111,7 +111,7 @@ def transform_shape_to_lta_files(shape: VSShape, force_site_domain=False) -> lis
             id=shape.getId(),
             type=None,
             fileName=get_filename(video_vs_files),
-            url=_get_url(video_vs_files, shape=shape, force_site_domain=force_site_domain),
+            url=_get_url(video_vs_files, shape=shape, force_full_domain=force_full_domain),
             container=container,
             metadata=metadata
         )
@@ -131,7 +131,7 @@ def _is_same_files(a: list[VSFile], b: list[VSFile]) -> bool:
 
 def _tranform_subtitle_or_binary_component_to_file(
         subtitle_or_binary_component: VSBinaryComponent | VSSubtitleComponent, shape: VSShape,
-        force_site_domain=False) -> File:
+        force_full_domain=False) -> File:
     file_id = f"{shape.getId()}_{subtitle_or_binary_component.getId()}"
     vs_files = subtitle_or_binary_component.getFiles()
     container = Container(
@@ -145,7 +145,7 @@ def _tranform_subtitle_or_binary_component_to_file(
         id=file_id,
         type=None,
         fileName=get_filename(vs_files),
-        url=_get_url(vs_files, shape=shape, force_site_domain=force_site_domain),
+        url=_get_url(vs_files, shape=shape, force_full_domain=force_full_domain),
         metadata=_get_metadatas(subtitle_or_binary_component),
         container=container
     )
@@ -157,7 +157,7 @@ def _get_container_format(shape: VSShape) -> str:
 
 
 def _tranform_audio_component_to_audio_file(audio_component: VSAudioComponent, shape: VSShape,
-                                            force_site_domain=False) -> File:
+                                            force_full_domain=False) -> File:
     file_id = f"{shape.getId()}_{audio_component.getId()}"
     vs_files = audio_component.getFiles()
     container = Container(
@@ -173,7 +173,7 @@ def _tranform_audio_component_to_audio_file(audio_component: VSAudioComponent, s
         id=file_id,
         type=None,
         fileName=get_filename(vs_files),
-        url=_get_url(vs_files, shape=shape, force_site_domain=force_site_domain),
+        url=_get_url(vs_files, shape=shape, force_site_domain=force_full_domain),
         metadata=metadata,
         container=container,
     )
@@ -205,10 +205,10 @@ def get_filename(files: list[VSFile]) -> str:
     return file_names.get(min(file_names.keys()), "")
 
 
-def _get_url(files: list[VSFile], shape: VSShape, force_site_domain=True) -> str | None:
+def _get_url(files: list[VSFile], shape: VSShape, force_full_domain=True) -> str | None:
     for file in files:
         uri = file.getURI(method="https") or file.getURI(method="http")
-        url = _get_preview_url(shape, uri, force_site_domain=force_site_domain)
+        url = _get_preview_url(shape, uri, force_full_domain=force_full_domain)
         if uri is not None:
             return url
     return None
@@ -251,11 +251,11 @@ def _tranform_subtitle_component_to_subtitle_stream(subtitle_component: VSCompon
     return subtitle_stream
 
 
-def _get_preview_url(vs_object: VSObject, uri: str | None, force_site_domain=False) -> str | None:
+def _get_preview_url(vs_object: VSObject, uri: str | None, force_full_domain=False) -> str | None:
     if uri is None:
         return uri
     url = vs_object.replace_url(uri)
-    if force_site_domain and not url.startswith("http"):
+    if force_full_domain and not url.startswith("http"):
         url = get_site_domain() + url
     return url
 
@@ -272,13 +272,13 @@ def _get_metadatas(component: VSComponentBase) -> list[MetadataField]:
 
 
 def _transform_thumbnail_to_lta_still_frame_file(thumbnail: VSThumbnail, item: VSItem, index: int,
-                                                 force_site_domain=False) -> File:
+                                                 force_full_domain=False) -> File:
     asset_id = item.json_object["id"]
     return File(
         id=f"{asset_id}-thumbnail-{index}",
         fileName=f"thumbnail-{index}",
         type="STILL_FRAME",
-        url=_get_preview_url(item, thumbnail.url, force_site_domain=force_site_domain),
+        url=_get_preview_url(item, thumbnail.url, force_full_domain=force_full_domain),
         container=None,
         metadata=[
             MetadataField(key="still_frame:timestamp", value=thumbnail.timecode.toVidispine())
