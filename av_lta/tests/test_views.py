@@ -6,6 +6,8 @@ from django.urls import reverse
 from requests import HTTPError
 from rest_framework.exceptions import NotFound
 
+from portal.plugins.av_lta.forms import SettingsForm
+from portal.plugins.av_lta.views import AdminIndexView
 from portal.plugins.av_lta.views import SubtitlePublishView
 from portal.utils.test_case import PortalBaseTestCase
 from portal.vidispine.iexception import NotFoundError
@@ -97,15 +99,62 @@ class TestLaunchTemplateView(PortalBaseTestCase):
         self.assertIn("http", response.data["endpoints"]["publish"])
 
         # Check settings section
-        self.assertIn("licenseKey", response.data["settings"])
-        self.assertIn("timeline", response.data["settings"])
-        self.assertIn("waveforms", response.data["settings"]["timeline"])
-        self.assertIn("vidispine", response.data["settings"]["timeline"]["waveforms"])
-        self.assertIn("apiBaseUrl", response.data["settings"]["timeline"]["waveforms"]["vidispine"])
-        self.assertEquals("/AVAPI/", response.data["settings"]["timeline"]["waveforms"]["vidispine"]["apiBaseUrl"])
-        self.assertEquals("vidispine", response.data["settings"]["timeline"]["waveforms"]["active"])
-        self.assertLess(100, response.data["settings"]["timeline"]["waveforms"]["requestDebounceTimeMs"],
+        self.assertIn("licenseKey", response.data["settings"][0])
+        self.assertIn("timeline", response.data["settings"][0])
+        self.assertIn("waveforms", response.data["settings"][0]["timeline"])
+        self.assertIn("vidispine", response.data["settings"][0]["timeline"]["waveforms"])
+        self.assertIn("apiBaseUrl", response.data["settings"][0]["timeline"]["waveforms"]["vidispine"])
+        self.assertEquals("/AVAPI/", response.data["settings"][0]["timeline"]["waveforms"]["vidispine"]["apiBaseUrl"])
+        self.assertEquals("vidispine", response.data["settings"][0]["timeline"]["waveforms"]["active"])
+        self.assertLess(100, response.data["settings"][0]["timeline"]["waveforms"]["requestDebounceTimeMs"],
                         "The request debounce time is not recommended to be below 100ms")
+
+    @patch("portal.plugins.av_lta.views.ItemHelper")
+    @patch("portal.plugins.av_lta.views.transform_items_to_lta_assets")
+    @patch("portal.plugins.av_lta.views.plugin_settings")
+    def test_extra_settings_loaded_from_plugin_settings(self, mock_plugin_settings, mock_transform, mock_item_helper):
+        mock_items = [MagicMock()]
+        mock_instance = MagicMock()
+        mock_instance.getItems.return_value = mock_items
+        mock_item_helper.return_value = mock_instance
+
+        mock_transform.return_value = [{"id": "TEST-1", "name": "Test Item"}]
+
+        extra_settings_json = '{"licenseKey": "test-license-key", "timeline": {"waveforms": {"active": "test"}}}'
+        mock_plugin_settings.AV_LTA_EXTRA_SETTINGS = extra_settings_json
+
+        self.login_client_as_admin()
+        response = self.client.get(f"{self.url}?item_ids=TEST-1")
+
+        self.assertEqual(response.status_code, 200)
+
+        self.assertEqual(len(response.data["settings"]), 2)
+
+        self.assertEqual(response.data["settings"][1]["licenseKey"], "test-license-key")
+        self.assertEqual(response.data["settings"][1]["timeline"]["waveforms"]["active"], "test")
+
+    @patch("portal.plugins.av_lta.views.ItemHelper")
+    @patch("portal.plugins.av_lta.views.transform_items_to_lta_assets")
+    @patch("portal.plugins.av_lta.views.plugin_settings")
+    @patch("portal.plugins.av_lta.views.log")
+    def test_extra_settings_with_invalid_json(self, mock_log, mock_plugin_settings, mock_transform, mock_item_helper):
+        mock_items = [MagicMock()]
+        mock_instance = MagicMock()
+        mock_instance.getItems.return_value = mock_items
+        mock_item_helper.return_value = mock_instance
+
+        mock_transform.return_value = [{"id": "TEST-1", "name": "Test Item"}]
+
+        mock_plugin_settings.AV_LTA_EXTRA_SETTINGS = '{"licenseKey": "test-license-key", "timeline": {"waveforms": {"active": "test"'
+
+        self.login_client_as_admin()
+        response = self.client.get(f"{self.url}?item_ids=TEST-1")
+
+        self.assertEqual(response.status_code, 200)
+
+        self.assertEqual(len(response.data["settings"]), 1)
+
+        mock_log.debug.assert_called_once_with("Failed to parse extra lta settings from plugin settings, invalid JSON")
 
 
 class TestSubtitlePublishView(PortalBaseTestCase):
@@ -213,3 +262,90 @@ class TestSubtitlePublishView(PortalBaseTestCase):
         self.assertEqual(response.status_code, 200)
         mock_import_shape_raw.assert_called_once_with(item_id="TEST-1", data="<ttml></ttml>", filename="test.ttml",
                                                       tag="av-subtitle", runas="user")
+
+
+class TestAdminIndexView(PortalBaseTestCase):
+    def setUp(self, mock_authenticate=True):
+        super().setUp(mock_authenticate=mock_authenticate)
+        self.url = reverse("av_lta:plugin_admin_index")
+        self.view = AdminIndexView()
+
+    def test_get_success_url(self):
+        self.view.request = MagicMock()
+        success_url = self.view.get_success_url()
+        self.assertEqual(success_url, self.url)
+
+    @patch("portal.plugins.av_lta.views.plugin_settings")
+    def test_get_initial(self, mock_plugin_settings):
+        mock_plugin_settings.AV_LTA_APPS_URL = "https://test.example.com"
+        mock_plugin_settings.AV_LTA_PUBLISH_SHAPE_TAG = "test-tag"
+        mock_plugin_settings.AV_LTA_FORCE_FULL_DOMAIN = True
+        mock_plugin_settings.AV_LTA_EXTRA_SETTINGS = '{"test": "value"}'
+
+        self.view.form_class = SettingsForm
+        initial = self.view.get_initial()
+
+        self.assertEqual(initial["AV_LTA_APPS_URL"], "https://test.example.com")
+        self.assertEqual(initial["AV_LTA_PUBLISH_SHAPE_TAG"], "test-tag")
+        self.assertEqual(initial["AV_LTA_FORCE_FULL_DOMAIN"], True)
+        self.assertEqual(initial["AV_LTA_EXTRA_SETTINGS"], '{"test": "value"}')
+
+    @patch("portal.plugins.av_lta.views.plugin_settings")
+    @patch("portal.plugins.av_lta.views.messages")
+    def test_form_valid(self, mock_messages, mock_plugin_settings):
+        form = SettingsForm(data={
+            "AV_LTA_APPS_URL": "https://new.example.com",
+            "AV_LTA_PUBLISH_SHAPE_TAG": "new-tag",
+            "AV_LTA_FORCE_FULL_DOMAIN": True,
+            "AV_LTA_EXTRA_SETTINGS": '{"new": "value"}'
+        })
+        form.is_valid()
+
+        self.view.request = MagicMock()
+        self.view.form_valid(form)
+
+        for key, value in form.cleaned_data.items():
+            self.assertTrue(hasattr(mock_plugin_settings, key))
+            self.assertEqual(getattr(mock_plugin_settings, key), value)
+
+        mock_messages.success.assert_called_once()
+
+    @patch("portal.plugins.av_lta.views.plugin_settings")
+    def test_get(self, mock_plugin_settings):
+        mock_plugin_settings.AV_LTA_APPS_URL = "https://test.example.com"
+        mock_plugin_settings.AV_LTA_PUBLISH_SHAPE_TAG = "test-tag"
+        mock_plugin_settings.AV_LTA_FORCE_FULL_DOMAIN = True
+        mock_plugin_settings.AV_LTA_EXTRA_SETTINGS = '{"test": "value"}'
+
+        self.login_client_as_admin()
+
+        response = self.client.get(self.url)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "av_lta/admin_index.html")
+        self.assertIsInstance(response.context["form"], SettingsForm)
+
+        form = response.context["form"]
+        self.assertEqual(form.initial["AV_LTA_APPS_URL"], "https://test.example.com")
+        self.assertEqual(form.initial["AV_LTA_PUBLISH_SHAPE_TAG"], "test-tag")
+        self.assertEqual(form.initial["AV_LTA_FORCE_FULL_DOMAIN"], True)
+        self.assertEqual(form.initial["AV_LTA_EXTRA_SETTINGS"], '{"test": "value"}')
+
+    @patch("portal.plugins.av_lta.views.plugin_settings")
+    @patch("portal.plugins.av_lta.views.messages")
+    def test_post(self, mock_messages, mock_plugin_settings):
+        self.login_client_as_admin()
+
+        form_data = {
+            "AV_LTA_APPS_URL": "https://new.example.com",
+            "AV_LTA_PUBLISH_SHAPE_TAG": "new-tag",
+            "AV_LTA_FORCE_FULL_DOMAIN": True,
+            "AV_LTA_EXTRA_SETTINGS": '{"new": "value"}'
+        }
+
+        response = self.client.post(self.url, form_data)
+
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response.url, self.url)
+
+        mock_messages.success.assert_called_once()

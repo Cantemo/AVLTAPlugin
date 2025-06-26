@@ -1,0 +1,20 @@
+{% themeextends "admin/base_admin.html" %}
+{% load i18n %}
+{% block title %}{% trans 'Accurate Video LTA Plugin' %}{% endblock %}
+{% block heading %}{% trans 'Accurate Video LTA Plugin' %}{% endblock heading %}
+{% block content %}
+<fieldset>
+    <section>
+        <h3>{% trans "Settings" %}</h3>
+        <form action="{% url 'av_lta:plugin_admin_index' %}" method="POST">
+            {% csrf_token %}
+            {% for field in form %}
+                {% include "core/templates/website/forms/basic_field.html" with field=field %}
+            {% endfor %}
+            <fieldset>
+                <input type="submit" value="{% trans 'Save' %}">
+            </fieldset>
+        </form>
+    </section>
+</fieldset>
+{% endblock content %}

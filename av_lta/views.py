@@ -1,6 +1,7 @@
+import json
 import logging
 import re
-from dataclasses import dataclass, asdict
+from dataclasses import asdict
 from pathlib import Path
 from urllib.parse import urlencode, urlparse
 
@@ -8,12 +9,15 @@ import VidiRest.schemas.xmlSchema as VSXMLSchema
 import requests
 from bs4 import BeautifulSoup
 from django.conf import settings
+from django.contrib import messages
 from django.core.exceptions import BadRequest
 from django.http import HttpResponse
 from django.http import QueryDict
 from django.shortcuts import redirect
 from django.urls import reverse
+from django.utils.translation import gettext as _
 from django.views import View
+from django.views.generic.edit import FormView
 from requests import HTTPError
 from rest_framework.exceptions import NotFound
 from rest_framework.parsers import BaseParser
@@ -24,9 +28,11 @@ from portal.generic.baseviews import CView
 from portal.utils.general import get_site_domain
 from portal.vidispine.iexception import NotFoundError
 from portal.vidispine.iitem import ItemHelper
-from .lta_types import LaunchTemplate, Data, Endpoints, Endpoint, Settings, HttpEndpoint, TimelineSettings, \
+from .forms import SettingsForm
+from .lta_types import LaunchTemplate, Data, Endpoints, Endpoint, Settings, HttpEndpoint
+from .lta_types import TimelineSettings, \
     WaveformsSettings, WaveformSettingsVidispine
-from .settings import AV_LTA_APPS_URL
+from .settings import plugin_settings
 from .transform import transform_items_to_lta_assets, get_filename
 from .utils import clean_nones
 from .vs_helpers import import_shape_raw
@@ -34,18 +40,6 @@ from ...externals.VidiRest.objects.item import VSItem
 from ...externals.VidiRest.objects.shape import VSShape, VSSubtitleComponent, VSBinaryComponent
 
 log = logging.getLogger(__name__)
-
-
-@dataclass
-class PluginSettings(object):
-    force_full_domain: bool
-    shape_tag: str
-
-
-plugin_settings = PluginSettings(
-    force_full_domain=False,
-    shape_tag="av-subtitle",
-)
 
 
 class OpenApplicationView(CView):
@@ -62,7 +56,7 @@ class OpenApplicationView(CView):
         launch_template_url = reverse(
             "av_lta:get_launch_template"
         ) + f"?{urlencode(launch_template_query_params)}"
-        if plugin_settings.force_full_domain:
+        if plugin_settings.AV_LTA_FORCE_FULL_DOMAIN:
             launch_template_url = f"{get_site_domain()}{launch_template_url}"
         query_params = {
             "launchTemplate": launch_template_url,
@@ -98,23 +92,11 @@ class LaunchTemplateView(CView):
             item_helper = ItemHelper(runas=request.user)
             items = item_helper.getItems(item_ids=item_ids, content=self.__get_content())
             publish_url = f"{reverse('av_lta:publish')}?itemIds={','.join(item_ids)}"
-            if plugin_settings.force_full_domain:
+            force_full_domain = plugin_settings.AV_LTA_FORCE_FULL_DOMAIN
+            if force_full_domain:
                 publish_url = f"{get_site_domain()}{publish_url}"
-            launch_template = LaunchTemplate(
-                data=Data(
-                    assets=transform_items_to_lta_assets(
-                        items=items,
-                        force_full_domain=plugin_settings.force_full_domain
-                    )),
-                endpoints=Endpoints(
-                    publish=Endpoint(
-                        http=HttpEndpoint(
-                            url=publish_url,
-                            method="POST"
-                        )
-                    )
-                ),
-                settings=Settings(
+            lta_settings: list[Settings] = [
+                Settings(
                     licenseKey=settings.AP_LICENSE_KEY,
                     timeline=TimelineSettings(
                         waveforms=WaveformsSettings(
@@ -127,7 +109,28 @@ class LaunchTemplateView(CView):
                             requestDebounceTimeMs=250
                         )
                     )
-                )
+                ),
+            ]
+            try:
+                extra_settings = json.loads(plugin_settings.AV_LTA_EXTRA_SETTINGS)
+                lta_settings.append(extra_settings)
+            except ValueError:
+                log.debug("Failed to parse extra lta settings from plugin settings, invalid JSON")
+            launch_template = LaunchTemplate(
+                data=Data(
+                    assets=transform_items_to_lta_assets(
+                        items=items,
+                        force_full_domain=force_full_domain
+                    )),
+                endpoints=Endpoints(
+                    publish=Endpoint(
+                        http=HttpEndpoint(
+                            url=publish_url,
+                            method="POST"
+                        )
+                    )
+                ),
+                settings=lta_settings,
             )
         except NotFoundError:
             raise NotFound()
@@ -197,8 +200,9 @@ class SubtitlePublishView(CView):
                                     item_helper: ItemHelper, runas: str):
         item_id = item.json_object["id"]
         filename = get_filename(shape.getAllFiles()) if component is None else get_filename(component.getFiles())
-        self._create_shape_if_needed(shape_tag=plugin_settings.shape_tag, item_helper=item_helper)
-        import_shape_raw(item_id=item_id, data=data, filename=filename, tag=plugin_settings.shape_tag, runas=runas)
+        self._create_shape_if_needed(shape_tag=plugin_settings.AV_LTA_PUBLISH_SHAPE_TAG, item_helper=item_helper)
+        import_shape_raw(item_id=item_id, data=data, filename=filename, tag=plugin_settings.AV_LTA_PUBLISH_SHAPE_TAG,
+                         runas=runas)
 
     @staticmethod
     def _create_shape_if_needed(shape_tag: str, item_helper: ItemHelper) -> bool:
@@ -235,7 +239,7 @@ class SubtitlePublishView(CView):
 
 class ProxyLTAView(View):
     def get(self, request, path, requests_args=None):
-        url = AV_LTA_APPS_URL
+        url = plugin_settings.AV_LTA_APPS_URL
         requests_args = (requests_args or {}).copy()
         headers = self.get_headers(request.META)
         params = request.GET.copy()
@@ -354,3 +358,23 @@ class ProxyLTAView(View):
                 headers[key.replace('_', '-')] = value
 
         return headers
+
+
+class AdminIndexView(FormView):
+    template_name = "av_lta/admin_index.html"
+    form_class = SettingsForm
+
+    def get_initial(self):
+        return {
+            key: field.clean(getattr(plugin_settings, key))
+            for (key, field) in self.form_class.declared_fields.items()
+        }
+
+    def form_valid(self, form):
+        for key, value in form.cleaned_data.items():
+            setattr(plugin_settings, key, value)
+        messages.success(self.request, _("Settings saved"))
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse("av_lta:plugin_admin_index")

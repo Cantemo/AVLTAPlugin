@@ -6,6 +6,7 @@ from portal.plugins.av_lta.plugin import (
     AVLTAItemGearboxMenuPlugin,
     AVLTASearchPlugin,
     AVLTAMediaBinDropdown,
+    AVLTAAdminMenu,
 )
 from portal.utils.test_case import PortalBaseTestCase
 
@@ -96,5 +97,23 @@ class TestAVLTAMediaBinDropdown(PortalBaseTestCase):
             {
                 "guid": "a176885b-e7bd-4532-85b7-aa0d1ceedd53",
                 "template": "av_lta/av_lta_menu_media_bin.html",
+            },
+        )
+
+
+class TestAVLTAAdminMenu(PortalBaseTestCase):
+    def test_init(self):
+        plugin = AVLTAAdminMenu()
+        self.assertEqual(plugin.name, "AdminLeftPanelBottomPanePlugin")
+        self.assertEqual(plugin.plugin_guid, "dbf2f2d1-5cbd-47ba-8935-bcc3ce440aa8")
+
+    def test_return_string(self):
+        plugin = AVLTAAdminMenu()
+        result = plugin.return_string("tagname")
+        self.assertEqual(
+            result,
+            {
+                "guid": "dbf2f2d1-5cbd-47ba-8935-bcc3ce440aa8",
+                "template": "av_lta/admin_leftpanel_pane.html",
             },
         )

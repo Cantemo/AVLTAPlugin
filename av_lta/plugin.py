@@ -86,3 +86,17 @@ class AVLTAMediaBinDropdown(Plugin):
 
 
 AVLTAMediaBinDropdown()
+
+
+class AVLTAAdminMenu(Plugin):
+    implements(IPluginBlock)
+
+    def __init__(self):
+        self.name = "AdminLeftPanelBottomPanePlugin"
+        self.plugin_guid = "dbf2f2d1-5cbd-47ba-8935-bcc3ce440aa8"
+
+    def return_string(self, tagname, *args):
+        return {"guid": self.plugin_guid, "template": "av_lta/admin_leftpanel_pane.html"}
+
+
+AVLTAAdminMenu()

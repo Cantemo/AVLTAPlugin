@@ -12,3 +12,10 @@ def clean_nones(value: Any) -> Any:
         }
     else:
         return value
+
+def str_to_bool(value: str) -> bool:
+    if isinstance(value, bool):
+        return value
+    if not value:
+        return False
+    return value.lower() in ('true', 't', 'yes', 'y', '1', 'on')

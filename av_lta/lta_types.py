@@ -199,4 +199,4 @@ class Settings:
 class LaunchTemplate:
     data: Data
     endpoints: Optional[Endpoints] = None
-    settings: Optional[Settings] = None
+    settings: List[Settings] = field(default_factory=list)
