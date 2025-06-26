@@ -24,6 +24,13 @@
             return;
         }
         // Subtitles can have mediaType either "document" or "data" depending on format, let Validate open them
+        if (app === "subtitle") {
+            const videoItems = codemillAVLTAGetFilteredItemIds(selectedItems, ["video"]);
+            if (videoItems.length === 0) {
+                $.growl(gettext("You need to select at least one item with video to open Subtitle"), 'error');
+                return;
+            }
+        }
         const filteredItems = codemillAVLTAGetFilteredItemIds(selectedItems, ["audio", "video", "document", "data"]);
         if (filteredItems.length === 0) {
             $.growl(gettext("None of the selected items can be opened"), 'error');
