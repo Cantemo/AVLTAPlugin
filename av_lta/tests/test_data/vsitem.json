@@ -2909,6 +2909,17 @@
       }
     ],
     "access": [],
+    "merged-access": {
+      "access": [
+        {
+          "permission": "OWNER",
+          "rank": 0,
+          "superUser": true,
+          "type": "GENERIC",
+          "username": "admin"
+        }
+      ]
+    },
     "timespan": [
       {
         "start": "-INF",

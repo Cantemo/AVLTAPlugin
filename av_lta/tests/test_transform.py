@@ -20,6 +20,8 @@ class TestTransform(PortalBaseTestCase):
         self.assertGreater(len(asset.files), 0)
         self.assertEqual(asset.metadata[0].key, "title")
         self.assertEqual(asset.metadata[0].value, "Bunny_H264_Webproxy_TC2.mp4")
+        self.assertEqual(asset.callerAccess.write, True)
+        self.assertEqual(asset.callerAccess.read, True)
 
     def test_transform_item_thumbnails(self):
         asset = transform_item_to_lta_asset(self.test_item)

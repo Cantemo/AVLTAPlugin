@@ -73,7 +73,7 @@ class LaunchTemplateView(CView):
     @staticmethod
     def __get_content():
         content = {
-            "content": ["uri", "shape", "metadata", "thumbnail"],
+            "content": ["uri", "shape", "metadata", "thumbnail", "merged-access"],
             "include": ["type", "extradata"],
             "noauth-url": "true"
         }
@@ -90,7 +90,7 @@ class LaunchTemplateView(CView):
 
         try:
             item_helper = ItemHelper(runas=request.user)
-            items = item_helper.getItems(item_ids=item_ids, content=self.__get_content())
+            items: list[VSItem] = item_helper.getItems(item_ids=item_ids, content=self.__get_content())
             publish_url = f"{reverse('av_lta:publish')}?itemIds={','.join(item_ids)}"
             force_full_domain = plugin_settings.AV_LTA_FORCE_FULL_DOMAIN
             if force_full_domain:

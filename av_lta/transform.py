@@ -2,12 +2,12 @@ import logging
 from itertools import chain
 from typing import Optional
 
-from portal.externals.VidiRest.objects.item import VSItem, VSThumbnail
+from portal.externals.VidiRest.objects.item import VSItem, VSThumbnail, VSACLMerged
 from portal.externals.VidiRest.objects.shape import VSObject, VSShape, VSComponentBase, VSVideoComponent, \
     VSAudioComponent, VSBinaryComponent, VSSubtitleComponent
 from portal.utils.general import get_site_domain
 from .lta_types import Asset, File, Container, VideoStream, AudioStream, SubtitleStream, MetadataField, \
-    Timecode, MIME_TO_FORMAT
+    Timecode, MIME_TO_FORMAT, CallerAccess
 from ...externals.VidiRest.objects.storage import VSFile
 
 log = logging.getLogger(__name__)
@@ -36,10 +36,21 @@ def transform_item_to_lta_asset(item: VSItem, force_full_domain=False) -> Asset:
             force_full_domain=force_full_domain) for [index, thumbnail] in
         enumerate(item.getThumbnailObjects())]
 
+    acl = item.getACLMerged()
+
+    if acl is not None:
+        caller_access = CallerAccess(
+            read=acl.hasGenericReadPermission(),
+            write=acl.hasGenericWritePermission()
+        )
+    else:
+        caller_access = None
+
     return Asset(
         id=asset_id,
         files=files + thumbnails,
-        metadata=metadata
+        metadata=metadata,
+        callerAccess=caller_access
     )
 
 

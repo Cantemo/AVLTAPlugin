@@ -119,10 +119,17 @@ class File:
 
 
 @dataclass
+class CallerAccess:
+    read: bool
+    write: bool
+
+
+@dataclass
 class Asset:
     id: Optional[str]
     metadata: Optional[List[MetadataField]]
     files: List[File]
+    callerAccess: Optional[CallerAccess]
 
 
 @dataclass
