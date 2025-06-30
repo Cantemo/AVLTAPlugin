@@ -1,6 +1,6 @@
 from portal.externals.VidiRest.objects.item import VSItem
 from portal.utils.test_case import PortalBaseTestCase
-from ..transform import transform_shape_to_lta_files, transform_item_to_lta_asset
+from ..transform import transform_shape_to_lta_files, transform_item_to_lta_asset, transform_subclips_to_marker_groups
 
 
 class TestTransform(PortalBaseTestCase):
@@ -80,3 +80,29 @@ class TestTransform(PortalBaseTestCase):
         self.assertEquals(file.url, "/APInoauth/storage/VX-1/file/VX-4/0.08703483378792176/VX-4.ttml")
         # Container
         self.assertEquals(file.container.format, "ttml")
+
+    def test_extract_marker_groups(self):
+        marker_groups = transform_subclips_to_marker_groups(self.test_item)
+        self.assertEqual(len(marker_groups), 1)
+        self.assertEqual(marker_groups[0].title, "Manual")
+        self.assertEqual(len(marker_groups[0].markerTracks), 1)
+
+        marker_track =  marker_groups[0].markerTracks[0]
+        self.assertEqual(marker_track.title, "Video issues")
+        self.assertEqual(len(marker_track.markers), 1)
+
+        marker = marker_track.markers[0]
+        self.assertEqual(marker.start.frame, 3147)
+        self.assertEqual(marker.start.numerator, 25)
+        self.assertEqual(marker.start.denominator, 1)
+        self.assertEqual(marker.end.frame, 3148)
+        self.assertEqual(marker.end.numerator, 25)
+        self.assertEqual(marker.end.denominator, 1)
+
+        name_field = next((field for field in marker.metadata if field.key == "name"), None)
+        self.assertIsNotNone(name_field, "Metadata field with key 'name' not found")
+        self.assertEqual(name_field.value, "Artifact")
+
+        description_field = next((field for field in marker.metadata if field.key == "description"), None)
+        self.assertIsNotNone(description_field, "Metadata field with key 'description' not found")
+        self.assertEqual(description_field.value, "Freeze frame")

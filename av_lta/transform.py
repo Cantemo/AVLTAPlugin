@@ -2,14 +2,14 @@ import logging
 from itertools import chain
 from typing import Optional
 
-from portal.externals.VidiRest.objects.item import VSItem, VSThumbnail, VSACLMerged
+from Timecode.timecode import Timecode as PortalTimecode
+from portal.externals.VidiRest.objects.item import VSItem, VSThumbnail, VSACLMerged, SubClip
 from portal.externals.VidiRest.objects.shape import VSObject, VSShape, VSComponentBase, VSVideoComponent, \
     VSAudioComponent, VSBinaryComponent, VSSubtitleComponent
 from portal.utils.general import get_site_domain
 from .lta_types import Asset, File, Container, VideoStream, AudioStream, SubtitleStream, MetadataField, \
-    Timecode, MIME_TO_FORMAT, CallerAccess
+    Timecode, MIME_TO_FORMAT, CallerAccess, Marker, MarkerTrack, MarkerGroup
 from ...externals.VidiRest.objects.storage import VSFile
-
 log = logging.getLogger(__name__)
 
 
@@ -19,6 +19,8 @@ def transform_items_to_lta_assets(items: list[VSItem], force_full_domain=False) 
 
 def transform_item_to_lta_asset(item: VSItem, force_full_domain=False) -> Asset:
     asset_id = item.json_object["id"]
+
+    marker_groups = transform_subclips_to_marker_groups(item=item)
 
     title = item.getTitle()
 
@@ -50,8 +52,68 @@ def transform_item_to_lta_asset(item: VSItem, force_full_domain=False) -> Asset:
         id=asset_id,
         files=files + thumbnails,
         metadata=metadata,
-        callerAccess=caller_access
+        callerAccess=caller_access,
+        markerGroups=marker_groups
     )
+
+
+def transform_subclips_to_marker_groups(item: VSItem) -> list[MarkerGroup]:
+    subclips_grouped_by_track_id = {}
+    for subclip in _get_subclips_by_group_name(group_name="AvMarker", item=item):
+        track_id = subclip.getFieldByName(field_name="av_marker_track_id")
+        if not track_id:
+            continue
+        subclips_grouped_by_track_id.setdefault(track_id, []).append(subclip)
+
+    track_mappings = {
+        "av:track:video:issues": "Video issues",
+        "av:track:audio:issues": "Audio issues",
+        "av:track:subtitle:issues": "Subtitle issues",
+        "av:track:other": "Other"
+    }
+    marker_tracks = [
+        MarkerTrack(
+            title=title,
+            markers=[transform_subclip_to_lta_marker(subclip) for subclip in subclips_grouped_by_track_id.get(track_id, [])]
+        )
+        for track_id, title in track_mappings.items()
+        if subclips_grouped_by_track_id.get(track_id, [])
+    ]
+
+    if not marker_tracks:
+        return []
+
+    return [MarkerGroup(
+        title="Manual",
+        markerTracks=marker_tracks,
+    )]
+
+
+def _get_subclips_by_group_name(group_name: str, item: VSItem) -> list[SubClip]:
+    return [subclip for subclip in item.getAnnotationsFromMetadataDocument(item.json_object["metadata"]) if subclip.getMetadataFieldGroupName() == group_name]
+
+
+def transform_subclip_to_lta_marker(subclip: SubClip) -> Marker:
+    metadata_mappings = {
+        "name": "title",
+        "description": "av_marker_description",
+    }
+
+    metadata = [
+        MetadataField(key=key, value=value)
+        for key, field_name in metadata_mappings.items()
+        if (value := subclip.getFieldByName(field_name))
+    ]
+
+    return Marker(
+        start=transform_portal_timecode_to_lta_timecode(subclip.getStartTimecode()),
+        end=transform_portal_timecode_to_lta_timecode(subclip.getEndTimecode()),
+        metadata=metadata,
+    )
+
+
+def transform_portal_timecode_to_lta_timecode(timecode: PortalTimecode) -> Timecode:
+    return Timecode(frame=timecode.frames, numerator=timecode.fpsAsFraction()[0], denominator=timecode.fpsAsFraction()[1])
 
 
 def transform_shape_to_lta_files(shape: VSShape, force_full_domain=False) -> list[File]:

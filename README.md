@@ -40,7 +40,7 @@ Session authentication is used by proxying the AV applications on a plugin sub p
 - [x] Publish endpoint for subtitle
 - [x] Thumbnails
 - [ ] Waveforms via Vidispine
-- [ ] Markers
+- [x] Markers
 - [x] Support more context menus
   - [x] Item page
   - [x] Media bin

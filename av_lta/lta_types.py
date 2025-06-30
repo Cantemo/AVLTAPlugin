@@ -125,14 +125,6 @@ class CallerAccess:
 
 
 @dataclass
-class Asset:
-    id: Optional[str]
-    metadata: Optional[List[MetadataField]]
-    files: List[File]
-    callerAccess: Optional[CallerAccess]
-
-
-@dataclass
 class Marker:
     start: Timecode
     end: Timecode
@@ -152,9 +144,17 @@ class MarkerGroup:
 
 
 @dataclass
+class Asset:
+    id: Optional[str]
+    metadata: Optional[List[MetadataField]]
+    files: List[File]
+    callerAccess: Optional[CallerAccess]
+    markerGroups: Optional[List[MarkerGroup]]
+
+
+@dataclass
 class Data:
     assets: List[Asset]
-    markerGroups: List[MarkerGroup] = field(default_factory=list)
 
 
 @dataclass

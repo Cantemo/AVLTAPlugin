@@ -868,7 +868,134 @@
           "group": [],
           "start": "-INF",
           "end": "+INF"
+        },
+        {
+          "end": "3148@25",
+          "field": [
+            {
+              "name": "portal_mf551902"
+            },
+            {
+              "name": "portal_mf257027"
+            },
+            {
+              "name": "portal_mf268857"
+            },
+            {
+              "name": "portal_mf619153"
+            },
+            {
+              "name": "portal_mf201890"
+            }
+          ],
+          "group": [
+            {
+              "change": "VX-26",
+              "data": [],
+              "field": [
+                {
+                  "change": "VX-26",
+                  "data": [],
+                  "id": [],
+                  "name": "av_marker_description",
+                  "timestamp": "2025-06-25T11:24:02.344+0000",
+                  "user": "admin",
+                  "uuid": "d86eb5ac-3c70-4845-aeee-e2d628d76f2c",
+                  "value": [
+                    {
+                      "change": "VX-26",
+                      "timestamp": "2025-06-25T11:24:02.344+0000",
+                      "user": "admin",
+                      "uuid": "fd60d58d-4795-4536-86dc-d4320f2fb716",
+                      "value": "Freeze frame"
+                    }
+                  ]
+                },
+                {
+                  "change": "VX-26",
+                  "data": [],
+                  "id": [],
+                  "name": "av_marker_track_id",
+                  "timestamp": "2025-06-25T11:24:02.344+0000",
+                  "user": "admin",
+                  "uuid": "b2efe97b-1ee3-4206-8ee4-242a37718847",
+                  "value": [
+                    {
+                      "change": "VX-26",
+                      "timestamp": "2025-06-25T11:24:02.344+0000",
+                      "user": "admin",
+                      "uuid": "a510d86c-56d5-44e6-aa90-df32d4d0d476",
+                      "value": "av:track:video:issues"
+                    }
+                  ]
+                },
+                {
+                  "change": "VX-26",
+                  "data": [],
+                  "id": [],
+                  "name": "title",
+                  "timestamp": "2025-06-25T11:24:02.344+0000",
+                  "user": "admin",
+                  "uuid": "8ffe8465-7d64-4233-ba06-d2f698f7f8ec",
+                  "value": [
+                    {
+                      "change": "VX-26",
+                      "timestamp": "2025-06-25T11:24:02.344+0000",
+                      "user": "admin",
+                      "uuid": "d12d1c58-7d9d-481f-a3b5-2c1713fd90fc",
+                      "value": "Artifact"
+                    }
+                  ]
+                }
+              ],
+              "group": [],
+              "id": [],
+              "name": "AvMarker",
+              "timestamp": "2025-06-25T11:24:02.344+0000",
+              "user": "admin",
+              "uuid": "7bcfa6e8-6f0a-4b8c-b25b-ab5d1c99ed0d"
+            }
+          ],
+          "start": "3147@25"
+        },
+        {
+          "end": "5739@25",
+          "field": [],
+          "group": [
+            {
+              "change": "VX-32",
+              "data": [],
+              "field": [
+                {
+                  "change": "VX-32",
+                  "data": [],
+                  "id": [],
+                  "name": "description",
+                  "timestamp": "2025-06-30T11:02:44.483+0000",
+                  "user": "admin",
+                  "uuid": "3ebd666a-aa32-47d7-b870-9cf916a7a988",
+                  "value": [
+                    {
+                      "change": "VX-32",
+                      "timestamp": "2025-06-30T11:02:44.483+0000",
+                      "user": "admin",
+                      "uuid": "1e39eab6-bf6b-43b8-ba1f-b281e6c1ffa5",
+                      "value": "Invalid AvMarker, missing av_marker_track_id"
+                    }
+                  ]
+                }
+              ],
+              "group": [],
+              "id": [],
+              "name": "AvMarker",
+              "timestamp": "2025-06-30T11:02:44.483+0000",
+              "user": "admin",
+              "uuid": "59b9ee1f-90a0-4cb1-a438-aad2430d7aa4"
+            }
+          ],
+          "start": "4879@25"
         }
+
       ]
     },
     "thumbnails": {
