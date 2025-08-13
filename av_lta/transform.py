@@ -163,8 +163,8 @@ def transform_shape_to_lta_files(shape: VSShape, force_full_domain=False) -> lis
     if None not in [start_time_code, time_code_numerator, time_code_denominator]:
         container.startTime = Timecode(
             frame=start_time_code,
-            numerator=time_code_numerator,
-            denominator=time_code_denominator
+            numerator=time_code_denominator,
+            denominator=time_code_numerator
         )
 
     for video_component in video_components:
