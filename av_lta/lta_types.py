@@ -57,7 +57,7 @@ class Container:
     subtitleStreams: List[SubtitleStream] = field(default_factory=list)
 
 
-FileType = Literal["VIDEO", "AUDIO", "SUBTITLE", "STILL_FRAME", "SPRITE_MAP", "WAVEFORM", "UNKNOWN"]
+FileType = Literal["VIDEO", "AUDIO", "SUBTITLE", "STILL_FRAME", "SPRITE_MAP", "WAVEFORM", "MISC"]
 
 SUPPORTED_SUBTITLE_EXTENTIONS = [
     ".cap",
@@ -74,7 +74,8 @@ SUPPORTED_SUBTITLE_EXTENTIONS = [
 
 SUBTITLE_MIMES = {
     "application/ttml": "ttml",
-    "application/ttml+xml": "ttml"
+    "application/ttml+xml": "ttml",
+    "text/vtt": "vtt"
 }
 
 MIME_TO_FORMAT = {} | SUBTITLE_MIMES
@@ -108,10 +109,10 @@ class File:
                 return "AUDIO"
             elif self.__is_subtitle():
                 return "SUBTITLE"
-        return "UNKNOWN"
+        return "MISC"
 
     def __is_subtitle(self) -> bool:
-        if self.container and self.container.format in SUBTITLE_MIMES:
+        if self.container and self.container.format in list(SUBTITLE_MIMES.values()):
             return True
         if self.fileName.lower().endswith(tuple(SUPPORTED_SUBTITLE_EXTENTIONS)):
             return True
