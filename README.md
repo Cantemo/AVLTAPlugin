@@ -33,22 +33,5 @@ The `--keepdb` flag is optional, but it speeds up running the tests as the test 
 
 Session authentication is used by proxying the AV applications on a plugin sub path. This way the AV apps can use the session and CSRF cookies when making requests back to Cantemo.
 
-## TODO
-
-### Plugin
-- [ ] Setup permissions
-- [x] Publish endpoint for subtitle
-- [x] Thumbnails
-- [ ] Waveforms via Vidispine
-- [x] Markers
-- [x] Support more context menus
-  - [x] Item page
-  - [x] Media bin
-- [ ] Settings
-
-### Frontend
-- [ ] Subtitle without video
-- [ ] Thumbnails from STILL_FRAME support in Subtitle
-
 ### Questions
 - [ ] Analyze work step? double add / remove when combined with avcore plugin
