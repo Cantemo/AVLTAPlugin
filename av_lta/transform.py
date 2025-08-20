@@ -246,7 +246,7 @@ def _tranform_audio_component_to_audio_file(audio_component: VSAudioComponent, s
         id=file_id,
         type=None,
         fileName=get_filename(vs_files),
-        url=_get_url(vs_files, shape=shape, force_site_domain=force_full_domain),
+        url=_get_url(vs_files, shape=shape, force_full_domain=force_full_domain),
         metadata=metadata,
         container=container,
     )
