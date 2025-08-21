@@ -28,6 +28,12 @@ class SettingsForm(forms.Form):
         required=False, widget=forms.Textarea
     )
 
+    def clean_AV_LTA_APPS_URL(self):
+        url = self.cleaned_data.get('AV_LTA_APPS_URL')
+        if url and not url.endswith('/'):
+            url += '/'
+        return url
+
     def clean_AV_LTA_EXTRA_SETTINGS(self):
         data = self.cleaned_data['AV_LTA_EXTRA_SETTINGS']
         if not data:
