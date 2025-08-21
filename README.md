@@ -1,4 +1,4 @@
-# Developement
+# Development
 
 There are many ways of doing this, here's one way of doing it if you run the portal project with the docker setup. This assumes you are at the root of the portal project:
 
