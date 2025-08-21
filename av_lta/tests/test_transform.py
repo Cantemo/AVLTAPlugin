@@ -44,8 +44,8 @@ class TestTransform(PortalBaseTestCase):
         # Container
         self.assertEquals(file.container.format, "video/mp4")
         self.assertEquals(file.container.startTime.frame, 0)
-        self.assertEquals(file.container.startTime.numerator, 1)
-        self.assertEquals(file.container.startTime.denominator, 25)
+        self.assertEquals(file.container.startTime.numerator, 25)
+        self.assertEquals(file.container.startTime.denominator, 1)
         # Video streams
         self.assertEquals(len(file.container.videoStreams), 1)
         self.assertEquals(file.container.videoStreams[0].frameRateNumerator, 25)
