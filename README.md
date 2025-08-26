@@ -25,15 +25,17 @@ The plugin adds the role _"Subtitle"_ (`av_lta_role_subtitle`) (under _"AV LTA R
 
 ### "Open in Subtitle" Overview
 
+![img.png](images/open_subtitle_overview.png)
+
 The "Open in Subtitle" action opens the `OpenApplicationView` (example: `/av_lta/open?application=subtitle&item_ids=VX-1,VX-2`). 
 
 This view redirects to the [LTA Launch API](https://apps.accurate.video/docs/subtitle/reference/launch-api) (example: `/av_lta/apps/launch/subtitle/?launchTemplate=/av_lta/get_launch_template?item_ids=VX-1,VX-2`). The AV apps are proxied (by default from https://apps.accurate.video/) on this url by the `ProxyLTAView` in order to serve the frontend on the same domain as Cantemo. This makes it possible to retain the authentication already done by Cantemo in the AV application, as they are now served from the same domain.
 
-When the AV application requests the Launch Template from the `LaunchTemplateView` (example: `/av_lta/get_launch_template?item_ids=VX-1,VX-2`). The view fetches the items from Cantemo and transforms the data to a [Launch Template (LT)](https://apps.accurate.video/docs/subtitle/reference/launch-template-format) JSON and returns it. You'll find most of the transform code in `transform.py`.
+The AV application requests the Launch Template from the `LaunchTemplateView` (example: `/av_lta/get_launch_template?item_ids=VX-1,VX-2`). The view fetches the items from Cantemo and transforms the data to a [Launch Template (LT)](https://apps.accurate.video/docs/subtitle/reference/launch-template-format) JSON and returns it. You'll find most of the transform code in `transform.py`.
 
-AV Subtitle loads the LT and the application starts. The user makes their edits and when they are ready the "Publish" button is used. This triggers the configured [publish](https://apps.accurate.video/docs/subtitle/reference/launch-template-format#publish) endpoint to be called. 
+AV Subtitle loads the LT and the application starts. The user makes their edits, and when they are ready the _"Publish"_ button is used. This triggers the configured [publish](https://apps.accurate.video/docs/subtitle/reference/launch-template-format#publish) endpoint to be called. 
 
-The LT in this case, have been configured to call the `SubtitlePublishView` (example: `/av_lta/publish?itemIds=VX-1&fileId=VX-3_VX-4`). The view finds the Item that the subtitle originated from and stores the updated file contents as a new Shape on the same Item. If you want to change how the results are stored back to Cantemo, this is where you would do that.
+The LT in this case is configured to call the `SubtitlePublishView` (example: `/av_lta/publish?itemIds=VX-1&fileId=VX-3_VX-4`). The view finds the Item that the subtitle originated from and stores the updated file contents as a new Shape on the same Item. If you want to change how the results are stored back to Cantemo, this is where you would do that.
 
 ### Add more settings
 
