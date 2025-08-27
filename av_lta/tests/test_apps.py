@@ -1,5 +1,6 @@
 import os
 from unittest.mock import MagicMock
+from unittest.mock import call
 from unittest.mock import patch
 
 from portal.pluginbase.core import PluginError
@@ -20,4 +21,4 @@ class TestAVLTAConfig(PortalBaseTestCase):
         except PluginError:
             self.fail("ready method raised PluginError unexpectedly.")
 
-        mock_create_roles.assert_called_once()
+        self.assertEqual(mock_create_roles.mock_calls, [call()])

@@ -1,4 +1,6 @@
+from unittest.mock import ANY
 from unittest.mock import MagicMock
+from unittest.mock import call
 from unittest.mock import patch
 from urllib.parse import quote_plus
 
@@ -159,7 +161,9 @@ class TestLaunchTemplateView(PortalBaseTestCase):
 
         self.assertEqual(len(response.data["settings"]), 1)
 
-        mock_log.debug.assert_called_once_with("Failed to parse extra lta settings from plugin settings, invalid JSON")
+        self.assertEqual(
+            mock_log.mock_calls, [call.debug("Failed to parse extra lta settings from plugin settings, invalid JSON")]
+        )
 
 
 class TestSubtitlePublishView(PortalBaseTestCase):
@@ -265,8 +269,9 @@ class TestSubtitlePublishView(PortalBaseTestCase):
         response = view.post(mock_request)
 
         self.assertEqual(response.status_code, 200)
-        mock_import_shape_raw.assert_called_once_with(
-            item_id="TEST-1", data="<ttml></ttml>", filename="test.ttml", tag="av-subtitle", runas="user"
+        self.assertEqual(
+            mock_import_shape_raw.mock_calls,
+            [call(item_id="TEST-1", data="<ttml></ttml>", filename="test.ttml", tag="av-subtitle", runas="user")],
         )
 
 
@@ -316,7 +321,7 @@ class TestAdminIndexView(PortalBaseTestCase):
             self.assertTrue(hasattr(mock_plugin_settings, key))
             self.assertEqual(getattr(mock_plugin_settings, key), value)
 
-        mock_messages.success.assert_called_once()
+        self.assertEqual(mock_messages.mock_calls, [call.success(self.view.request, "Settings saved")])
 
     @patch("portal.plugins.av_lta.views.plugin_settings")
     def test_get(self, mock_plugin_settings):
@@ -356,4 +361,4 @@ class TestAdminIndexView(PortalBaseTestCase):
         self.assertEqual(response.status_code, 302)
         self.assertEqual(response.url, self.url)
 
-        mock_messages.success.assert_called_once()
+        self.assertEqual(mock_messages.mock_calls, [call.success(ANY, "Settings saved")])

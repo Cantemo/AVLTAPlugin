@@ -1,5 +1,6 @@
 import logging
 from unittest.mock import MagicMock
+from unittest.mock import call
 from unittest.mock import patch
 
 from portal.pluginbase.core import PluginError
@@ -20,20 +21,25 @@ class TestCreateOrUpdateRoles(PortalBaseTestCase):
         except PluginError:
             self.fail("create_or_update_roles raised PluginError unexpectedly.")
 
-        mock_post.assert_called_once_with(
-            user="admin",
-            url="/API/v2/groups/roles/create/",
-            json={
-                "name": "av_lta_role",
-                "label": "AV LTA Roles",
-                "children": [
-                    {
-                        "name": "av_lta_role_subtitle",
-                        "label": "Subtitle",
-                        "children": [],
+        self.assertEqual(
+            mock_post.mock_calls,
+            [
+                call(
+                    user="admin",
+                    url="/API/v2/groups/roles/create/",
+                    json={
+                        "name": "av_lta_role",
+                        "label": "AV LTA Roles",
+                        "children": [
+                            {
+                                "name": "av_lta_role_subtitle",
+                                "label": "Subtitle",
+                                "children": [],
+                            },
+                        ],
                     },
-                ],
-            },
+                )
+            ],
         )
 
     @patch("portal.plugins.av_lta.permissions.client.post")
