@@ -58,6 +58,12 @@ uv run pre-commit install
 
 The `--keepdb` flag is optional, but it speeds up running the tests as the test database does not need to be re-created each time.
 
+### Run type checking
+
+```
+uv run mypy --no-namespace-packages -p av_lta
+```
+
 
 ### "Open in Subtitle" Overview
 
