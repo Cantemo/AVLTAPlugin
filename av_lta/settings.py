@@ -24,10 +24,7 @@ class PluginSettings(object):
             db_setting_value = setting.value
         except Settings.DoesNotExist:
             pass
-        value = db_setting_value or \
-            getattr(settings, name, None) or \
-            os.getenv(name, None) or \
-            default_value
+        value = db_setting_value or getattr(settings, name, None) or os.getenv(name, None) or default_value
         if expected_type == bool:
             return str_to_bool(value)
         return value
@@ -37,9 +34,7 @@ class PluginSettings(object):
             return
         if type(value) == bool:
             value = str(value).lower()
-        Settings.objects.update_or_create(
-            key=key,
-            defaults=dict(value=value)
-        )
+        Settings.objects.update_or_create(key=key, defaults=dict(value=value))
+
 
 plugin_settings = PluginSettings()

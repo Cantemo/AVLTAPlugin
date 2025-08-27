@@ -1,13 +1,11 @@
 from unittest.mock import Mock
 
-from portal.plugins.av_lta.plugin import (
-    AVLTAURLPlugin,
-    AVLTAJavascriptPlugin,
-    AVLTAItemGearboxMenuPlugin,
-    AVLTASearchPlugin,
-    AVLTAMediaBinDropdown,
-    AVLTAAdminMenu,
-)
+from portal.plugins.av_lta.plugin import AVLTAAdminMenu
+from portal.plugins.av_lta.plugin import AVLTAItemGearboxMenuPlugin
+from portal.plugins.av_lta.plugin import AVLTAJavascriptPlugin
+from portal.plugins.av_lta.plugin import AVLTAMediaBinDropdown
+from portal.plugins.av_lta.plugin import AVLTASearchPlugin
+from portal.plugins.av_lta.plugin import AVLTAURLPlugin
 from portal.utils.test_case import PortalBaseTestCase
 
 

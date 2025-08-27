@@ -1,5 +1,6 @@
 import logging
-from unittest.mock import patch, MagicMock
+from unittest.mock import MagicMock
+from unittest.mock import patch
 
 from portal.pluginbase.core import PluginError
 from portal.plugins.av_lta.permissions import create_or_update_roles
@@ -8,7 +9,7 @@ from portal.utils.test_case import PortalBaseTestCase
 
 class TestCreateOrUpdateRoles(PortalBaseTestCase):
 
-    @patch('portal.plugins.av_lta.permissions.client.post')
+    @patch("portal.plugins.av_lta.permissions.client.post")
     def test_create_roles_successful(self, mock_post):
         mock_response = MagicMock()
         mock_response.status_code = 200
@@ -32,10 +33,10 @@ class TestCreateOrUpdateRoles(PortalBaseTestCase):
                         "children": [],
                     },
                 ],
-            }
+            },
         )
 
-    @patch('portal.plugins.av_lta.permissions.client.post')
+    @patch("portal.plugins.av_lta.permissions.client.post")
     def test_create_roles_failure(self, mock_post):
         mock_response = MagicMock()
         mock_response.status_code = 500
@@ -48,13 +49,13 @@ class TestCreateOrUpdateRoles(PortalBaseTestCase):
         self.assertIn("Failed to create role av_lta_role", str(context.exception))
         self.assertIn("500 - Internal Server Error", str(context.exception))
 
-    @patch('portal.plugins.av_lta.permissions.client.post')
+    @patch("portal.plugins.av_lta.permissions.client.post")
     def test_create_roles_logging(self, mock_post):
         mock_response = MagicMock()
         mock_response.status_code = 200
         mock_post.return_value = mock_response
 
-        with self.assertLogs('portal.plugins.av_lta.permissions', level=logging.INFO) as log:
+        with self.assertLogs("portal.plugins.av_lta.permissions", level=logging.INFO) as log:
             create_or_update_roles()
 
         self.assertIn("INFO:portal.plugins.av_lta.permissions:Create/update role tree av_lta_role", log.output)

@@ -1,6 +1,9 @@
 from portal.externals.VidiRest.objects.item import VSItem
 from portal.utils.test_case import PortalBaseTestCase
-from ..transform import transform_shape_to_lta_files, transform_item_to_lta_asset, transform_subclips_to_marker_groups
+
+from ..transform import transform_item_to_lta_asset
+from ..transform import transform_shape_to_lta_files
+from ..transform import transform_subclips_to_marker_groups
 
 
 class TestTransform(PortalBaseTestCase):
@@ -28,8 +31,9 @@ class TestTransform(PortalBaseTestCase):
 
         thumbnails = [file for file in asset.files if file.type == "STILL_FRAME"]
         self.assertGreater(len(thumbnails), 0)
-        self.assertEquals(thumbnails[0].url,
-                          "/APInoauth/thumbnail/VX-2/VX-1;version=0/0@PAL?hash=2708d1da27db2bafd356887d87425603")
+        self.assertEquals(
+            thumbnails[0].url, "/APInoauth/thumbnail/VX-2/VX-1;version=0/0@PAL?hash=2708d1da27db2bafd356887d87425603"
+        )
         self.assertEquals(thumbnails[0].metadata[0].key, "still_frame:timestamp")
         self.assertEquals(thumbnails[0].metadata[0].value, "0@PAL")
 
@@ -87,7 +91,7 @@ class TestTransform(PortalBaseTestCase):
         self.assertEqual(marker_groups[0].title, "Manual")
         self.assertEqual(len(marker_groups[0].markerTracks), 1)
 
-        marker_track =  marker_groups[0].markerTracks[0]
+        marker_track = marker_groups[0].markerTracks[0]
         self.assertEqual(marker_track.title, "Video issues")
         self.assertEqual(len(marker_track.markers), 1)
 

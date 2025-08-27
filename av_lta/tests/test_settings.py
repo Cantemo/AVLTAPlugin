@@ -2,7 +2,6 @@ import os
 from unittest.mock import patch
 
 from django.test import override_settings
-
 from portal.plugins.av_lta.models import Settings
 from portal.plugins.av_lta.settings import PluginSettings
 from portal.utils.test_case import PortalBaseTestCase
@@ -11,10 +10,10 @@ from portal.utils.test_case import PortalBaseTestCase
 class TestPluginSettings(PortalBaseTestCase):
     def setUp(self):
         self.settings = PluginSettings()
-        Settings.objects.filter(key__startswith='TEST_').delete()
+        Settings.objects.filter(key__startswith="TEST_").delete()
 
     def tearDown(self):
-        Settings.objects.filter(key__startswith='TEST_').delete()
+        Settings.objects.filter(key__startswith="TEST_").delete()
 
     def test_getattribute_class_attributes(self):
         PluginSettings.TEST_ATTR1 = "test_value1"
@@ -68,7 +67,6 @@ class TestPluginSettings(PortalBaseTestCase):
         self.settings.TEST_NEW_SETTING = True
         self.assertEqual(self.settings.TEST_NEW_SETTING, "true")
 
-
     def test_setattr_new_setting(self):
         self.settings.TEST_NEW_SETTING = "new_value"
 
@@ -98,6 +96,6 @@ class TestPluginSettings(PortalBaseTestCase):
     def test_setattr_no_change(self):
         Settings.objects.create(key="TEST_NO_CHANGE", value="value")
 
-        with patch.object(Settings.objects, 'update_or_create') as mock_update:
+        with patch.object(Settings.objects, "update_or_create") as mock_update:
             self.settings.TEST_NO_CHANGE = "value"
             mock_update.assert_not_called()

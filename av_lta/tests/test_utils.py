@@ -1,4 +1,5 @@
-from portal.plugins.av_lta.utils import clean_nones, str_to_bool
+from portal.plugins.av_lta.utils import clean_nones
+from portal.plugins.av_lta.utils import str_to_bool
 from portal.utils.test_case import PortalBaseTestCase
 
 
@@ -24,17 +25,8 @@ class TestCleanNones(PortalBaseTestCase):
         self.assertEqual(clean_nones(input_dict), expected_output)
 
     def test_clean_nones_mixed_nested(self):
-        input_data = {
-            "a": 1,
-            "b": [None, {"x": None, "y": 2}, 3],
-            "c": None,
-            "d": {"p": None, "q": [1, None, 3]}
-        }
-        expected_output = {
-            "a": 1,
-            "b": [{"y": 2}, 3],
-            "d": {"q": [1, 3]}
-        }
+        input_data = {"a": 1, "b": [None, {"x": None, "y": 2}, 3], "c": None, "d": {"p": None, "q": [1, None, 3]}}
+        expected_output = {"a": 1, "b": [{"y": 2}, 3], "d": {"q": [1, 3]}}
         self.assertEqual(clean_nones(input_data), expected_output)
 
     def test_clean_nones_non_container(self):

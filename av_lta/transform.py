@@ -2,14 +2,35 @@ import logging
 from itertools import chain
 from typing import Optional
 
-from Timecode.timecode import Timecode as PortalTimecode
-from portal.externals.VidiRest.objects.item import VSItem, VSThumbnail, VSACLMerged, SubClip
-from portal.externals.VidiRest.objects.shape import VSObject, VSShape, VSComponentBase, VSVideoComponent, \
-    VSAudioComponent, VSBinaryComponent, VSSubtitleComponent
+from portal.externals.VidiRest.objects.item import SubClip
+from portal.externals.VidiRest.objects.item import VSACLMerged
+from portal.externals.VidiRest.objects.item import VSItem
+from portal.externals.VidiRest.objects.item import VSThumbnail
+from portal.externals.VidiRest.objects.shape import VSAudioComponent
+from portal.externals.VidiRest.objects.shape import VSBinaryComponent
+from portal.externals.VidiRest.objects.shape import VSComponentBase
+from portal.externals.VidiRest.objects.shape import VSObject
+from portal.externals.VidiRest.objects.shape import VSShape
+from portal.externals.VidiRest.objects.shape import VSSubtitleComponent
+from portal.externals.VidiRest.objects.shape import VSVideoComponent
 from portal.utils.general import get_site_domain
-from .lta_types import Asset, File, Container, VideoStream, AudioStream, SubtitleStream, MetadataField, \
-    Timecode, MIME_TO_FORMAT, CallerAccess, Marker, MarkerTrack, MarkerGroup
-from ...externals.VidiRest.objects.storage import VSFile
+from Timecode.timecode import Timecode as PortalTimecode
+
+from ...externals.VidiRest.objects.storage import VSFile  # type: ignore
+from .lta_types import MIME_TO_FORMAT
+from .lta_types import Asset
+from .lta_types import AudioStream
+from .lta_types import CallerAccess
+from .lta_types import Container
+from .lta_types import File
+from .lta_types import Marker
+from .lta_types import MarkerGroup
+from .lta_types import MarkerTrack
+from .lta_types import MetadataField
+from .lta_types import SubtitleStream
+from .lta_types import Timecode
+from .lta_types import VideoStream
+
 log = logging.getLogger(__name__)
 
 
@@ -27,38 +48,35 @@ def transform_item_to_lta_asset(item: VSItem, force_full_domain=False) -> Asset:
     metadata: list[MetadataField] = [MetadataField(key="title", value=title)]
 
     files = list(
-        chain.from_iterable([transform_shape_to_lta_files(shape=shape, force_full_domain=force_full_domain) for shape in
-                             item.getShapes()]))
+        chain.from_iterable(
+            [
+                transform_shape_to_lta_files(shape=shape, force_full_domain=force_full_domain)
+                for shape in item.getShapes()
+            ]
+        )
+    )
 
     thumbnails = [
         _transform_thumbnail_to_lta_still_frame_file(
-            thumbnail=thumbnail,
-            item=item,
-            index=index,
-            force_full_domain=force_full_domain) for [index, thumbnail] in
-        enumerate(item.getThumbnailObjects())]
+            thumbnail=thumbnail, item=item, index=index, force_full_domain=force_full_domain
+        )
+        for [index, thumbnail] in enumerate(item.getThumbnailObjects())
+    ]
 
     acl = item.getACLMerged()
 
     if acl is not None:
-        caller_access = CallerAccess(
-            read=acl.hasGenericReadPermission(),
-            write=acl.hasGenericWritePermission()
-        )
+        caller_access = CallerAccess(read=acl.hasGenericReadPermission(), write=acl.hasGenericWritePermission())
     else:
         caller_access = None
 
     return Asset(
-        id=asset_id,
-        files=files + thumbnails,
-        metadata=metadata,
-        callerAccess=caller_access,
-        markerGroups=marker_groups
+        id=asset_id, files=files + thumbnails, metadata=metadata, callerAccess=caller_access, markerGroups=marker_groups
     )
 
 
 def transform_subclips_to_marker_groups(item: VSItem) -> list[MarkerGroup]:
-    subclips_grouped_by_track_id = {}
+    subclips_grouped_by_track_id: dict = {}
     for subclip in _get_subclips_by_group_name(group_name="AvMarker", item=item):
         track_id = subclip.getFieldByName(field_name="av_marker_track_id")
         if not track_id:
@@ -69,12 +87,14 @@ def transform_subclips_to_marker_groups(item: VSItem) -> list[MarkerGroup]:
         "av:track:video:issues": "Video issues",
         "av:track:audio:issues": "Audio issues",
         "av:track:subtitle:issues": "Subtitle issues",
-        "av:track:other": "Other"
+        "av:track:other": "Other",
     }
     marker_tracks = [
         MarkerTrack(
             title=title,
-            markers=[transform_subclip_to_lta_marker(subclip) for subclip in subclips_grouped_by_track_id.get(track_id, [])]
+            markers=[
+                transform_subclip_to_lta_marker(subclip) for subclip in subclips_grouped_by_track_id.get(track_id, [])
+            ],
         )
         for track_id, title in track_mappings.items()
         if subclips_grouped_by_track_id.get(track_id, [])
@@ -83,14 +103,20 @@ def transform_subclips_to_marker_groups(item: VSItem) -> list[MarkerGroup]:
     if not marker_tracks:
         return []
 
-    return [MarkerGroup(
-        title="Manual",
-        markerTracks=marker_tracks,
-    )]
+    return [
+        MarkerGroup(
+            title="Manual",
+            markerTracks=marker_tracks,
+        )
+    ]
 
 
 def _get_subclips_by_group_name(group_name: str, item: VSItem) -> list[SubClip]:
-    return [subclip for subclip in item.getAnnotationsFromMetadataDocument(item.json_object["metadata"]) if subclip.getMetadataFieldGroupName() == group_name]
+    return [
+        subclip
+        for subclip in item.getAnnotationsFromMetadataDocument(item.json_object["metadata"])
+        if subclip.getMetadataFieldGroupName() == group_name
+    ]
 
 
 def transform_subclip_to_lta_marker(subclip: SubClip) -> Marker:
@@ -113,7 +139,9 @@ def transform_subclip_to_lta_marker(subclip: SubClip) -> Marker:
 
 
 def transform_portal_timecode_to_lta_timecode(timecode: PortalTimecode) -> Timecode:
-    return Timecode(frame=timecode.frames, numerator=timecode.fpsAsFraction()[0], denominator=timecode.fpsAsFraction()[1])
+    return Timecode(
+        frame=timecode.frames, numerator=timecode.fpsAsFraction()[0], denominator=timecode.fpsAsFraction()[1]
+    )
 
 
 def transform_shape_to_lta_files(shape: VSShape, force_full_domain=False) -> list[File]:
@@ -130,41 +158,38 @@ def transform_shape_to_lta_files(shape: VSShape, force_full_domain=False) -> lis
         if _is_same_files(video_vs_files, audio_component.getFiles()):
             # This component belongs to the video, continue
             continue
-        files.append(_tranform_audio_component_to_audio_file(
-            audio_component=audio_component,
-            shape=shape,
-            force_full_domain=force_full_domain,
-        ))
+        files.append(
+            _tranform_audio_component_to_audio_file(
+                audio_component=audio_component,
+                shape=shape,
+                force_full_domain=force_full_domain,
+            )
+        )
 
     # Shapes may have multiple subtitle files, one file per component
     for subtitle_or_binary_component in subtitle_components + binary_components:
         if _is_same_files(video_vs_files, subtitle_or_binary_component.getFiles()):
             # This component belongs to the video, continue
             continue
-        files.append(_tranform_subtitle_or_binary_component_to_file(
-            subtitle_or_binary_component=subtitle_or_binary_component,
-            shape=shape,
-            force_full_domain=force_full_domain,
-        ))
+        files.append(
+            _tranform_subtitle_or_binary_component_to_file(
+                subtitle_or_binary_component=subtitle_or_binary_component,
+                shape=shape,
+                force_full_domain=force_full_domain,
+            )
+        )
 
     if len(video_components) == 0:
         return files
 
-    container = Container(
-        videoStreams=[],
-        audioStreams=[],
-        subtitleStreams=[],
-        format=_get_container_format(shape)
-    )
+    container = Container(videoStreams=[], audioStreams=[], subtitleStreams=[], format=_get_container_format(shape))
 
     # start time
     start_time_code = container_component.getStartTimecode()
     time_code_numerator, time_code_denominator = container_component.getTimeCodeTimeBase()
     if None not in [start_time_code, time_code_numerator, time_code_denominator]:
         container.startTime = Timecode(
-            frame=start_time_code,
-            numerator=time_code_denominator,
-            denominator=time_code_numerator
+            frame=start_time_code, numerator=time_code_denominator, denominator=time_code_numerator
         )
 
     for video_component in video_components:
@@ -184,9 +209,9 @@ def transform_shape_to_lta_files(shape: VSShape, force_full_domain=False) -> lis
             id=shape.getId(),
             type=None,
             fileName=get_filename(video_vs_files),
-            url=_get_url(video_vs_files, shape=shape, force_full_domain=force_full_domain),
+            url=_get_url(video_vs_files, shape=shape, force_full_domain=force_full_domain) or "",
             container=container,
-            metadata=metadata
+            metadata=metadata,
         )
     )
 
@@ -203,24 +228,19 @@ def _is_same_files(a: list[VSFile], b: list[VSFile]) -> bool:
 
 
 def _tranform_subtitle_or_binary_component_to_file(
-        subtitle_or_binary_component: VSBinaryComponent | VSSubtitleComponent, shape: VSShape,
-        force_full_domain=False) -> File:
+    subtitle_or_binary_component: VSBinaryComponent | VSSubtitleComponent, shape: VSShape, force_full_domain=False
+) -> File:
     file_id = f"{shape.getId()}_{subtitle_or_binary_component.getId()}"
     vs_files = subtitle_or_binary_component.getFiles()
-    container = Container(
-        videoStreams=[],
-        audioStreams=[],
-        subtitleStreams=[],
-        format=_get_container_format(shape)
-    )
+    container = Container(videoStreams=[], audioStreams=[], subtitleStreams=[], format=_get_container_format(shape))
 
     return File(
         id=file_id,
         type=None,
         fileName=get_filename(vs_files),
-        url=_get_url(vs_files, shape=shape, force_full_domain=force_full_domain),
+        url=_get_url(vs_files, shape=shape, force_full_domain=force_full_domain) or "",
         metadata=_get_metadatas(subtitle_or_binary_component),
-        container=container
+        container=container,
     )
 
 
@@ -229,8 +249,9 @@ def _get_container_format(shape: VSShape) -> str:
     return MIME_TO_FORMAT.get(mime_type, mime_type)
 
 
-def _tranform_audio_component_to_audio_file(audio_component: VSAudioComponent, shape: VSShape,
-                                            force_full_domain=False) -> File:
+def _tranform_audio_component_to_audio_file(
+    audio_component: VSAudioComponent, shape: VSShape, force_full_domain=False
+) -> File:
     file_id = f"{shape.getId()}_{audio_component.getId()}"
     vs_files = audio_component.getFiles()
     container = Container(
@@ -246,7 +267,7 @@ def _tranform_audio_component_to_audio_file(audio_component: VSAudioComponent, s
         id=file_id,
         type=None,
         fileName=get_filename(vs_files),
-        url=_get_url(vs_files, shape=shape, force_full_domain=force_full_domain),
+        url=_get_url(vs_files, shape=shape, force_full_domain=force_full_domain) or "",
         metadata=metadata,
         container=container,
     )
@@ -297,7 +318,9 @@ def _transform_video_component_to_video_stream(video_component: VSVideoComponent
     video_stream.resolutionHeight = video_component.getResolutionHeight()
     video_stream.codec = video_component.getCodec()
     video_stream.bitrate = video_component.getBitRate()
-    video_stream.duration = _get_duration(video_component)
+    duration = _get_duration(video_component)
+    if duration is not None:
+        video_stream.duration = duration
     video_stream.aspectRatioWidth, video_stream.aspectRatioHeight = video_component.getAspectRatio(asString=False)
     video_stream.metadata = _get_metadatas(video_component)
     return video_stream
@@ -310,7 +333,9 @@ def _transform_audio_component_to_audio_stream(audio_component: VSAudioComponent
     audio_stream.channels = audio_component.getChannels()
     audio_stream.codec = audio_component.getCodec()
     audio_stream.bitrate = audio_component.getBitRate()
-    audio_stream.duration = _get_duration(audio_component)
+    duration = _get_duration(audio_component)
+    if duration is not None:
+        audio_stream.duration = duration
     audio_stream.metadata = _get_metadatas(audio_component)
     item_track = audio_component.getItemTrack()
     if item_track is not None:
@@ -333,7 +358,7 @@ def _get_preview_url(vs_object: VSObject, uri: str | None, force_full_domain=Fal
     return url
 
 
-def _get_duration(component: VSComponentBase) -> Optional[float]:
+def _get_duration(component: VSComponentBase) -> Optional[int]:
     try:
         return component.json_object["duration"]["samples"]
     except (KeyError, TypeError):
@@ -344,16 +369,15 @@ def _get_metadatas(component: VSComponentBase) -> list[MetadataField]:
     return [MetadataField(key=x["key"], value=x["value"]) for x in component.json_object.get("metadata", [])]
 
 
-def _transform_thumbnail_to_lta_still_frame_file(thumbnail: VSThumbnail, item: VSItem, index: int,
-                                                 force_full_domain=False) -> File:
+def _transform_thumbnail_to_lta_still_frame_file(
+    thumbnail: VSThumbnail, item: VSItem, index: int, force_full_domain=False
+) -> File:
     asset_id = item.json_object["id"]
     return File(
         id=f"{asset_id}-thumbnail-{index}",
         fileName=f"thumbnail-{index}",
         type="STILL_FRAME",
-        url=_get_preview_url(item, thumbnail.url, force_full_domain=force_full_domain),
+        url=_get_preview_url(item, thumbnail.url, force_full_domain=force_full_domain) or "",
         container=None,
-        metadata=[
-            MetadataField(key="still_frame:timestamp", value=thumbnail.timecode.toVidispine())
-        ]
+        metadata=[MetadataField(key="still_frame:timestamp", value=thumbnail.timecode.toVidispine())],
     )

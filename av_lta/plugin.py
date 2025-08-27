@@ -1,7 +1,9 @@
 import logging
 
-from portal.generic.plugin_interfaces import (IPluginURL, IPluginBlock)
-from portal.pluginbase.core import Plugin, implements
+from portal.generic.plugin_interfaces import IPluginBlock
+from portal.generic.plugin_interfaces import IPluginURL
+from portal.pluginbase.core import Plugin
+from portal.pluginbase.core import implements
 
 log = logging.getLogger(__name__)
 
@@ -11,10 +13,10 @@ class AVLTAURLPlugin(Plugin):
 
     def __init__(self):
         self.name = self.__class__.__name__
-        self.urls = 'portal.plugins.av_lta.urls'
-        self.urlpattern = r'^av_lta/'
-        self.namespace = r'av_lta'
-        self.plugin_guid = 'a202cfc0-2a1e-44b1-9e1c-1e3586a1ba2a'
+        self.urls = "portal.plugins.av_lta.urls"
+        self.urlpattern = r"^av_lta/"
+        self.namespace = r"av_lta"
+        self.plugin_guid = "a202cfc0-2a1e-44b1-9e1c-1e3586a1ba2a"
         log.debug(f"Initiated {self.name}")
 
 
@@ -50,10 +52,8 @@ class AVLTAItemGearboxMenuPlugin(Plugin):
         item_ids = [item.getId()]
         return {
             "guid": self.plugin_guid,
-            "context": dict(
-                item_ids=",".join(item_ids)
-            ),
-            "template": "av_lta/av_lta_menu_item.html"
+            "context": dict(item_ids=",".join(item_ids)),
+            "template": "av_lta/av_lta_menu_item.html",
         }
 
 

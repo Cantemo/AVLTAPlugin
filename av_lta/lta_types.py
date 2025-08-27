@@ -1,5 +1,9 @@
-from dataclasses import dataclass, field
-from typing import List, Optional, Dict, Literal
+from dataclasses import dataclass
+from dataclasses import field
+from typing import Dict
+from typing import List
+from typing import Literal
+from typing import Optional
 
 
 @dataclass
@@ -59,24 +63,9 @@ class Container:
 
 FileType = Literal["VIDEO", "AUDIO", "SUBTITLE", "STILL_FRAME", "SPRITE_MAP", "WAVEFORM", "MISC"]
 
-SUPPORTED_SUBTITLE_EXTENTIONS = [
-    ".cap",
-    ".fpc",
-    ".imsc",
-    ".itt",
-    ".pac",
-    ".scc",
-    ".srt",
-    ".stl",
-    ".ttml",
-    ".vtt"
-]
+SUPPORTED_SUBTITLE_EXTENTIONS = [".cap", ".fpc", ".imsc", ".itt", ".pac", ".scc", ".srt", ".stl", ".ttml", ".vtt"]
 
-SUBTITLE_MIMES = {
-    "application/ttml": "ttml",
-    "application/ttml+xml": "ttml",
-    "text/vtt": "vtt"
-}
+SUBTITLE_MIMES = {"application/ttml": "ttml", "application/ttml+xml": "ttml", "text/vtt": "vtt"}
 
 MIME_TO_FORMAT = {} | SUBTITLE_MIMES
 
@@ -91,13 +80,13 @@ class File:
     _type: Optional[FileType] = field(init=False, repr=False)
     metadata: Optional[List[MetadataField]] = field(default_factory=list)
 
-    @property
+    @property  # type: ignore[no-redef]
     def type(self) -> Optional[FileType]:
         if self._type is not None:
             return self._type
         return self.__get_inferred_type()
 
-    @type.setter
+    @type.setter  # type: ignore[no-redef]
     def type(self, value: Optional[FileType]):
         self._type = value
 
@@ -114,7 +103,7 @@ class File:
     def __is_subtitle(self) -> bool:
         if self.container and self.container.format in list(SUBTITLE_MIMES.values()):
             return True
-        if self.fileName.lower().endswith(tuple(SUPPORTED_SUBTITLE_EXTENTIONS)):
+        if self.fileName and self.fileName.lower().endswith(tuple(SUPPORTED_SUBTITLE_EXTENTIONS)):
             return True
         return False
 

@@ -1,8 +1,6 @@
 from unittest.mock import patch
 
-from portal.plugins.av_lta.registration import (
-    AVLTARegisterPlugin
-)
+from portal.plugins.av_lta.registration import AVLTARegisterPlugin
 from portal.utils.test_case import PortalBaseTestCase
 
 

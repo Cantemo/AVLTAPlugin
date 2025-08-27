@@ -1,9 +1,10 @@
-from unittest.mock import patch, MagicMock
 import os
+from unittest.mock import MagicMock
+from unittest.mock import patch
 
 from portal.pluginbase.core import PluginError
-from portal.utils.test_case import PortalBaseTestCase
 from portal.plugins.av_lta.apps import AVLTAConfig
+from portal.utils.test_case import PortalBaseTestCase
 
 
 class TestAVLTAConfig(PortalBaseTestCase):

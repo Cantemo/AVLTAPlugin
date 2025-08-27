@@ -1,4 +1,5 @@
-from typing import Optional, Any
+from typing import Any
+from typing import Optional
 
 import requests
 from django.conf import settings
@@ -24,18 +25,18 @@ def vidispine_request(method: str, path: str, runas: Optional[str] = None, **kwa
 
 
 def import_shape_raw(
-        item_id: str,
-        data: Any,
-        tag: Optional[str] = None,
-        storage_id: Optional[str] = None,
-        filename: Optional[str] = None,
-        transfer_priority: Optional[int] = None,
-        transfer_id: Optional[str] = None,
-        notification: Optional[str] = None,
-        notification_data: Optional[str] = None,
-        priority: Optional[str] = None,
-        jobmetadata: Optional[list[str]] = None,
-        runas: Optional[str] = None,
+    item_id: str,
+    data: Any,
+    tag: Optional[str] = None,
+    storage_id: Optional[str] = None,
+    filename: Optional[str] = None,
+    transfer_priority: Optional[int] = None,
+    transfer_id: Optional[str] = None,
+    notification: Optional[str] = None,
+    notification_data: Optional[str] = None,
+    priority: Optional[str] = None,
+    jobmetadata: Optional[list[str]] = None,
+    runas: Optional[str] = None,
 ) -> Response:
     params = dict(
         tag=tag,
