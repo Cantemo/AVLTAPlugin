@@ -1,4 +1,5 @@
 from unittest.mock import MagicMock
+from unittest.mock import call
 from unittest.mock import patch
 
 from portal.plugins.av_lta.vs_helpers import get_vidispine_auth
@@ -65,13 +66,18 @@ class TestVidispineRequest(PortalBaseTestCase):
 
         result = vidispine_request("GET", "/some/path")
 
-        mock_request.assert_called_once_with(
-            "GET",
-            "http://vidispine.test:8080/API/some/path",
-            auth=("test_user", "test_password"),
-            headers={"Accept": "application/json"},
+        self.assertEqual(
+            mock_request.mock_calls,
+            [
+                call(
+                    "GET",
+                    "http://vidispine.test:8080/API/some/path",
+                    auth=("test_user", "test_password"),
+                    headers={"Accept": "application/json"},
+                ),
+                call().raise_for_status(),
+            ],
         )
-        mock_response.raise_for_status.assert_called_once()
         self.assertEqual(result, mock_response)
 
     @patch("portal.plugins.av_lta.vs_helpers.requests.request")
@@ -85,13 +91,18 @@ class TestVidispineRequest(PortalBaseTestCase):
 
         result = vidispine_request("GET", "/some/path", runas="other_user")
 
-        mock_request.assert_called_once_with(
-            "GET",
-            "http://vidispine.test:8080/API/some/path",
-            auth=("test_user", "test_password"),
-            headers={"Accept": "application/json", "RunAs": "other_user"},
+        self.assertEqual(
+            mock_request.mock_calls,
+            [
+                call(
+                    "GET",
+                    "http://vidispine.test:8080/API/some/path",
+                    auth=("test_user", "test_password"),
+                    headers={"Accept": "application/json", "RunAs": "other_user"},
+                ),
+                call().raise_for_status(),
+            ],
         )
-        mock_response.raise_for_status.assert_called_once()
         self.assertEqual(result, mock_response)
 
     @patch("portal.plugins.av_lta.vs_helpers.requests.request")
@@ -105,13 +116,18 @@ class TestVidispineRequest(PortalBaseTestCase):
 
         result = vidispine_request("GET", "/some/path", headers={"Custom-Header": "value"})
 
-        mock_request.assert_called_once_with(
-            "GET",
-            "http://vidispine.test:8080/API/some/path",
-            auth=("test_user", "test_password"),
-            headers={"Accept": "application/json", "Custom-Header": "value"},
+        self.assertEqual(
+            mock_request.mock_calls,
+            [
+                call(
+                    "GET",
+                    "http://vidispine.test:8080/API/some/path",
+                    auth=("test_user", "test_password"),
+                    headers={"Accept": "application/json", "Custom-Header": "value"},
+                ),
+                call().raise_for_status(),
+            ],
         )
-        mock_response.raise_for_status.assert_called_once()
         self.assertEqual(result, mock_response)
 
     @patch("portal.plugins.av_lta.vs_helpers.requests.request")
@@ -127,8 +143,18 @@ class TestVidispineRequest(PortalBaseTestCase):
         with self.assertRaises(HTTPError):
             vidispine_request("GET", "/some/path")
 
-        mock_request.assert_called_once()
-        mock_response.raise_for_status.assert_called_once()
+        self.assertEqual(
+            mock_request.mock_calls,
+            [
+                call(
+                    "GET",
+                    "http://vidispine.test:8080/API/some/path",
+                    auth=("test_user", "test_password"),
+                    headers={"Accept": "application/json"},
+                ),
+                call().raise_for_status(),
+            ],
+        )
 
 
 class TestImportShapeRaw(PortalBaseTestCase):
@@ -141,22 +167,27 @@ class TestImportShapeRaw(PortalBaseTestCase):
 
         result = import_shape_raw(item_id=item_id, data=data)
 
-        mock_vidispine_request.assert_called_once_with(
-            "POST",
-            f"/item/{item_id}/shape/raw",
-            params={
-                "tag": None,
-                "storageId": None,
-                "filename": None,
-                "transferPriority": None,
-                "transferId": None,
-                "notification": None,
-                "notificationData": None,
-                "priority": None,
-                "jobmetadata": None,
-            },
-            data=data,
-            runas=None,
+        self.assertEqual(
+            mock_vidispine_request.mock_calls,
+            [
+                call(
+                    "POST",
+                    f"/item/{item_id}/shape/raw",
+                    params={
+                        "tag": None,
+                        "storageId": None,
+                        "filename": None,
+                        "transferPriority": None,
+                        "transferId": None,
+                        "notification": None,
+                        "notificationData": None,
+                        "priority": None,
+                        "jobmetadata": None,
+                    },
+                    data=data,
+                    runas=None,
+                )
+            ],
         )
         self.assertEqual(result, mock_response)
 
@@ -193,21 +224,26 @@ class TestImportShapeRaw(PortalBaseTestCase):
             runas=runas,
         )
 
-        mock_vidispine_request.assert_called_once_with(
-            "POST",
-            f"/item/{item_id}/shape/raw",
-            params={
-                "tag": tag,
-                "storageId": storage_id,
-                "filename": filename,
-                "transferPriority": transfer_priority,
-                "transferId": transfer_id,
-                "notification": notification,
-                "notificationData": notification_data,
-                "priority": priority,
-                "jobmetadata": jobmetadata,
-            },
-            data=data,
-            runas=runas,
+        self.assertEqual(
+            mock_vidispine_request.mock_calls,
+            [
+                call(
+                    "POST",
+                    f"/item/{item_id}/shape/raw",
+                    params={
+                        "tag": tag,
+                        "storageId": storage_id,
+                        "filename": filename,
+                        "transferPriority": transfer_priority,
+                        "transferId": transfer_id,
+                        "notification": notification,
+                        "notificationData": notification_data,
+                        "priority": priority,
+                        "jobmetadata": jobmetadata,
+                    },
+                    data=data,
+                    runas=runas,
+                )
+            ],
         )
         self.assertEqual(result, mock_response)

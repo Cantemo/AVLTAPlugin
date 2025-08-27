@@ -18,6 +18,6 @@ class TestAVLTARegisterPlugin(PortalBaseTestCase):
         self.assertEqual(result["name"], "Accurate.Video LTA Plugin")
         self.assertEqual(result["author"], "Codemill AB")
         self.assertEqual(result["author_url"], "www.codemill.se")
-        self.assertEqual(result["notes"], "Copyright © 2022-2024. All rights reserved.")
+        self.assertEqual(result["notes"], "Copyright © 2025. All rights reserved.")
         self.assertEqual(result["enabled"], True)
         self.assertEqual(result["app_id"], "se.codemill.portal.av_lta")
