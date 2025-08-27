@@ -1,3 +1,4 @@
+from datetime import datetime
 from unittest.mock import ANY
 from unittest.mock import MagicMock
 from unittest.mock import call
@@ -243,10 +244,21 @@ class TestSubtitlePublishView(PortalBaseTestCase):
         with self.assertRaises(NotFound):
             view.post(mock_request)
 
+    @patch("portal.plugins.av_lta.views.datetime")
+    @patch("portal.plugins.av_lta.views.StorageHelper")
     @patch("portal.plugins.av_lta.views.ItemHelper")
-    @patch("portal.plugins.av_lta.views.import_shape_raw")
+    @patch("portal.plugins.av_lta.views.update_or_create_file_data")
+    @patch("portal.plugins.av_lta.views.import_shape_from_existing_file")
     @patch("portal.plugins.av_lta.views.get_filename")
-    def test_post_with_valid_data(self, mock_get_filename, mock_import_shape_raw, mock_item_helper):
+    def test_post_with_valid_data(
+        self,
+        mock_get_filename,
+        mock_import_shape_from_existing_file,
+        mock_update_or_create_file_data,
+        mock_item_helper,
+        mock_storage_helper,
+        mock_datetime,
+    ):
         mock_request = MagicMock()
         mock_request.query_params = {"fileId": "shape1_comp1", "itemIds": "TEST-1"}
         mock_request.data = "<ttml></ttml>"
@@ -257,21 +269,38 @@ class TestSubtitlePublishView(PortalBaseTestCase):
         mock_item.json_object = {"id": "TEST-1"}
         mock_shape.getSubtitleComponents.return_value = [mock_component]
         mock_component.getId.return_value = "comp1"
-        mock_component_files = [MagicMock()]
+        mock_component_file = MagicMock()
+        mock_component_file.getStorageId.return_value = "VX-1"
+        mock_component_files = [mock_component_file]
         mock_component.getFiles.return_value = mock_component_files
         mock_get_filename.return_value = "test.ttml"
         mock_instance = MagicMock()
         mock_instance.getItems.return_value = [mock_item]
         mock_item_helper.return_value = mock_instance
         mock_item.getShapeById.return_value = mock_shape
+        mock_storage_helper_instance = MagicMock()
+        mock_storage_helper_instance.createFileEntity.return_value = {"id": "new_file_id", "name": "test.ttml"}
+        mock_storage_helper.return_value = mock_storage_helper_instance
+        mock_datetime.now.return_value = datetime.fromisoformat("2025-01-01T00:00:00")
 
         view = SubtitlePublishView()
         response = view.post(mock_request)
 
         self.assertEqual(response.status_code, 200)
         self.assertEqual(
-            mock_import_shape_raw.mock_calls,
-            [call(item_id="TEST-1", data="<ttml></ttml>", filename="test.ttml", tag="av-subtitle", runas="user")],
+            mock_storage_helper_instance.createFileEntity.mock_calls,
+            [
+                call(storageId="VX-1", filepath="test.ttml", createOnly=True),
+                call(storageId="VX-1", filepath="test_2025_01_01__00_00_00.ttml", createOnly=True),
+            ],
+        )
+        self.assertEqual(
+            mock_update_or_create_file_data.mock_calls,
+            [call(file_id="new_file_id", data="<ttml></ttml>", runas="user")],
+        )
+        self.assertEqual(
+            mock_import_shape_from_existing_file.mock_calls,
+            [call(item_id="TEST-1", file_id="new_file_id", tag="av-subtitle", runas="user")],
         )
 
 

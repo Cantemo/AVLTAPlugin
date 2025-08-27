@@ -3,6 +3,8 @@ import json
 from django import forms
 from django.utils.safestring import SafeString
 from django.utils.translation import gettext as _
+from portal.externals.VidiRest.objects.storage import VSStorage
+from portal.vidispine.istorage import StorageHelper
 
 
 class SettingsForm(forms.Form):
@@ -29,6 +31,23 @@ class SettingsForm(forms.Form):
         required=False,
         widget=forms.Textarea,
     )
+    AV_LTA_TARGET_STORAGE_ID = forms.ChoiceField(
+        choices=[("VX-1", "VX-1")],
+        label=_("Target storage ID"),
+        help_text=_(
+            "ID of the storage to use when storing subtitle files. Defaults to the first storage of the origin file if not set."
+        ),
+        required=False,
+    )
+
+    def __init__(self, *args, **kwargs):
+        self.base_fields["AV_LTA_TARGET_STORAGE_ID"].choices = self.get_storage_choices()
+        super().__init__(*args, **kwargs)
+
+    def get_storage_choices(self) -> list[tuple[str, str]]:
+        storage_helper = StorageHelper()
+        storages: list[VSStorage] = storage_helper.getAllStorages()
+        return [("", _("Default"))] + list((storage.getId(), storage.getId()) for storage in storages)
 
     def clean_AV_LTA_APPS_URL(self):
         url = self.cleaned_data.get("AV_LTA_APPS_URL")

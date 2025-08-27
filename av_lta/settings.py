@@ -11,6 +11,7 @@ class PluginSettings(object):
     AV_LTA_FORCE_FULL_DOMAIN = False
     AV_LTA_PUBLISH_SHAPE_TAG = "av-subtitle"
     AV_LTA_EXTRA_SETTINGS = ""
+    AV_LTA_TARGET_STORAGE_ID = ""
 
     def __getattribute__(self, name):
         db_setting_value = None

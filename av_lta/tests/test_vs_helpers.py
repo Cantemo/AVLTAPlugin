@@ -75,6 +75,7 @@ class TestVidispineRequest(PortalBaseTestCase):
                     auth=("test_user", "test_password"),
                     headers={"Accept": "application/json"},
                 ),
+                call().ok.__bool__(),
                 call().raise_for_status(),
             ],
         )
@@ -100,6 +101,7 @@ class TestVidispineRequest(PortalBaseTestCase):
                     auth=("test_user", "test_password"),
                     headers={"Accept": "application/json", "RunAs": "other_user"},
                 ),
+                call().ok.__bool__(),
                 call().raise_for_status(),
             ],
         )
@@ -125,6 +127,7 @@ class TestVidispineRequest(PortalBaseTestCase):
                     auth=("test_user", "test_password"),
                     headers={"Accept": "application/json", "Custom-Header": "value"},
                 ),
+                call().ok.__bool__(),
                 call().raise_for_status(),
             ],
         )
@@ -152,6 +155,7 @@ class TestVidispineRequest(PortalBaseTestCase):
                     auth=("test_user", "test_password"),
                     headers={"Accept": "application/json"},
                 ),
+                call().ok.__bool__(),
                 call().raise_for_status(),
             ],
         )

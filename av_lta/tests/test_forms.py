@@ -1,4 +1,7 @@
+from unittest.mock import patch
+
 from portal.plugins.av_lta.forms import SettingsForm
+from portal.plugins.rulesengine3.bpmtemplates.Lib.tests.mock import MagicMock
 from portal.utils.test_case import PortalBaseTestCase
 
 
@@ -9,6 +12,7 @@ class TestSettingsForm(PortalBaseTestCase):
             "AV_LTA_PUBLISH_SHAPE_TAG": "tag1",
             "AV_LTA_FORCE_FULL_DOMAIN": True,
             "AV_LTA_EXTRA_SETTINGS": '{"key": "value"}',
+            "AV_LTA_TARGET_STORAGE_ID": "VX-1",
         }
 
         form = SettingsForm(data=valid_data)
@@ -17,6 +21,28 @@ class TestSettingsForm(PortalBaseTestCase):
         minimal_data = {}
         form = SettingsForm(data=minimal_data)
         self.assertTrue(form.is_valid())
+
+    @patch("portal.plugins.av_lta.forms.StorageHelper")
+    def test_form_storage_choices(self, mock_storage_helper):
+        mock_storage_helper_instance = mock_storage_helper.return_value = MagicMock()
+        storage1 = MagicMock()
+        storage2 = MagicMock()
+        storage3 = MagicMock()
+        storage1.getId.return_value = "VX-1"
+        storage2.getId.return_value = "VX-2"
+        storage3.getId.return_value = "VX-3"
+        mock_storage_helper_instance.getAllStorages.return_value = [storage1, storage2, storage3]
+        form = SettingsForm(data={"AV_LTA_APPS_URL": ""})
+
+        self.assertEqual(
+            form.fields["AV_LTA_TARGET_STORAGE_ID"].choices,
+            [
+                ("", "Default"),
+                ("VX-1", "VX-1"),
+                ("VX-2", "VX-2"),
+                ("VX-3", "VX-3"),
+            ],
+        )
 
     def test_form_invalid_json(self):
         invalid_data = {"AV_LTA_EXTRA_SETTINGS": "{invalid json}"}

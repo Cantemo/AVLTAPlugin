@@ -1,7 +1,9 @@
 import json
 import logging
+import os
 import re
 from dataclasses import asdict
+from datetime import datetime
 from pathlib import Path
 from urllib.parse import urlencode
 from urllib.parse import urlparse
@@ -23,6 +25,7 @@ from portal.generic.baseviews import CView
 from portal.utils.general import get_site_domain
 from portal.vidispine.iexception import NotFoundError
 from portal.vidispine.iitem import ItemHelper
+from portal.vidispine.istorage import StorageHelper
 from requests import HTTPError
 from rest_framework.exceptions import NotFound
 from rest_framework.parsers import BaseParser
@@ -33,6 +36,7 @@ from ...externals.VidiRest.objects.item import VSItem  # type: ignore
 from ...externals.VidiRest.objects.shape import VSBinaryComponent  # type: ignore
 from ...externals.VidiRest.objects.shape import VSShape  # type: ignore
 from ...externals.VidiRest.objects.shape import VSSubtitleComponent  # type: ignore
+from ...externals.VidiRest.objects.storage import VSFile  # type: ignore
 from .forms import SettingsForm
 from .lta_types import Data
 from .lta_types import Endpoint
@@ -47,7 +51,8 @@ from .settings import plugin_settings
 from .transform import get_filename
 from .transform import transform_items_to_lta_assets
 from .utils import clean_nones
-from .vs_helpers import import_shape_raw
+from .vs_helpers import import_shape_from_existing_file
+from .vs_helpers import update_or_create_file_data
 
 log = logging.getLogger(__name__)
 
@@ -155,6 +160,7 @@ class SubtitlePublishView(CView):
                 raise BadRequest("No items could be found")
             raw_ttml_contents = request.data
             item_helper = ItemHelper(runas=request.user)
+            storage_helper = StorageHelper(runas=request.user)
             items: list[VSItem] = item_helper.getItems(
                 item_ids=item_ids,
                 content={
@@ -176,6 +182,7 @@ class SubtitlePublishView(CView):
                 component=component,
                 data=raw_ttml_contents,
                 item_helper=item_helper,
+                storage_helper=storage_helper,
                 runas=request.user,
             )
 
@@ -196,17 +203,70 @@ class SubtitlePublishView(CView):
         self,
         item: VSItem,
         shape: VSShape,
-        component: VSSubtitleComponent | VSBinaryComponent,
-        data: str,
+        component: VSSubtitleComponent | VSBinaryComponent | None,
+        data: bytes,
         item_helper: ItemHelper,
+        storage_helper: StorageHelper,
         runas: str,
     ):
         item_id = item.json_object["id"]
         filename = get_filename(shape.getAllFiles()) if component is None else get_filename(component.getFiles())
         self._create_shape_if_needed(shape_tag=plugin_settings.AV_LTA_PUBLISH_SHAPE_TAG, item_helper=item_helper)
-        import_shape_raw(
-            item_id=item_id, data=data, filename=filename, tag=plugin_settings.AV_LTA_PUBLISH_SHAPE_TAG, runas=runas
+
+        storage_id = None
+        if plugin_settings.AV_LTA_TARGET_STORAGE_ID:
+            storage_id = plugin_settings.AV_LTA_TARGET_STORAGE_ID
+        else:
+            files: list[VSFile] = component.getFiles() if component else shape.getAllFiles()
+            if len(files) > 0:
+                file: VSFile = files[0]
+                storage_id = file.getStorageId()
+        if storage_id is None:
+            raise NotFound("Unable to determine on what storage to store subtitle file")
+
+        suggested_file_path = f"{filename}"
+        new_file_id, _ = self._get_file_id_and_filename_for_new_file(
+            file_path=suggested_file_path, storage_id=storage_id, storage_helper=storage_helper
         )
+        update_or_create_file_data(file_id=new_file_id, data=data, runas=runas)
+        import_shape_from_existing_file(
+            item_id=item_id, file_id=new_file_id, tag=plugin_settings.AV_LTA_PUBLISH_SHAPE_TAG, runas=runas
+        )
+
+    @staticmethod
+    def _get_file_id_and_filename_for_new_file(
+        file_path: str, storage_id: str, storage_helper: StorageHelper
+    ) -> tuple[str, str]:
+        """
+        Get a Vidispine File ID for storing data - adds a timestamp if a file with the original filename already
+        exists.
+        """
+        new_file_id, is_new_file = SubtitlePublishView._get_file_id_and_is_new_file(
+            file_path, storage_id, storage_helper
+        )
+        if not is_new_file:
+            # File already exists on storage
+            file_path = SubtitlePublishView._append_timestamp(file_path)
+            new_file_id, _ = SubtitlePublishView._get_file_id_and_is_new_file(file_path, storage_id, storage_helper)
+        return new_file_id, os.path.basename(file_path)
+
+    @staticmethod
+    def _get_file_id_and_is_new_file(
+        file_path: str, storage_id: str, storage_helper: StorageHelper
+    ) -> tuple[str, bool]:
+        """
+        Get a File ID for a file in Vidispine, and a boolean true/false whether this it's a new file registered.
+        """
+        vidispine_file_info = storage_helper.createFileEntity(storageId=storage_id, filepath=file_path, createOnly=True)
+        # The above API is weird - return value has only "id" when it's an existing file and gives fileAlreadyExists
+        # error, but more details like "state" for new files
+        return vidispine_file_info["id"], "state" in vidispine_file_info
+
+    @staticmethod
+    def _append_timestamp(file_path: str) -> str:
+        datetime_iso = datetime.now().isoformat()
+        datetime_postfix = "_" + datetime_iso.replace("-", "_").replace("T", "__").replace(":", "_").replace(".", "_")
+        return datetime_postfix.join(os.path.splitext(file_path))
 
     @staticmethod
     def _create_shape_if_needed(shape_tag: str, item_helper: ItemHelper) -> bool:
@@ -368,9 +428,7 @@ class AdminIndexView(FormView):
     form_class = SettingsForm
 
     def get_initial(self):
-        return {
-            key: field.clean(getattr(plugin_settings, key)) for (key, field) in self.form_class.declared_fields.items()
-        }
+        return {key: getattr(plugin_settings, key) for (key, field) in self.form_class.base_fields.items()}
 
     def form_valid(self, form):
         for key, value in form.cleaned_data.items():
