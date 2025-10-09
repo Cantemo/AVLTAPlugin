@@ -29,6 +29,8 @@ The plugin adds the role _"Subtitle"_ (`av_lta_role_subtitle`) (under _"AV LTA R
    ```
 5. Assign the role _"AV LTA Roles" > "Subtitle"_ to the users/groups that should have access.
 
+**WARNING**: This plugin uses the VSSubtitleComponent and shape.getSubtitleComponents APIs introduced in Cantemo 6.0.4. Installation will succeed on older versions, but Cantemo will fail to start due to these missing APIs. To resolve this, either upgrade Cantemo or remove the code from the plugin that depends on them.
+
 ## Development
 
 This project uses [uv](https://docs.astral.sh/uv/) as the package and project manager.
