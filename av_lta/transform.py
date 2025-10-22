@@ -193,7 +193,8 @@ def transform_shape_to_lta_files(shape: VSShape, force_full_domain=False) -> lis
         )
 
     for video_component in video_components:
-        container.videoStreams.append(_transform_video_component_to_video_stream(video_component))
+        if video_component.getFramerateAsFraction():
+            container.videoStreams.append(_transform_video_component_to_video_stream(video_component))
 
     for audio_component in audio_components:
         container.audioStreams.append(_transform_audio_component_to_audio_stream(audio_component))

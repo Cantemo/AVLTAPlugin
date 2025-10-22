@@ -1,0 +1,2901 @@
+{
+  "replace_urls_dict": {
+    "http://127.0.0.1:8080/APInoauth/": "/APInoauth/",
+    "http://localhost:8080/APInoauth/": "/APInoauth/",
+    "http://localhost.localdomain:8080/APInoauth/": "/APInoauth/",
+    "http://vidispine:8080/APInoauth/": "/APInoauth/"
+  },
+  "json_object": {
+    "metadata": {
+      "revision": "VX-162,VX-161,VX-164,VX-166,VX-165,VX-168,VX-167,VX-169",
+      "group": [
+        "Film"
+      ],
+      "timespan": [
+        {
+          "field": [
+            {
+              "name": "portal_mf201890",
+              "id": [],
+              "value": [
+                {
+                  "value": "",
+                  "uuid": "b89fef66-4a0b-4a3e-bd48-698bf6c17657",
+                  "user": "admin",
+                  "timestamp": "2025-10-21T12:53:30.837+0000",
+                  "change": "VX-161"
+                }
+              ],
+              "data": [
+                {
+                  "key": "extradata",
+                  "value": "{\"description\": \"The season number of the item\", \"type\": \"integer\", \"name\": \"Season\", \"Film\": {\"required\": false, \"hideifnotset\": false, \"representative\": false}, \"order\": 1, \"sortable\": false, \"default\": \"\", \"externalid\": \"\", \"pattern\": null, \"reusable\": false, \"singleton\": null, \"default_framerate\": null, \"readonly\": false, \"autoset\": false, \"vertical_mode\": false, \"cascading\": false, \"language\": \"\", \"min\": 0, \"max\": -1}"
+                }
+              ],
+              "type": {
+                "name": "portal_mf201890",
+                "type": "integer",
+                "integerRestriction": {},
+                "data": [
+                  {
+                    "key": "extradata",
+                    "value": "{\"description\": \"The season number of the item\", \"type\": \"integer\", \"name\": \"Season\", \"Film\": {\"required\": false, \"hideifnotset\": false, \"representative\": false}, \"order\": 1, \"sortable\": false, \"default\": \"\", \"externalid\": \"\", \"pattern\": null, \"reusable\": false, \"singleton\": null, \"default_framerate\": null, \"readonly\": false, \"autoset\": false, \"vertical_mode\": false, \"cascading\": false, \"language\": \"\", \"min\": 0, \"max\": -1}"
+                  }
+                ],
+                "defaultValue": "",
+                "origin": "VX"
+              },
+              "uuid": "6cf405d6-4a05-4a69-975d-bb0cd7d43a3b",
+              "user": "admin",
+              "timestamp": "2025-10-21T12:53:30.837+0000",
+              "change": "VX-161"
+            },
+            {
+              "name": "portal_mf551902",
+              "id": [],
+              "value": [
+                {
+                  "value": "",
+                  "uuid": "47a71078-e763-43e2-8153-23bcf3508ee9",
+                  "user": "admin",
+                  "timestamp": "2025-10-21T12:53:30.837+0000",
+                  "change": "VX-161"
+                }
+              ],
+              "data": [
+                {
+                  "key": "extradata",
+                  "value": "{\"description\": \"The episode number of the item\", \"type\": \"integer\", \"name\": \"Episode\", \"Film\": {\"required\": false, \"hideifnotset\": false, \"representative\": false}, \"order\": 2, \"sortable\": false, \"default\": \"\", \"externalid\": \"\", \"pattern\": null, \"reusable\": false, \"singleton\": null, \"default_framerate\": null, \"readonly\": false, \"autoset\": false, \"vertical_mode\": false, \"cascading\": false, \"language\": \"\", \"min\": 0, \"max\": -1}"
+                }
+              ],
+              "type": {
+                "name": "portal_mf551902",
+                "type": "integer",
+                "integerRestriction": {},
+                "data": [
+                  {
+                    "key": "extradata",
+                    "value": "{\"description\": \"The episode number of the item\", \"type\": \"integer\", \"name\": \"Episode\", \"Film\": {\"required\": false, \"hideifnotset\": false, \"representative\": false}, \"order\": 2, \"sortable\": false, \"default\": \"\", \"externalid\": \"\", \"pattern\": null, \"reusable\": false, \"singleton\": null, \"default_framerate\": null, \"readonly\": false, \"autoset\": false, \"vertical_mode\": false, \"cascading\": false, \"language\": \"\", \"min\": 0, \"max\": -1}"
+                  }
+                ],
+                "defaultValue": "",
+                "origin": "VX"
+              },
+              "uuid": "ad52ce96-0f4a-4e1b-be87-c1560ec11fe5",
+              "user": "admin",
+              "timestamp": "2025-10-21T12:53:30.837+0000",
+              "change": "VX-161"
+            },
+            {
+              "name": "portal_mf619153",
+              "id": [],
+              "value": [
+                {
+                  "value": "",
+                  "uuid": "31e0a1bc-0779-494c-94be-36604f853c34",
+                  "user": "admin",
+                  "timestamp": "2025-10-21T12:53:30.837+0000",
+                  "change": "VX-161"
+                }
+              ],
+              "data": [
+                {
+                  "key": "extradata",
+                  "value": "{\"description\": \"The plot of the item\", \"type\": \"textarea\", \"name\": \"Description\", \"Film\": {\"required\": null, \"hideifnotset\": null, \"representative\": null}, \"order\": 3, \"sortable\": false, \"default\": null, \"externalid\": null, \"pattern\": null, \"reusable\": null, \"singleton\": null, \"default_framerate\": null, \"readonly\": null, \"autoset\": false, \"vertical_mode\": false, \"cascading\": false, \"language\": null, \"min\": null, \"max\": null}"
+                }
+              ],
+              "type": {
+                "name": "portal_mf619153",
+                "type": "string",
+                "stringRestriction": {
+                  "minLength": 0,
+                  "maxLength": 255
+                },
+                "data": [
+                  {
+                    "key": "extradata",
+                    "value": "{\"description\": \"The plot of the item\", \"type\": \"textarea\", \"name\": \"Description\", \"Film\": {\"required\": null, \"hideifnotset\": null, \"representative\": null}, \"order\": 3, \"sortable\": false, \"default\": null, \"externalid\": null, \"pattern\": null, \"reusable\": null, \"singleton\": null, \"default_framerate\": null, \"readonly\": null, \"autoset\": false, \"vertical_mode\": false, \"cascading\": false, \"language\": null, \"min\": null, \"max\": null}"
+                  }
+                ],
+                "origin": "VX"
+              },
+              "uuid": "398eb58d-0bb7-4530-9e0e-04d64d0217da",
+              "user": "admin",
+              "timestamp": "2025-10-21T12:53:30.837+0000",
+              "change": "VX-161"
+            },
+            {
+              "name": "portal_mf257027",
+              "id": [],
+              "value": [
+                {
+                  "value": "",
+                  "uuid": "eba1720a-fb69-43e4-aa7c-a609f066dfad",
+                  "user": "admin",
+                  "timestamp": "2025-10-21T12:53:30.837+0000",
+                  "change": "VX-161"
+                }
+              ],
+              "data": [
+                {
+                  "key": "extradata",
+                  "value": "{\"description\": \"The language code of the item\", \"type\": \"lookup\", \"name\": \"Language\", \"Film\": {\"required\": false, \"hideifnotset\": false, \"representative\": false}, \"order\": 4, \"sortable\": false, \"default\": \"\", \"externalid\": \"\", \"pattern\": null, \"reusable\": false, \"singleton\": null, \"default_framerate\": null, \"readonly\": false, \"autoset\": false, \"vertical_mode\": false, \"cascading\": false, \"language\": \"\", \"min\": \"0\", \"max\": \"-1\"}"
+                }
+              ],
+              "type": {
+                "name": "portal_mf257027",
+                "type": "string-exact",
+                "stringRestriction": {},
+                "data": [
+                  {
+                    "key": "extradata",
+                    "value": "{\"description\": \"The language code of the item\", \"type\": \"lookup\", \"name\": \"Language\", \"Film\": {\"required\": false, \"hideifnotset\": false, \"representative\": false}, \"order\": 4, \"sortable\": false, \"default\": \"\", \"externalid\": \"\", \"pattern\": null, \"reusable\": false, \"singleton\": null, \"default_framerate\": null, \"readonly\": false, \"autoset\": false, \"vertical_mode\": false, \"cascading\": false, \"language\": \"\", \"min\": \"0\", \"max\": \"-1\"}"
+                  }
+                ],
+                "defaultValue": "",
+                "origin": "VX"
+              },
+              "uuid": "481db175-845a-4a3e-b4f4-2f527bca4aa9",
+              "user": "admin",
+              "timestamp": "2025-10-21T12:53:30.837+0000",
+              "change": "VX-161"
+            },
+            {
+              "name": "portal_mf268857",
+              "id": [],
+              "value": [
+                {
+                  "value": "2025-12-31T00:00:00+01:00",
+                  "uuid": "84f2189f-3b43-4c3c-8a5e-20cc693977ec",
+                  "user": "admin",
+                  "timestamp": "2025-10-21T12:53:30.837+0000",
+                  "change": "VX-161"
+                }
+              ],
+              "data": [
+                {
+                  "key": "extradata",
+                  "value": "{\"description\": \"The release date for the item\", \"type\": \"date\", \"name\": \"Release date\", \"Film\": {\"required\": true, \"hideifnotset\": false, \"representative\": false}, \"order\": 5, \"sortable\": false, \"default\": null, \"externalid\": \"\", \"pattern\": null, \"reusable\": false, \"singleton\": null, \"default_framerate\": null, \"readonly\": false, \"autoset\": false, \"vertical_mode\": false, \"cascading\": false, \"language\": \"\", \"min\": 0, \"max\": -1}"
+                }
+              ],
+              "type": {
+                "name": "portal_mf268857",
+                "type": "date",
+                "data": [
+                  {
+                    "key": "extradata",
+                    "value": "{\"description\": \"The release date for the item\", \"type\": \"date\", \"name\": \"Release date\", \"Film\": {\"required\": true, \"hideifnotset\": false, \"representative\": false}, \"order\": 5, \"sortable\": false, \"default\": null, \"externalid\": \"\", \"pattern\": null, \"reusable\": false, \"singleton\": null, \"default_framerate\": null, \"readonly\": false, \"autoset\": false, \"vertical_mode\": false, \"cascading\": false, \"language\": \"\", \"min\": 0, \"max\": -1}"
+                  }
+                ],
+                "origin": "VX"
+              },
+              "uuid": "b5c0814f-d27e-4a20-90bb-8082fcfcbad0",
+              "user": "admin",
+              "timestamp": "2025-10-21T12:53:30.837+0000",
+              "change": "VX-161"
+            },
+            {
+              "name": "title",
+              "id": [],
+              "value": [
+                {
+                  "value": "Item with video and image",
+                  "uuid": "7f6c9231-757a-4145-aa25-f9f3c6d46356",
+                  "user": "admin",
+                  "timestamp": "2025-10-21T12:53:30.837+0000",
+                  "change": "VX-161"
+                }
+              ],
+              "data": [],
+              "type": {
+                "name": "title",
+                "type": "string",
+                "data": [],
+                "origin": "VX"
+              },
+              "uuid": "0fa02261-6010-4cb8-844c-c85e06adc7c9",
+              "user": "admin",
+              "timestamp": "2025-10-21T12:53:30.837+0000",
+              "change": "VX-161"
+            },
+            {
+              "name": "created",
+              "id": [],
+              "value": [
+                {
+                  "value": "2025-10-21T12:53:30.775Z",
+                  "uuid": "3649477d-31ad-4a72-bc2c-19b4ae20d410",
+                  "user": "system",
+                  "timestamp": "2025-10-21T12:53:30.903+0000",
+                  "change": "VX-162"
+                }
+              ],
+              "data": [],
+              "type": {
+                "name": "created",
+                "type": "date",
+                "data": [],
+                "origin": "VX",
+                "system": "true"
+              },
+              "uuid": "d380a630-fbbb-4699-bcce-41cc9bfe9577",
+              "user": "system",
+              "timestamp": "2025-10-21T12:53:30.903+0000",
+              "change": "VX-162"
+            },
+            {
+              "name": "originalFormat",
+              "id": [],
+              "value": [
+                {
+                  "value": "mov,mp4,m4a,3gp,3g2,mj2",
+                  "uuid": "e953f563-048b-486d-8793-51d3536c1b0d",
+                  "user": "system",
+                  "timestamp": "2025-10-21T12:53:31.026+0000",
+                  "change": "VX-164"
+                }
+              ],
+              "data": [],
+              "type": {
+                "name": "originalFormat",
+                "type": "string-exact",
+                "data": [],
+                "origin": "VX",
+                "system": "true"
+              },
+              "uuid": "b15060a6-414f-46b2-a5bf-7f9a7d38c261",
+              "user": "system",
+              "timestamp": "2025-10-21T12:53:31.026+0000",
+              "change": "VX-164"
+            },
+            {
+              "name": "originalVideoCodec",
+              "id": [],
+              "value": [
+                {
+                  "value": "h264",
+                  "uuid": "c1c9d47e-f947-4a65-bb1c-ae704da8c113",
+                  "user": "system",
+                  "timestamp": "2025-10-21T12:53:31.026+0000",
+                  "change": "VX-164"
+                }
+              ],
+              "data": [],
+              "type": {
+                "name": "originalVideoCodec",
+                "type": "string-exact",
+                "data": [],
+                "origin": "VX",
+                "system": "true"
+              },
+              "uuid": "83ff6ec3-08e6-4836-9314-da6849524dfe",
+              "user": "system",
+              "timestamp": "2025-10-21T12:53:31.026+0000",
+              "change": "VX-164"
+            },
+            {
+              "name": "originalAudioCodec",
+              "id": [],
+              "value": [
+                {
+                  "value": "aac",
+                  "uuid": "ee74d713-e46f-47b9-bd84-18b7ef376a82",
+                  "user": "system",
+                  "timestamp": "2025-10-21T12:53:31.026+0000",
+                  "change": "VX-164"
+                }
+              ],
+              "data": [],
+              "type": {
+                "name": "originalAudioCodec",
+                "type": "string-exact",
+                "data": [],
+                "origin": "VX",
+                "system": "true"
+              },
+              "uuid": "7c42ce34-e5b4-4f1e-9860-a12cf54cdf13",
+              "user": "system",
+              "timestamp": "2025-10-21T12:53:31.026+0000",
+              "change": "VX-164"
+            },
+            {
+              "name": "durationSeconds",
+              "id": [],
+              "value": [
+                {
+                  "value": "3.8385",
+                  "uuid": "a2cb97dd-5379-4fbb-91e7-8edd47ab9c65",
+                  "user": "system",
+                  "timestamp": "2025-10-21T12:53:31.026+0000",
+                  "change": "VX-164"
+                }
+              ],
+              "data": [],
+              "type": {
+                "name": "durationSeconds",
+                "type": "float",
+                "data": [],
+                "origin": "VX",
+                "system": "true"
+              },
+              "uuid": "5b6b9d81-2788-43c5-bb1b-bebbbd1015f8",
+              "user": "system",
+              "timestamp": "2025-10-21T12:53:31.026+0000",
+              "change": "VX-164"
+            },
+            {
+              "name": "durationTimeCode",
+              "id": [],
+              "value": [
+                {
+                  "value": "3838500@1000000",
+                  "uuid": "7a3fe7c2-73ec-490c-b9a0-8988e0f0f185",
+                  "user": "system",
+                  "timestamp": "2025-10-21T12:53:31.026+0000",
+                  "change": "VX-164"
+                }
+              ],
+              "data": [],
+              "type": {
+                "name": "durationTimeCode",
+                "type": "string-noindex",
+                "data": [],
+                "origin": "VX",
+                "system": "true"
+              },
+              "uuid": "fe499212-2bb5-4921-a20f-99aaff4f7b4f",
+              "user": "system",
+              "timestamp": "2025-10-21T12:53:31.026+0000",
+              "change": "VX-164"
+            },
+            {
+              "name": "originalWidth",
+              "id": [],
+              "value": [
+                {
+                  "value": "3840",
+                  "uuid": "10282509-ad8e-4605-842e-2d563e4fb881",
+                  "user": "system",
+                  "timestamp": "2025-10-21T12:53:31.026+0000",
+                  "change": "VX-164"
+                }
+              ],
+              "data": [],
+              "type": {
+                "name": "originalWidth",
+                "type": "integer",
+                "data": [],
+                "origin": "VX",
+                "system": "true"
+              },
+              "uuid": "34d682e5-64f0-4560-a921-6e023f38ea42",
+              "user": "system",
+              "timestamp": "2025-10-21T12:53:31.026+0000",
+              "change": "VX-164"
+            },
+            {
+              "name": "originalHeight",
+              "id": [],
+              "value": [
+                {
+                  "value": "2160",
+                  "uuid": "abb104c8-dc5f-49d1-b279-ceb844cf4cf7",
+                  "user": "system",
+                  "timestamp": "2025-10-21T12:53:31.026+0000",
+                  "change": "VX-164"
+                }
+              ],
+              "data": [],
+              "type": {
+                "name": "originalHeight",
+                "type": "integer",
+                "data": [],
+                "origin": "VX",
+                "system": "true"
+              },
+              "uuid": "1044668e-da17-484c-9120-69435653660c",
+              "user": "system",
+              "timestamp": "2025-10-21T12:53:31.026+0000",
+              "change": "VX-164"
+            },
+            {
+              "name": "mimeType",
+              "id": [],
+              "value": [
+                {
+                  "value": "video/mp4",
+                  "uuid": "3618c16d-3e53-4a5d-bfc5-473616fb226f",
+                  "user": "system",
+                  "timestamp": "2025-10-21T12:53:31.026+0000",
+                  "change": "VX-164"
+                }
+              ],
+              "data": [],
+              "type": {
+                "name": "mimeType",
+                "type": "string-exact",
+                "data": [],
+                "origin": "VX",
+                "system": "true"
+              },
+              "uuid": "59dc3845-37bc-4160-8c1b-a2347240a08f",
+              "user": "system",
+              "timestamp": "2025-10-21T12:53:31.026+0000",
+              "change": "VX-164"
+            },
+            {
+              "name": "itemId",
+              "id": [],
+              "value": [
+                {
+                  "value": "VX-21",
+                  "uuid": "24c72322-e357-4e8a-84c9-12abf5f780ee",
+                  "user": "system",
+                  "timestamp": "2025-10-21T12:53:31.026+0000",
+                  "change": "VX-164"
+                }
+              ],
+              "data": [],
+              "type": {
+                "name": "itemId",
+                "type": "string-exact",
+                "data": [],
+                "origin": "VX",
+                "system": "true"
+              },
+              "uuid": "e59605bc-cc6f-4c71-929c-0aae8d9f0465",
+              "user": "system",
+              "timestamp": "2025-10-21T12:53:31.026+0000",
+              "change": "VX-164"
+            },
+            {
+              "name": "mediaType",
+              "id": [],
+              "value": [
+                {
+                  "value": "video",
+                  "uuid": "0b8c56db-3c4d-42f5-a62d-381c0c6ebd7c",
+                  "user": "system",
+                  "timestamp": "2025-10-21T12:53:31.026+0000",
+                  "change": "VX-164"
+                }
+              ],
+              "data": [],
+              "type": {
+                "name": "mediaType",
+                "type": "string-exact",
+                "data": [],
+                "origin": "VX",
+                "system": "true"
+              },
+              "uuid": "e6a9ef62-741f-42e9-93b7-71ec47023bc0",
+              "user": "system",
+              "timestamp": "2025-10-21T12:53:31.026+0000",
+              "change": "VX-164"
+            },
+            {
+              "name": "originalFilename",
+              "id": [],
+              "value": [
+                {
+                  "value": "video.mp4",
+                  "uuid": "1b2e07f5-8b50-44a3-be98-d8c02e97f465",
+                  "user": "system",
+                  "timestamp": "2025-10-21T12:53:31.049+0000",
+                  "change": "VX-165"
+                }
+              ],
+              "data": [],
+              "type": {
+                "name": "originalFilename",
+                "type": "string-exact",
+                "data": [],
+                "origin": "VX",
+                "system": "true"
+              },
+              "uuid": "5736e3ca-9445-44e9-8bd2-59b6df3faf86",
+              "user": "system",
+              "timestamp": "2025-10-21T12:53:31.049+0000",
+              "change": "VX-165"
+            },
+            {
+              "name": "portal_ingested",
+              "id": [],
+              "value": [
+                {
+                  "value": "2025-10-21T12:53:31.209Z",
+                  "uuid": "65e6499c-40aa-4298-b332-c6a01a29f235",
+                  "user": "admin",
+                  "timestamp": "2025-10-21T12:53:31.392+0000",
+                  "change": "VX-166"
+                }
+              ],
+              "data": [],
+              "type": {
+                "name": "portal_ingested",
+                "type": "date-sortable",
+                "data": [],
+                "origin": "VX"
+              },
+              "uuid": "d99bc9ba-f7bc-4613-855c-248bac10fbf0",
+              "user": "admin",
+              "timestamp": "2025-10-21T12:53:31.392+0000",
+              "change": "VX-166"
+            },
+            {
+              "name": "original_mimetype",
+              "id": [],
+              "value": [
+                {
+                  "value": "video/mp4",
+                  "uuid": "8d6f81e0-c3bc-4e50-bace-c1229e635896",
+                  "user": "admin",
+                  "timestamp": "2025-10-21T12:53:31.523+0000",
+                  "change": "VX-167"
+                }
+              ],
+              "data": [],
+              "type": {
+                "name": "original_mimetype",
+                "type": "string",
+                "data": [],
+                "origin": "VX"
+              },
+              "uuid": "0cce0a63-e8ac-4f42-8341-c80c91612f18",
+              "user": "admin",
+              "timestamp": "2025-10-21T12:53:31.523+0000",
+              "change": "VX-167"
+            },
+            {
+              "name": "representativeThumbnail",
+              "id": [],
+              "value": [
+                {
+                  "value": "/API/thumbnail/VX-2/VX-21;version=0/0@24000",
+                  "uuid": "e225ab21-e3ef-4860-aa40-a1c9eb57525e",
+                  "user": "system",
+                  "timestamp": "2025-10-21T12:53:39.531+0000",
+                  "change": "VX-168"
+                }
+              ],
+              "data": [],
+              "type": {
+                "name": "representativeThumbnail",
+                "type": "string-exact",
+                "index": "noindex",
+                "data": [],
+                "origin": "VX"
+              },
+              "uuid": "c6da10f2-0f6d-4489-ae2e-f7338c91098c",
+              "user": "system",
+              "timestamp": "2025-10-21T12:53:39.531+0000",
+              "change": "VX-168"
+            },
+            {
+              "name": "representativeThumbnailNoAuth",
+              "id": [],
+              "value": [
+                {
+                  "value": "/APInoauth/thumbnail/VX-2/VX-21;version=0/0@24000?hash=0b935043c4797e445f750a4ebc4c3572",
+                  "uuid": "0deed396-0db0-4f98-bdfd-a1a7c086605f",
+                  "user": "system",
+                  "timestamp": "2025-10-21T12:53:39.531+0000",
+                  "change": "VX-168"
+                }
+              ],
+              "data": [],
+              "type": {
+                "name": "representativeThumbnailNoAuth",
+                "type": "string-exact",
+                "index": "noindex",
+                "data": [],
+                "origin": "VX"
+              },
+              "uuid": "e3684a67-2624-4869-ae5a-ba297547042a",
+              "user": "system",
+              "timestamp": "2025-10-21T12:53:39.531+0000",
+              "change": "VX-168"
+            },
+            {
+              "name": "shapeTag",
+              "id": [],
+              "value": [
+                {
+                  "value": "item-attachment",
+                  "uuid": "5b0f02b9-607c-43c5-b249-c82be36449e0",
+                  "user": "system",
+                  "timestamp": "2025-10-21T12:54:41.957+0000",
+                  "change": "VX-169"
+                },
+                {
+                  "value": "original",
+                  "uuid": "fceae54d-62ec-428f-8ee5-c205f6d733fe",
+                  "user": "system",
+                  "timestamp": "2025-10-21T12:54:41.957+0000",
+                  "change": "VX-169"
+                },
+                {
+                  "value": "lowres",
+                  "uuid": "2fb12198-951a-4f88-a7b1-c3216bc64224",
+                  "user": "system",
+                  "timestamp": "2025-10-21T12:54:41.957+0000",
+                  "change": "VX-169"
+                }
+              ],
+              "data": [
+                {
+                  "key": "extradata",
+                  "value": "{\"type\": \"tags\", \"readonly\": true}"
+                }
+              ],
+              "type": {
+                "name": "shapeTag",
+                "type": "string-exact",
+                "index": "extend",
+                "data": [
+                  {
+                    "key": "extradata",
+                    "value": "{\"type\": \"tags\", \"readonly\": true}"
+                  }
+                ],
+                "origin": "VX",
+                "system": "true"
+              },
+              "uuid": "6ab69650-30e8-4594-917a-8f24826fc853",
+              "user": "system",
+              "timestamp": "2025-10-21T12:54:41.957+0000",
+              "change": "VX-169"
+            },
+            {
+              "name": "__user",
+              "value": [
+                {
+                  "value": "admin"
+                }
+              ]
+            },
+            {
+              "name": "user",
+              "value": [
+                {
+                  "value": "admin"
+                }
+              ]
+            },
+            {
+              "name": "__owner",
+              "value": [
+                {
+                  "value": "admin"
+                }
+              ]
+            },
+            {
+              "name": "__metadata_last_modified",
+              "value": [
+                {
+                  "value": "2025-10-21T12:54:41.957Z"
+                }
+              ]
+            },
+            {
+              "name": "__placeholder_shape_size",
+              "value": [
+                {
+                  "value": "0"
+                }
+              ]
+            },
+            {
+              "name": "__shape_size",
+              "value": [
+                {
+                  "value": "3"
+                }
+              ]
+            },
+            {
+              "name": "__shape",
+              "value": [
+                {
+                  "value": "VX-28"
+                }
+              ]
+            },
+            {
+              "name": "__shape",
+              "value": [
+                {
+                  "value": "VX-27"
+                }
+              ]
+            },
+            {
+              "name": "__shape",
+              "value": [
+                {
+                  "value": "VX-26"
+                }
+              ]
+            },
+            {
+              "name": "__version_count",
+              "value": [
+                {
+                  "value": "1"
+                }
+              ]
+            },
+            {
+              "name": "__version",
+              "value": [
+                {
+                  "value": "0"
+                }
+              ]
+            },
+            {
+              "name": "__shapetag_item-attachment_hash",
+              "value": [
+                {
+                  "value": "0e738bf4ec205293cca634533ea10317eb4d328f"
+                }
+              ]
+            },
+            {
+              "name": "__shapetag_lowres_hash",
+              "value": [
+                {
+                  "value": "9a85c095401e5eaefb90348f938e19a7098d9dd4"
+                }
+              ]
+            },
+            {
+              "name": "__shapetag_original_hash",
+              "value": [
+                {
+                  "value": "a66d150e88e23d3195de98b6d7ec367cdb226397"
+                }
+              ]
+            },
+            {
+              "name": "__shape_last_added",
+              "value": [
+                {
+                  "value": "2025-10-21T12:54:41.805Z"
+                }
+              ]
+            },
+            {
+              "name": "__storage_item-attachment",
+              "value": [
+                {
+                  "value": "VX-1"
+                }
+              ]
+            },
+            {
+              "name": "__storage_item-attachment_size",
+              "value": [
+                {
+                  "value": "1"
+                }
+              ]
+            },
+            {
+              "name": "__storage_lowres",
+              "value": [
+                {
+                  "value": "VX-1"
+                }
+              ]
+            },
+            {
+              "name": "__storage_lowres_size",
+              "value": [
+                {
+                  "value": "1"
+                }
+              ]
+            },
+            {
+              "name": "__storage_original",
+              "value": [
+                {
+                  "value": "VX-1"
+                }
+              ]
+            },
+            {
+              "name": "__storage_original_size",
+              "value": [
+                {
+                  "value": "1"
+                }
+              ]
+            },
+            {
+              "name": "__storage_size",
+              "value": [
+                {
+                  "value": "1"
+                }
+              ]
+            },
+            {
+              "name": "__storage",
+              "value": [
+                {
+                  "value": "VX-1"
+                }
+              ]
+            },
+            {
+              "name": "__storagegroup_size",
+              "value": [
+                {
+                  "value": "0"
+                }
+              ]
+            },
+            {
+              "name": "__sequence_size",
+              "value": [
+                {
+                  "value": "0"
+                }
+              ]
+            },
+            {
+              "name": "__collection_size",
+              "value": [
+                {
+                  "value": "0"
+                }
+              ]
+            },
+            {
+              "name": "__ancestor_collection_size",
+              "value": [
+                {
+                  "value": "0"
+                }
+              ]
+            }
+          ],
+          "group": [],
+          "start": "-INF",
+          "end": "+INF"
+        }
+      ]
+    },
+    "thumbnails": {
+      "uri": [
+        "http://vidispine:8080/APInoauth/thumbnail/VX-2/VX-21;version=0/0@24000?hash=0b935043c4797e445f750a4ebc4c3572"
+      ]
+    },
+    "posters": {
+      "uri": []
+    },
+    "files": {
+      "uri": [
+        "file:///srv/media1/video_lowres.mp4",
+        "file:///srv/media1/video.mp4",
+        "file:///srv/media1/attachment/item/VX-21/image.jpg"
+      ]
+    },
+    "shape": [
+      {
+        "id": "VX-27",
+        "created": "2025-10-21T12:53:32.513+0000",
+        "essenceVersion": 0,
+        "tag": [
+          "lowres"
+        ],
+        "mimeType": [
+          "video/mp4"
+        ],
+        "containerComponent": {
+          "duration": {
+            "samples": 3838000,
+            "timeBase": {
+              "numerator": 1,
+              "denominator": 1000000
+            }
+          },
+          "format": "mov,mp4,m4a,3gp,3g2,mj2",
+          "firstSMPTETimecode": "00:00:00:00",
+          "startTimecode": 0,
+          "startTimestamp": {
+            "samples": 0,
+            "timeBase": {
+              "numerator": 1,
+              "denominator": 44100
+            }
+          },
+          "roundedTimeBase": 24,
+          "dropFrame": false,
+          "timeCodeTimeBase": {
+            "numerator": 1,
+            "denominator": 24
+          },
+          "mediaInfo": {
+            "property": [
+              {
+                "key": "Audio codecs",
+                "value": "AAC LC"
+              },
+              {
+                "key": "Audio_Format_List",
+                "value": "AAC LC"
+              },
+              {
+                "key": "Audio_Format_WithHint_List",
+                "value": "AAC LC"
+              },
+              {
+                "key": "Codec ID",
+                "value": "isom"
+              },
+              {
+                "key": "Codec ID/Url",
+                "value": "http://www.apple.com/quicktime/download/standalone.html"
+              },
+              {
+                "key": "CodecID_Compatible",
+                "value": "isom/iso2/avc1/mp41"
+              },
+              {
+                "key": "Codecs Video",
+                "value": "AVC"
+              },
+              {
+                "key": "Commercial name",
+                "value": "MPEG-4"
+              },
+              {
+                "key": "Count",
+                "value": "331"
+              },
+              {
+                "key": "Count of audio streams",
+                "value": "1"
+              },
+              {
+                "key": "Count of stream of this kind",
+                "value": "1"
+              },
+              {
+                "key": "Count of video streams",
+                "value": "1"
+              },
+              {
+                "key": "DataSize",
+                "value": "1249449"
+              },
+              {
+                "key": "Duration",
+                "value": "3838"
+              },
+              {
+                "key": "Encoded date",
+                "value": "UTC 2025-10-21 12:53:33"
+              },
+              {
+                "key": "File extension",
+                "value": "mp4"
+              },
+              {
+                "key": "File last modification date",
+                "value": "UTC 2025-10-21 12:53:38"
+              },
+              {
+                "key": "File last modification date (local)",
+                "value": "2025-10-21 12:53:38"
+              },
+              {
+                "key": "File name extension",
+                "value": "video_lowres.mp4"
+              },
+              {
+                "key": "File size",
+                "value": "1259293"
+              },
+              {
+                "key": "FooterSize",
+                "value": "0"
+              },
+              {
+                "key": "Format",
+                "value": "MPEG-4"
+              },
+              {
+                "key": "Format profile",
+                "value": "Base Media"
+              },
+              {
+                "key": "Format/Extensions usually used",
+                "value": "braw mov mp4 m4v m4a m4b m4p m4r 3ga 3gpa 3gpp 3gp 3gpp2 3g2 k3g jpm jpx mqv ismv isma ismt f4a f4b f4v"
+              },
+              {
+                "key": "Frame count",
+                "value": "92"
+              },
+              {
+                "key": "Frame rate",
+                "value": "23.976"
+              },
+              {
+                "key": "HeaderSize",
+                "value": "9844"
+              },
+              {
+                "key": "Internet media type",
+                "value": "video/mp4"
+              },
+              {
+                "key": "IsStreamable",
+                "value": "Yes"
+              },
+              {
+                "key": "Kind of stream",
+                "value": "General"
+              },
+              {
+                "key": "OtherCount",
+                "value": "1"
+              },
+              {
+                "key": "Other_Codec_List",
+                "value": "QuickTime TC"
+              },
+              {
+                "key": "Other_Format_List",
+                "value": "QuickTime TC"
+              },
+              {
+                "key": "Other_Format_WithHint_List",
+                "value": "QuickTime TC"
+              },
+              {
+                "key": "Other_Language_List",
+                "value": "English"
+              },
+              {
+                "key": "Overall bit rate",
+                "value": "2624894"
+              },
+              {
+                "key": "Proportion of this stream",
+                "value": "0.00814"
+              },
+              {
+                "key": "Stream identifier",
+                "value": "0"
+              },
+              {
+                "key": "Stream size",
+                "value": "10249"
+              },
+              {
+                "key": "Tagged date",
+                "value": "UTC 2025-10-21 12:53:33"
+              },
+              {
+                "key": "Video_Format_List",
+                "value": "AVC"
+              },
+              {
+                "key": "Video_Format_WithHint_List",
+                "value": "AVC"
+              },
+              {
+                "key": "Writing application",
+                "value": "Lavf58.76.100"
+              }
+            ]
+          },
+          "file": [
+            {
+              "id": "VX-199",
+              "path": "video_lowres.mp4",
+              "uri": [
+                "file:///srv/media1/video_lowres.mp4"
+              ],
+              "state": "CLOSED",
+              "size": 1259293,
+              "hash": "9a85c095401e5eaefb90348f938e19a7098d9dd4",
+              "timestamp": "2025-10-21T12:54:42.639+0000",
+              "refreshFlag": 1,
+              "storage": "VX-1",
+              "metadata": {
+                "field": [
+                  {
+                    "key": "created",
+                    "value": "1761051218000"
+                  },
+                  {
+                    "key": "mtime",
+                    "value": "1761051218000"
+                  }
+                ]
+              }
+            }
+          ],
+          "id": "VX-29",
+          "metadata": [
+            {
+              "key": "creation_time",
+              "value": "2025-10-21T12:53:33.000000Z"
+            },
+            {
+              "key": "componentOriginalFilename",
+              "value": "video_lowres.mp4"
+            },
+            {
+              "key": "drop_frame",
+              "value": "false"
+            },
+            {
+              "key": "major_brand",
+              "value": "isom"
+            },
+            {
+              "key": "rounded_time_base",
+              "value": "24"
+            },
+            {
+              "key": "encoder",
+              "value": "Lavf58.76.100"
+            },
+            {
+              "key": "start_timecode",
+              "value": "0"
+            },
+            {
+              "key": "compatible_brands",
+              "value": "isomiso2avc1mp41"
+            },
+            {
+              "key": "minor_version",
+              "value": "512"
+            }
+          ]
+        },
+        "audioComponent": [
+          {
+            "channelCount": 2,
+            "channelLayout": 3,
+            "sampleFormat": "AV_SAMPLE_FMT_FLTP",
+            "frameSize": 1024,
+            "mediaInfo": {
+              "property": [
+                {
+                  "key": "Alternate group",
+                  "value": "1"
+                },
+                {
+                  "key": "Bit rate",
+                  "value": "132300"
+                },
+                {
+                  "key": "Bit rate mode",
+                  "value": "CBR"
+                },
+                {
+                  "key": "Channel layout",
+                  "value": "L R"
+                },
+                {
+                  "key": "Channel positions",
+                  "value": "2/0/0"
+                },
+                {
+                  "key": "Channel(s)",
+                  "value": "2"
+                },
+                {
+                  "key": "Codec ID",
+                  "value": "mp4a-40-2"
+                },
+                {
+                  "key": "Commercial name",
+                  "value": "AAC"
+                },
+                {
+                  "key": "Compression mode",
+                  "value": "Lossy"
+                },
+                {
+                  "key": "Count",
+                  "value": "286"
+                },
+                {
+                  "key": "Count of stream of this kind",
+                  "value": "1"
+                },
+                {
+                  "key": "Default",
+                  "value": "Yes"
+                },
+                {
+                  "key": "Delay",
+                  "value": "0"
+                },
+                {
+                  "key": "Delay relative to video",
+                  "value": "0"
+                },
+                {
+                  "key": "Delay, origin",
+                  "value": "Container"
+                },
+                {
+                  "key": "Delay_DropFrame",
+                  "value": "No"
+                },
+                {
+                  "key": "Duration",
+                  "value": "3583"
+                },
+                {
+                  "key": "Encoded date",
+                  "value": "UTC 2025-10-21 12:53:33"
+                },
+                {
+                  "key": "Format",
+                  "value": "AAC"
+                },
+                {
+                  "key": "Format settings, SBR",
+                  "value": "No (Explicit)"
+                },
+                {
+                  "key": "Format/Info",
+                  "value": "Advanced Audio Codec Low Complexity"
+                },
+                {
+                  "key": "Format_AdditionalFeatures",
+                  "value": "LC"
+                },
+                {
+                  "key": "Frame count",
+                  "value": "154"
+                },
+                {
+                  "key": "Frame rate",
+                  "value": "43.066"
+                },
+                {
+                  "key": "ID",
+                  "value": "1"
+                },
+                {
+                  "key": "Kind of stream",
+                  "value": "Audio"
+                },
+                {
+                  "key": "Proportion of this stream",
+                  "value": "0.04708"
+                },
+                {
+                  "key": "Samples count",
+                  "value": "158010"
+                },
+                {
+                  "key": "Samples per frame",
+                  "value": "1024"
+                },
+                {
+                  "key": "Sampling rate",
+                  "value": "44100"
+                },
+                {
+                  "key": "Source duration",
+                  "value": "3632"
+                },
+                {
+                  "key": "Source frame count",
+                  "value": "157"
+                },
+                {
+                  "key": "Source stream size",
+                  "value": "59686"
+                },
+                {
+                  "key": "Source_Duration_LastFrame",
+                  "value": "-14"
+                },
+                {
+                  "key": "Source_StreamSize_Proportion",
+                  "value": "0.04740"
+                },
+                {
+                  "key": "Stream identifier",
+                  "value": "0"
+                },
+                {
+                  "key": "Stream size",
+                  "value": "59293"
+                },
+                {
+                  "key": "StreamOrder",
+                  "value": "0"
+                },
+                {
+                  "key": "Tagged date",
+                  "value": "UTC 2025-10-21 12:53:33"
+                },
+                {
+                  "key": "mdhd_Duration",
+                  "value": "3632"
+                }
+              ],
+              "Bit_rate_mode": "CBR"
+            },
+            "file": [
+              {
+                "id": "VX-199",
+                "path": "video_lowres.mp4",
+                "uri": [
+                  "file:///srv/media1/video_lowres.mp4"
+                ],
+                "state": "CLOSED",
+                "size": 1259293,
+                "hash": "9a85c095401e5eaefb90348f938e19a7098d9dd4",
+                "timestamp": "2025-10-21T12:54:42.639+0000",
+                "refreshFlag": 1,
+                "storage": "VX-1",
+                "metadata": {
+                  "field": [
+                    {
+                      "key": "created",
+                      "value": "1761051218000"
+                    },
+                    {
+                      "key": "mtime",
+                      "value": "1761051218000"
+                    }
+                  ]
+                }
+              }
+            ],
+            "id": "VX-30",
+            "metadata": [
+              {
+                "key": "creation_time",
+                "value": "2025-10-21T12:53:33.000000Z"
+              },
+              {
+                "key": "componentOriginalFilename",
+                "value": "video_lowres.mp4"
+              },
+              {
+                "key": "handler_name",
+                "value": "SoundHandler"
+              },
+              {
+                "key": "vendor_id",
+                "value": "[0][0][0][0]"
+              },
+              {
+                "key": "language",
+                "value": "und"
+              }
+            ],
+            "codec": "aac",
+            "timeBase": {
+              "numerator": 1,
+              "denominator": 44100
+            },
+            "itemTrack": "A1",
+            "essenceStreamId": 0,
+            "bitrate": 131474,
+            "numberOfPackets": 154,
+            "extradata": "121056E500",
+            "pid": 1,
+            "duration": {
+              "samples": 158010,
+              "timeBase": {
+                "numerator": 1,
+                "denominator": 44100
+              }
+            },
+            "profile": 1,
+            "edl": {
+              "timeScale": {
+                "numerator": 1,
+                "denominator": 1000
+              },
+              "entry": [
+                {
+                  "start": 0,
+                  "length": 3583,
+                  "mediaRate": 65536
+                }
+              ]
+            },
+            "startTimestamp": {
+              "samples": 0,
+              "timeBase": {
+                "numerator": 1,
+                "denominator": 44100
+              }
+            }
+          }
+        ],
+        "videoComponent": [
+          {
+            "resolution": {
+              "width": 1280,
+              "height": 720
+            },
+            "pixelFormat": "yuv420p",
+            "maxBFrames": 0,
+            "pixelAspectRatio": {
+              "horizontal": 1,
+              "vertical": 1
+            },
+            "fieldOrder": "progressive",
+            "codecTimeBase": {
+              "numerator": 1001,
+              "denominator": 48000
+            },
+            "averageFrameRate": {
+              "numerator": 24000,
+              "denominator": 1001
+            },
+            "realBaseFrameRate": {
+              "numerator": 24000,
+              "denominator": 1001
+            },
+            "displayWidth": {
+              "numerator": 1280,
+              "denominator": 1
+            },
+            "displayHeight": {
+              "numerator": 720,
+              "denominator": 1
+            },
+            "containerSAR": {
+              "horizontal": 1,
+              "vertical": 1
+            },
+            "colr_primaries": 1,
+            "colr_transfer_function": 1,
+            "colr_matrix": 1,
+            "ticks_per_frame": 2,
+            "bitDepth": 8,
+            "bitsPerPixel": 12,
+            "colorPrimaries": "BT709",
+            "mediaInfo": {
+              "Format_Settings_GOP": "M=1, N=12",
+              "property": [
+                {
+                  "key": "Bit depth",
+                  "value": "8"
+                },
+                {
+                  "key": "Bit rate",
+                  "value": "2500000"
+                },
+                {
+                  "key": "Bit rate mode",
+                  "value": "CBR"
+                },
+                {
+                  "key": "Bits/(Pixel*Frame)",
+                  "value": "0.113"
+                },
+                {
+                  "key": "Buffer size",
+                  "value": "749952"
+                },
+                {
+                  "key": "Chroma subsampling",
+                  "value": "4:2:0"
+                },
+                {
+                  "key": "Codec ID",
+                  "value": "avc1"
+                },
+                {
+                  "key": "Codec ID/Info",
+                  "value": "Advanced Video Coding"
+                },
+                {
+                  "key": "Codec configuration box",
+                  "value": "avcC"
+                },
+                {
+                  "key": "Color primaries",
+                  "value": "BT.709"
+                },
+                {
+                  "key": "Color range",
+                  "value": "Limited"
+                },
+                {
+                  "key": "Color space",
+                  "value": "YUV"
+                },
+                {
+                  "key": "Commercial name",
+                  "value": "AVC"
+                },
+                {
+                  "key": "Count",
+                  "value": "382"
+                },
+                {
+                  "key": "Count of stream of this kind",
+                  "value": "1"
+                },
+                {
+                  "key": "Delay",
+                  "value": "0"
+                },
+                {
+                  "key": "Delay, origin",
+                  "value": "Container"
+                },
+                {
+                  "key": "Delay_DropFrame",
+                  "value": "No"
+                },
+                {
+                  "key": "Delay_Settings",
+                  "value": "DropFrame=No / 24HourMax=No / IsVisual=No"
+                },
+                {
+                  "key": "Display aspect ratio",
+                  "value": "1.778"
+                },
+                {
+                  "key": "Duration",
+                  "value": "3837"
+                },
+                {
+                  "key": "Encoded date",
+                  "value": "UTC 2025-10-21 12:53:33"
+                },
+                {
+                  "key": "Format",
+                  "value": "AVC"
+                },
+                {
+                  "key": "Format profile",
+                  "value": "High@L3.2"
+                },
+                {
+                  "key": "Format settings",
+                  "value": "CABAC / 1 Ref Frames"
+                },
+                {
+                  "key": "Format settings, CABAC",
+                  "value": "Yes"
+                },
+                {
+                  "key": "Format settings, GOP",
+                  "value": "M=1, N=12"
+                },
+                {
+                  "key": "Format settings, Reference frames",
+                  "value": "1"
+                },
+                {
+                  "key": "Format/Info",
+                  "value": "Advanced Video Codec"
+                },
+                {
+                  "key": "Format/Url",
+                  "value": "http://developers.videolan.org/x264.html"
+                },
+                {
+                  "key": "Frame count",
+                  "value": "92"
+                },
+                {
+                  "key": "Frame rate",
+                  "value": "23.976"
+                },
+                {
+                  "key": "Frame rate mode",
+                  "value": "VFR"
+                },
+                {
+                  "key": "FrameRate_Den",
+                  "value": "1001"
+                },
+                {
+                  "key": "FrameRate_Num",
+                  "value": "24000"
+                },
+                {
+                  "key": "Height",
+                  "value": "720"
+                },
+                {
+                  "key": "ID",
+                  "value": "2"
+                },
+                {
+                  "key": "Internet media type",
+                  "value": "video/H264"
+                },
+                {
+                  "key": "Kind of stream",
+                  "value": "Video"
+                },
+                {
+                  "key": "Matrix coefficients",
+                  "value": "BT.709"
+                },
+                {
+                  "key": "Maximum frame rate",
+                  "value": "23.981"
+                },
+                {
+                  "key": "Minimum frame rate",
+                  "value": "23.974"
+                },
+                {
+                  "key": "Pixel aspect ratio",
+                  "value": "1.000"
+                },
+                {
+                  "key": "Proportion of this stream",
+                  "value": "0.94478"
+                },
+                {
+                  "key": "Rotation",
+                  "value": "0.000"
+                },
+                {
+                  "key": "Sampled_Height",
+                  "value": "720"
+                },
+                {
+                  "key": "Sampled_Width",
+                  "value": "1280"
+                },
+                {
+                  "key": "Scan type",
+                  "value": "Progressive"
+                },
+                {
+                  "key": "Standard",
+                  "value": "NTSC"
+                },
+                {
+                  "key": "Stream identifier",
+                  "value": "0"
+                },
+                {
+                  "key": "Stream size",
+                  "value": "1189751"
+                },
+                {
+                  "key": "StreamOrder",
+                  "value": "1"
+                },
+                {
+                  "key": "Tagged date",
+                  "value": "UTC 2025-10-21 12:53:33"
+                },
+                {
+                  "key": "Transfer characteristics",
+                  "value": "BT.709"
+                },
+                {
+                  "key": "Width",
+                  "value": "1280"
+                },
+                {
+                  "key": "colour_description_present",
+                  "value": "Yes"
+                },
+                {
+                  "key": "colour_description_present_Source",
+                  "value": "Container / Stream"
+                },
+                {
+                  "key": "colour_primaries_Source",
+                  "value": "Container / Stream"
+                },
+                {
+                  "key": "colour_range_Source",
+                  "value": "Container / Stream"
+                },
+                {
+                  "key": "matrix_coefficients_Source",
+                  "value": "Container / Stream"
+                },
+                {
+                  "key": "transfer_characteristics_Source",
+                  "value": "Container / Stream"
+                }
+              ],
+              "Bit_rate_mode": "CBR"
+            },
+            "file": [
+              {
+                "id": "VX-199",
+                "path": "video_lowres.mp4",
+                "uri": [
+                  "file:///srv/media1/video_lowres.mp4"
+                ],
+                "state": "CLOSED",
+                "size": 1259293,
+                "hash": "9a85c095401e5eaefb90348f938e19a7098d9dd4",
+                "timestamp": "2025-10-21T12:54:42.639+0000",
+                "refreshFlag": 1,
+                "storage": "VX-1",
+                "metadata": {
+                  "field": [
+                    {
+                      "key": "created",
+                      "value": "1761051218000"
+                    },
+                    {
+                      "key": "mtime",
+                      "value": "1761051218000"
+                    }
+                  ]
+                }
+              }
+            ],
+            "id": "VX-31",
+            "metadata": [
+              {
+                "key": "creation_time",
+                "value": "2025-10-21T12:53:33.000000Z"
+              },
+              {
+                "key": "maxCodedPictureOffset",
+                "value": "0"
+              },
+              {
+                "key": "componentOriginalFilename",
+                "value": "video_lowres.mp4"
+              },
+              {
+                "key": "handler_name",
+                "value": "VideoHandler"
+              },
+              {
+                "key": "vendor_id",
+                "value": "[0][0][0][0]"
+              },
+              {
+                "key": "language",
+                "value": "und"
+              },
+              {
+                "key": "timecode",
+                "value": "00:00:00:00"
+              }
+            ],
+            "codec": "h264",
+            "timeBase": {
+              "numerator": 1,
+              "denominator": 90000
+            },
+            "itemTrack": "V1",
+            "essenceStreamId": 1,
+            "bitrate": 2480478,
+            "numberOfPackets": 92,
+            "extradata": "01640020FFE1002767640020AC2CA805005BB0152020202800001F480005DC071300026258005B8FF8C7076858BA8001000468EF3525FDF8F800",
+            "pid": 2,
+            "duration": {
+              "samples": 345330,
+              "timeBase": {
+                "numerator": 1,
+                "denominator": 90000
+              }
+            },
+            "profile": 100,
+            "level": 32,
+            "edl": {
+              "timeScale": {
+                "numerator": 1,
+                "denominator": 1000
+              },
+              "entry": [
+                {
+                  "start": 0,
+                  "length": 3837,
+                  "mediaRate": 65536
+                }
+              ]
+            },
+            "startTimestamp": {
+              "samples": 0,
+              "timeBase": {
+                "numerator": 1,
+                "denominator": 90000
+              }
+            }
+          }
+        ]
+      },
+      {
+        "id": "VX-26",
+        "created": "2025-10-21T12:53:30.950+0000",
+        "essenceVersion": 0,
+        "tag": [
+          "original"
+        ],
+        "mimeType": [
+          "video/mp4"
+        ],
+        "containerComponent": {
+          "duration": {
+            "samples": 3838500,
+            "timeBase": {
+              "numerator": 1,
+              "denominator": 1000000
+            }
+          },
+          "format": "mov,mp4,m4a,3gp,3g2,mj2",
+          "startTimestamp": {
+            "samples": 0,
+            "timeBase": {
+              "numerator": 1,
+              "denominator": 90000
+            }
+          },
+          "mediaInfo": {
+            "property": [
+              {
+                "key": "Audio codecs",
+                "value": "AAC LC"
+              },
+              {
+                "key": "Audio_Format_List",
+                "value": "AAC LC"
+              },
+              {
+                "key": "Audio_Format_WithHint_List",
+                "value": "AAC LC"
+              },
+              {
+                "key": "Audio_Language_List",
+                "value": "English"
+              },
+              {
+                "key": "Codec ID",
+                "value": "mp42"
+              },
+              {
+                "key": "Codec ID/Url",
+                "value": "http://www.apple.com/quicktime/download/standalone.html"
+              },
+              {
+                "key": "CodecID_Compatible",
+                "value": "isom/mp42"
+              },
+              {
+                "key": "Codecs Video",
+                "value": "AVC"
+              },
+              {
+                "key": "Commercial name",
+                "value": "MPEG-4"
+              },
+              {
+                "key": "Count",
+                "value": "332"
+              },
+              {
+                "key": "Count of audio streams",
+                "value": "1"
+              },
+              {
+                "key": "Count of stream of this kind",
+                "value": "1"
+              },
+              {
+                "key": "Count of video streams",
+                "value": "1"
+              },
+              {
+                "key": "DataSize",
+                "value": "19726053"
+              },
+              {
+                "key": "Duration",
+                "value": "3839"
+              },
+              {
+                "key": "Encoded date",
+                "value": "UTC 2025-05-01 20:06:02"
+              },
+              {
+                "key": "File extension",
+                "value": "mp4"
+              },
+              {
+                "key": "File last modification date",
+                "value": "UTC 2025-10-21 12:53:29"
+              },
+              {
+                "key": "File last modification date (local)",
+                "value": "2025-10-21 12:53:29"
+              },
+              {
+                "key": "File name extension",
+                "value": "video.mp4"
+              },
+              {
+                "key": "File size",
+                "value": "19729269"
+              },
+              {
+                "key": "FooterSize",
+                "value": "0"
+              },
+              {
+                "key": "Format",
+                "value": "MPEG-4"
+              },
+              {
+                "key": "Format profile",
+                "value": "Base Media / Version 2"
+              },
+              {
+                "key": "Format/Extensions usually used",
+                "value": "braw mov mp4 m4v m4a m4b m4p m4r 3ga 3gpa 3gpp 3gp 3gpp2 3g2 k3g jpm jpx mqv ismv isma ismt f4a f4b f4v"
+              },
+              {
+                "key": "Frame count",
+                "value": "92"
+              },
+              {
+                "key": "Frame rate",
+                "value": "23.976"
+              },
+              {
+                "key": "HeaderSize",
+                "value": "3216"
+              },
+              {
+                "key": "Internet media type",
+                "value": "video/mp4"
+              },
+              {
+                "key": "IsStreamable",
+                "value": "Yes"
+              },
+              {
+                "key": "Kind of stream",
+                "value": "General"
+              },
+              {
+                "key": "Overall bit rate",
+                "value": "41113350"
+              },
+              {
+                "key": "Proportion of this stream",
+                "value": "0.00016"
+              },
+              {
+                "key": "Stream identifier",
+                "value": "0"
+              },
+              {
+                "key": "Stream size",
+                "value": "3232"
+              },
+              {
+                "key": "Tagged date",
+                "value": "UTC 2025-05-01 20:06:02"
+              },
+              {
+                "key": "Video_Format_List",
+                "value": "AVC"
+              },
+              {
+                "key": "Video_Format_WithHint_List",
+                "value": "AVC"
+              },
+              {
+                "key": "Video_Language_List",
+                "value": "English"
+              },
+              {
+                "key": "com.android.version",
+                "value": "15"
+              }
+            ]
+          },
+          "file": [
+            {
+              "id": "VX-198",
+              "path": "video.mp4",
+              "uri": [
+                "file:///srv/media1/video.mp4"
+              ],
+              "state": "CLOSED",
+              "size": 19729269,
+              "hash": "a66d150e88e23d3195de98b6d7ec367cdb226397",
+              "timestamp": "2025-10-21T12:54:42.639+0000",
+              "refreshFlag": 1,
+              "storage": "VX-1",
+              "metadata": {
+                "field": [
+                  {
+                    "key": "created",
+                    "value": "1761051209000"
+                  },
+                  {
+                    "key": "mtime",
+                    "value": "1761051209000"
+                  }
+                ]
+              }
+            }
+          ],
+          "id": "VX-26",
+          "metadata": [
+            {
+              "key": "creation_time",
+              "value": "2025-05-01T20:06:02.000000Z"
+            },
+            {
+              "key": "componentOriginalFilename",
+              "value": "video.mp4"
+            },
+            {
+              "key": "major_brand",
+              "value": "mp42"
+            },
+            {
+              "key": "com.android.version",
+              "value": "15"
+            },
+            {
+              "key": "compatible_brands",
+              "value": "isommp42"
+            },
+            {
+              "key": "minor_version",
+              "value": "0"
+            }
+          ]
+        },
+        "audioComponent": [
+          {
+            "channelCount": 2,
+            "channelLayout": 3,
+            "sampleFormat": "AV_SAMPLE_FMT_FLTP",
+            "frameSize": 1024,
+            "mediaInfo": {
+              "property": [
+                {
+                  "key": "Bit rate",
+                  "value": "156000"
+                },
+                {
+                  "key": "Bit rate mode",
+                  "value": "CBR"
+                },
+                {
+                  "key": "Channel layout",
+                  "value": "L R"
+                },
+                {
+                  "key": "Channel positions",
+                  "value": "2/0/0"
+                },
+                {
+                  "key": "Channel(s)",
+                  "value": "2"
+                },
+                {
+                  "key": "Codec ID",
+                  "value": "mp4a-40-2"
+                },
+                {
+                  "key": "Commercial name",
+                  "value": "AAC"
+                },
+                {
+                  "key": "Compression mode",
+                  "value": "Lossy"
+                },
+                {
+                  "key": "Count",
+                  "value": "286"
+                },
+                {
+                  "key": "Count of stream of this kind",
+                  "value": "1"
+                },
+                {
+                  "key": "Duration",
+                  "value": "3584"
+                },
+                {
+                  "key": "Encoded date",
+                  "value": "UTC 2025-05-01 20:06:02"
+                },
+                {
+                  "key": "Format",
+                  "value": "AAC"
+                },
+                {
+                  "key": "Format/Info",
+                  "value": "Advanced Audio Codec Low Complexity"
+                },
+                {
+                  "key": "Format_AdditionalFeatures",
+                  "value": "LC"
+                },
+                {
+                  "key": "Frame count",
+                  "value": "169"
+                },
+                {
+                  "key": "Frame rate",
+                  "value": "46.875"
+                },
+                {
+                  "key": "ID",
+                  "value": "1"
+                },
+                {
+                  "key": "Kind of stream",
+                  "value": "Audio"
+                },
+                {
+                  "key": "Language",
+                  "value": "en"
+                },
+                {
+                  "key": "Proportion of this stream",
+                  "value": "0.00358"
+                },
+                {
+                  "key": "Samples count",
+                  "value": "172032"
+                },
+                {
+                  "key": "Samples per frame",
+                  "value": "1024"
+                },
+                {
+                  "key": "Sampling rate",
+                  "value": "48000"
+                },
+                {
+                  "key": "Stream identifier",
+                  "value": "0"
+                },
+                {
+                  "key": "Stream size",
+                  "value": "70587"
+                },
+                {
+                  "key": "StreamOrder",
+                  "value": "0"
+                },
+                {
+                  "key": "Tagged date",
+                  "value": "UTC 2025-05-01 20:06:02"
+                },
+                {
+                  "key": "Title",
+                  "value": "SoundHandle"
+                },
+                {
+                  "key": "mdhd_Duration",
+                  "value": "3584"
+                }
+              ],
+              "Bit_rate_mode": "CBR"
+            },
+            "file": [
+              {
+                "id": "VX-198",
+                "path": "video.mp4",
+                "uri": [
+                  "file:///srv/media1/video.mp4"
+                ],
+                "state": "CLOSED",
+                "size": 19729269,
+                "hash": "a66d150e88e23d3195de98b6d7ec367cdb226397",
+                "timestamp": "2025-10-21T12:54:42.639+0000",
+                "refreshFlag": 1,
+                "storage": "VX-1",
+                "metadata": {
+                  "field": [
+                    {
+                      "key": "created",
+                      "value": "1761051209000"
+                    },
+                    {
+                      "key": "mtime",
+                      "value": "1761051209000"
+                    }
+                  ]
+                }
+              }
+            ],
+            "id": "VX-27",
+            "metadata": [
+              {
+                "key": "creation_time",
+                "value": "2025-05-01T20:06:02.000000Z"
+              },
+              {
+                "key": "handler_name",
+                "value": "SoundHandle"
+              },
+              {
+                "key": "vendor_id",
+                "value": "[0][0][0][0]"
+              },
+              {
+                "key": "componentOriginalFilename",
+                "value": "video.mp4"
+              },
+              {
+                "key": "language",
+                "value": "eng"
+              }
+            ],
+            "codec": "aac",
+            "timeBase": {
+              "numerator": 1,
+              "denominator": 48000
+            },
+            "itemTrack": "A0",
+            "essenceStreamId": 0,
+            "bitrate": 157560,
+            "numberOfPackets": 168,
+            "extradata": "1190",
+            "pid": 1,
+            "duration": {
+              "samples": 172032,
+              "timeBase": {
+                "numerator": 1,
+                "denominator": 48000
+              }
+            },
+            "profile": 1,
+            "edl": {
+              "timeScale": {
+                "numerator": 1,
+                "denominator": 10000
+              },
+              "entry": [
+                {
+                  "start": -1,
+                  "length": 1,
+                  "mediaRate": 65536
+                },
+                {
+                  "start": 0,
+                  "length": 35839,
+                  "mediaRate": 65536
+                }
+              ]
+            },
+            "startTimestamp": {
+              "samples": 5,
+              "timeBase": {
+                "numerator": 1,
+                "denominator": 48000
+              }
+            }
+          }
+        ],
+        "videoComponent": [
+          {
+            "resolution": {
+              "width": 3840,
+              "height": 2160
+            },
+            "pixelFormat": "yuv420p",
+            "maxBFrames": 0,
+            "pixelAspectRatio": {
+              "horizontal": 1,
+              "vertical": 1
+            },
+            "fieldOrder": "progressive",
+            "codecTimeBase": {
+              "numerator": 751,
+              "denominator": 36000
+            },
+            "averageFrameRate": {
+              "numerator": 18000,
+              "denominator": 751
+            },
+            "realBaseFrameRate": {
+              "numerator": 18000,
+              "denominator": 751
+            },
+            "displayWidth": {
+              "numerator": 3840,
+              "denominator": 1
+            },
+            "displayHeight": {
+              "numerator": 2160,
+              "denominator": 1
+            },
+            "colr_primaries": 1,
+            "colr_transfer_function": 1,
+            "colr_matrix": 1,
+            "ticks_per_frame": 2,
+            "bitDepth": 8,
+            "bitsPerPixel": 12,
+            "colorPrimaries": "BT709",
+            "mediaInfo": {
+              "property": [
+                {
+                  "key": "Bit depth",
+                  "value": "8"
+                },
+                {
+                  "key": "Bit rate",
+                  "value": "40979049"
+                },
+                {
+                  "key": "Bits/(Pixel*Frame)",
+                  "value": "0.206"
+                },
+                {
+                  "key": "Chroma subsampling",
+                  "value": "4:2:0"
+                },
+                {
+                  "key": "Codec ID",
+                  "value": "avc1"
+                },
+                {
+                  "key": "Codec ID/Info",
+                  "value": "Advanced Video Coding"
+                },
+                {
+                  "key": "Codec configuration box",
+                  "value": "avcC"
+                },
+                {
+                  "key": "Color primaries",
+                  "value": "BT.709"
+                },
+                {
+                  "key": "Color range",
+                  "value": "Limited"
+                },
+                {
+                  "key": "Color space",
+                  "value": "YUV"
+                },
+                {
+                  "key": "Commercial name",
+                  "value": "AVC"
+                },
+                {
+                  "key": "Count",
+                  "value": "383"
+                },
+                {
+                  "key": "Count of stream of this kind",
+                  "value": "1"
+                },
+                {
+                  "key": "Display aspect ratio",
+                  "value": "1.778"
+                },
+                {
+                  "key": "Duration",
+                  "value": "3839"
+                },
+                {
+                  "key": "Encoded date",
+                  "value": "UTC 2025-05-01 20:06:02"
+                },
+                {
+                  "key": "Format",
+                  "value": "AVC"
+                },
+                {
+                  "key": "Format profile",
+                  "value": "High@L5.1"
+                },
+                {
+                  "key": "Format settings",
+                  "value": "CABAC / 1 Ref Frames"
+                },
+                {
+                  "key": "Format settings, CABAC",
+                  "value": "Yes"
+                },
+                {
+                  "key": "Format settings, Reference frames",
+                  "value": "1"
+                },
+                {
+                  "key": "Format/Info",
+                  "value": "Advanced Video Codec"
+                },
+                {
+                  "key": "Format/Url",
+                  "value": "http://developers.videolan.org/x264.html"
+                },
+                {
+                  "key": "Frame count",
+                  "value": "92"
+                },
+                {
+                  "key": "Frame rate",
+                  "value": "23.976"
+                },
+                {
+                  "key": "Frame rate mode",
+                  "value": "CFR"
+                },
+                {
+                  "key": "FrameRate_Den",
+                  "value": "1000"
+                },
+                {
+                  "key": "FrameRate_Num",
+                  "value": "23976"
+                },
+                {
+                  "key": "Height",
+                  "value": "2160"
+                },
+                {
+                  "key": "ID",
+                  "value": "2"
+                },
+                {
+                  "key": "Internet media type",
+                  "value": "video/H264"
+                },
+                {
+                  "key": "Kind of stream",
+                  "value": "Video"
+                },
+                {
+                  "key": "Language",
+                  "value": "en"
+                },
+                {
+                  "key": "Matrix coefficients",
+                  "value": "BT.709"
+                },
+                {
+                  "key": "Pixel aspect ratio",
+                  "value": "1.000"
+                },
+                {
+                  "key": "Proportion of this stream",
+                  "value": "0.99626"
+                },
+                {
+                  "key": "Rotation",
+                  "value": "0.000"
+                },
+                {
+                  "key": "Sampled_Height",
+                  "value": "2160"
+                },
+                {
+                  "key": "Sampled_Width",
+                  "value": "3840"
+                },
+                {
+                  "key": "Scan type",
+                  "value": "Progressive"
+                },
+                {
+                  "key": "Stream identifier",
+                  "value": "0"
+                },
+                {
+                  "key": "Stream size",
+                  "value": "19655450"
+                },
+                {
+                  "key": "StreamOrder",
+                  "value": "1"
+                },
+                {
+                  "key": "Tagged date",
+                  "value": "UTC 2025-05-01 20:06:02"
+                },
+                {
+                  "key": "Title",
+                  "value": "VideoHandle"
+                },
+                {
+                  "key": "Transfer characteristics",
+                  "value": "BT.709"
+                },
+                {
+                  "key": "Width",
+                  "value": "3840"
+                },
+                {
+                  "key": "colour_description_present",
+                  "value": "Yes"
+                },
+                {
+                  "key": "colour_description_present_Source",
+                  "value": "Container / Stream"
+                },
+                {
+                  "key": "colour_primaries_Source",
+                  "value": "Container / Stream"
+                },
+                {
+                  "key": "colour_range_Source",
+                  "value": "Container / Stream"
+                },
+                {
+                  "key": "matrix_coefficients_Source",
+                  "value": "Container / Stream"
+                },
+                {
+                  "key": "mdhd_Duration",
+                  "value": "3838"
+                },
+                {
+                  "key": "transfer_characteristics_Source",
+                  "value": "Container / Stream"
+                }
+              ]
+            },
+            "file": [
+              {
+                "id": "VX-198",
+                "path": "video.mp4",
+                "uri": [
+                  "file:///srv/media1/video.mp4"
+                ],
+                "state": "CLOSED",
+                "size": 19729269,
+                "hash": "a66d150e88e23d3195de98b6d7ec367cdb226397",
+                "timestamp": "2025-10-21T12:54:42.639+0000",
+                "refreshFlag": 1,
+                "storage": "VX-1",
+                "metadata": {
+                  "field": [
+                    {
+                      "key": "created",
+                      "value": "1761051209000"
+                    },
+                    {
+                      "key": "mtime",
+                      "value": "1761051209000"
+                    }
+                  ]
+                }
+              }
+            ],
+            "id": "VX-28",
+            "metadata": [
+              {
+                "key": "creation_time",
+                "value": "2025-05-01T20:06:02.000000Z"
+              },
+              {
+                "key": "maxCodedPictureOffset",
+                "value": "0"
+              },
+              {
+                "key": "handler_name",
+                "value": "VideoHandle"
+              },
+              {
+                "key": "vendor_id",
+                "value": "[0][0][0][0]"
+              },
+              {
+                "key": "componentOriginalFilename",
+                "value": "video.mp4"
+              },
+              {
+                "key": "language",
+                "value": "eng"
+              }
+            ],
+            "codec": "h264",
+            "timeBase": {
+              "numerator": 1,
+              "denominator": 90000
+            },
+            "itemTrack": "V0",
+            "essenceStreamId": 1,
+            "bitrate": 40965448,
+            "numberOfPackets": 92,
+            "extradata": "01640033FFE1001367640033ACB401E0021F4D40404041B4284D4001000568EE06F2C0",
+            "pid": 2,
+            "duration": {
+              "samples": 345460,
+              "timeBase": {
+                "numerator": 1,
+                "denominator": 90000
+              }
+            },
+            "profile": 100,
+            "level": 51,
+            "startTimestamp": {
+              "samples": 0,
+              "timeBase": {
+                "numerator": 1,
+                "denominator": 90000
+              }
+            }
+          }
+        ]
+      },
+      {
+        "id": "VX-28",
+        "created": "2025-10-21T12:54:41.805+0000",
+        "essenceVersion": 0,
+        "tag": [
+          "item-attachment"
+        ],
+        "mimeType": [
+          "image/jpeg"
+        ],
+        "containerComponent": {
+          "duration": {
+            "samples": 0,
+            "timeBase": {
+              "numerator": 1,
+              "denominator": 1
+            }
+          },
+          "format": "JPEG",
+          "mediaInfo": {
+            "property": [
+              {
+                "key": "Codecs Image",
+                "value": "JPEG"
+              },
+              {
+                "key": "Commercial name",
+                "value": "JPEG"
+              },
+              {
+                "key": "Count",
+                "value": "331"
+              },
+              {
+                "key": "Count of image streams",
+                "value": "1"
+              },
+              {
+                "key": "Count of stream of this kind",
+                "value": "1"
+              },
+              {
+                "key": "File extension",
+                "value": "jpg"
+              },
+              {
+                "key": "File last modification date",
+                "value": "UTC 2025-10-21 12:54:12"
+              },
+              {
+                "key": "File last modification date (local)",
+                "value": "2025-10-21 12:54:12"
+              },
+              {
+                "key": "File name extension",
+                "value": "image.jpg"
+              },
+              {
+                "key": "File size",
+                "value": "639827"
+              },
+              {
+                "key": "Format",
+                "value": "JPEG"
+              },
+              {
+                "key": "Format/Extensions usually used",
+                "value": "h3d jpeg jpg jpe jps mpo"
+              },
+              {
+                "key": "Image_Format_List",
+                "value": "JPEG"
+              },
+              {
+                "key": "Image_Format_WithHint_List",
+                "value": "JPEG"
+              },
+              {
+                "key": "Internet media type",
+                "value": "image/jpeg"
+              },
+              {
+                "key": "Kind of stream",
+                "value": "General"
+              },
+              {
+                "key": "Proportion of this stream",
+                "value": "0.00000"
+              },
+              {
+                "key": "Stream identifier",
+                "value": "0"
+              },
+              {
+                "key": "Stream size",
+                "value": "0"
+              }
+            ]
+          },
+          "file": [
+            {
+              "id": "VX-200",
+              "path": "attachment/item/VX-21/image.jpg",
+              "uri": [
+                "file:///srv/media1/attachment/item/VX-21/image.jpg"
+              ],
+              "state": "CLOSED",
+              "size": 639827,
+              "hash": "0e738bf4ec205293cca634533ea10317eb4d328f",
+              "timestamp": "2025-10-21T12:54:42.638+0000",
+              "refreshFlag": 1,
+              "storage": "VX-1",
+              "metadata": {
+                "field": [
+                  {
+                    "key": "created",
+                    "value": "1761051252000"
+                  },
+                  {
+                    "key": "mtime",
+                    "value": "1761051252000"
+                  }
+                ]
+              }
+            }
+          ],
+          "id": "VX-32",
+          "metadata": [
+            {
+              "key": "XMP_METADATA",
+              "value": "<?xml version=\"1.0\" encoding=\"UTF-8\"?><?xpacket begin=\"﻿\" id=\"W5M0MpCehiHzreSzNTczkc9d\"?><x:xmpmeta xmlns:x=\"adobe:ns:meta/\" x:xmptk=\"XMP Core 5.1.2\">\n   <rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\">\n      <rdf:Description xmlns:xmpRights=\"http://ns.adobe.com/xap/1.0/rights/\" rdf:about=\"\">\n         <xmpRights:Marked>False</xmpRights:Marked>\n      </rdf:Description>\n   </rdf:RDF>\n</x:xmpmeta><?xpacket end=\"w\"?>"
+            },
+            {
+              "key": "componentOriginalFilename",
+              "value": "attachment/item/VX-21/image.jpg"
+            }
+          ]
+        },
+        "videoComponent": [
+          {
+            "resolution": {
+              "width": 1491,
+              "height": 838
+            },
+            "file": [
+              {
+                "id": "VX-200",
+                "path": "attachment/item/VX-21/image.jpg",
+                "uri": [
+                  "file:///srv/media1/attachment/item/VX-21/image.jpg"
+                ],
+                "state": "CLOSED",
+                "size": 639827,
+                "hash": "0e738bf4ec205293cca634533ea10317eb4d328f",
+                "timestamp": "2025-10-21T12:54:42.638+0000",
+                "refreshFlag": 1,
+                "storage": "VX-1",
+                "metadata": {
+                  "field": [
+                    {
+                      "key": "created",
+                      "value": "1761051252000"
+                    },
+                    {
+                      "key": "mtime",
+                      "value": "1761051252000"
+                    }
+                  ]
+                }
+              }
+            ],
+            "id": "VX-33",
+            "metadata": [
+              {
+                "key": "image_jpeg_sampling_factor",
+                "value": "1x1,1x1,1x1"
+              },
+              {
+                "key": "image_depth",
+                "value": "8"
+              },
+              {
+                "key": "image_pages",
+                "value": "1"
+              },
+              {
+                "key": "image_date_modify",
+                "value": "2025-10-21T12:54:28+00:00"
+              },
+              {
+                "key": "image_colorspace",
+                "value": "sRGB"
+              },
+              {
+                "key": "image_date_create",
+                "value": "2025-10-21T12:54:28+00:00"
+              },
+              {
+                "key": "componentOriginalFilename",
+                "value": "attachment/item/VX-21/image.jpg"
+              },
+              {
+                "key": "image_jpeg_colorspace",
+                "value": "2"
+              },
+              {
+                "key": "image_date_timestamp",
+                "value": "2025-10-21T12:54:30+00:00"
+              },
+              {
+                "key": "image_mime_type",
+                "value": "image/jpeg"
+              },
+              {
+                "key": "image_format",
+                "value": "Joint Photographic Experts Group JFIF format"
+              },
+              {
+                "key": "image_icc_copyright",
+                "value": "CC0"
+              },
+              {
+                "key": "image_icc_description",
+                "value": "uRGB"
+              }
+            ],
+            "codec": "JPEG",
+            "itemTrack": "V1",
+            "essenceStreamId": 0
+          }
+        ],
+        "metadata": {
+          "field": [
+            {
+              "key": "originalFilename",
+              "value": "image.jpg"
+            }
+          ]
+        }
+      }
+    ],
+    "id": "VX-21"
+  }
+}
