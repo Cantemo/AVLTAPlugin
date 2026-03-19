@@ -111,6 +111,7 @@ class TestTransform(PortalBaseTestCase):
         self.assertIsNotNone(description_field, "Metadata field with key 'description' not found")
         self.assertEqual(description_field.value, "Freeze frame")
 
+
 class TestTransformVideoComponentNoFramerate(PortalBaseTestCase):
 
     def setUp(self, mock_authenticate=True):
@@ -129,13 +130,11 @@ class TestTransformVideoComponentNoFramerate(PortalBaseTestCase):
         self.assertEqual(asset.metadata[0].key, "title")
         self.assertEqual(asset.metadata[0].value, "Item with video and image")
 
-
     def test_transform_image_shape_to_lta_file(self):
         file = transform_shape_to_lta_files(self.test_image_shape)[0]
         # File
         self.assertEquals(file.id, "VX-28")
         self.assertEquals(file.type, "MISC")
-
 
     def test_transform_video_shape_to_lta_file(self):
         file = transform_shape_to_lta_files(self.test_video_proxy_shape)[0]
