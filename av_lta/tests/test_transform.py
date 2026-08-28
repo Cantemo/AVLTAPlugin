@@ -85,6 +85,50 @@ class TestTransform(PortalBaseTestCase):
         # Container
         self.assertEquals(file.container.format, "ttml")
 
+    def test_transform_shape_with_empty_and_zero_bitrate(self):
+        # Modify the VSItem data to have empty/zero bitrates
+        vs_item_data = self.read_json("vsitem.json")
+        shape_data = vs_item_data["json_object"]["shape"][0]
+
+        # Video component bitrate = ""
+        shape_data["videoComponent"][0]["bitrate"] = ""
+        # Audio component bitrate = 0
+        shape_data["audioComponent"][0]["bitrate"] = 0
+
+        item = VSItem(**vs_item_data)
+        shape = item.getShapes()[0]
+
+        files = transform_shape_to_lta_files(shape)
+        self.assertGreater(len(files), 0)
+        file = files[0]
+
+        # Verify video stream bitrate is None (not in the object)
+        self.assertEqual(len(file.container.videoStreams), 1)
+        self.assertIsNone(file.container.videoStreams[0].bitrate)
+
+        # Verify audio stream bitrate is None
+        self.assertEqual(len(file.container.audioStreams), 1)
+        self.assertIsNone(file.container.audioStreams[0].bitrate)
+
+    def test_transform_shape_with_missing_bitrate(self):
+        vs_item_data = self.read_json("vsitem.json")
+        shape_data = vs_item_data["json_object"]["shape"][0]
+
+        # Remove bitrate keys
+        if "bitrate" in shape_data["videoComponent"][0]:
+            del shape_data["videoComponent"][0]["bitrate"]
+        if "bitrate" in shape_data["audioComponent"][0]:
+            del shape_data["audioComponent"][0]["bitrate"]
+
+        item = VSItem(**vs_item_data)
+        shape = item.getShapes()[0]
+
+        files = transform_shape_to_lta_files(shape)
+        file = files[0]
+
+        self.assertIsNone(file.container.videoStreams[0].bitrate)
+        self.assertIsNone(file.container.audioStreams[0].bitrate)
+
     def test_extract_marker_groups(self):
         marker_groups = transform_subclips_to_marker_groups(self.test_item)
         self.assertEqual(len(marker_groups), 1)
