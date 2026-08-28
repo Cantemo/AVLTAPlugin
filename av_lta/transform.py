@@ -318,7 +318,8 @@ def _transform_video_component_to_video_stream(video_component: VSVideoComponent
     video_stream.resolutionWidth = video_component.getResolutionWidth()
     video_stream.resolutionHeight = video_component.getResolutionHeight()
     video_stream.codec = video_component.getCodec()
-    video_stream.bitrate = video_component.getBitRate()
+    if bitrate := video_component.getBitRate():
+        video_stream.bitrate = bitrate
     duration = _get_duration(video_component)
     if duration is not None:
         video_stream.duration = duration
@@ -333,7 +334,8 @@ def _transform_audio_component_to_audio_stream(audio_component: VSAudioComponent
     audio_stream.sampleRate = int(audio_component.getSamplingRate())
     audio_stream.channels = audio_component.getChannels()
     audio_stream.codec = audio_component.getCodec()
-    audio_stream.bitrate = audio_component.getBitRate()
+    if bitrate := audio_component.getBitRate():
+        audio_stream.bitrate = bitrate
     duration = _get_duration(audio_component)
     if duration is not None:
         audio_stream.duration = duration
