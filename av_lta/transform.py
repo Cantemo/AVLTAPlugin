@@ -43,7 +43,7 @@ def transform_item_to_lta_asset(item: VSItem, force_full_domain=False) -> Asset:
 
     marker_groups = transform_subclips_to_marker_groups(item=item)
 
-    title = item.getTitle()
+    title = item.getTitle() if (item.json_object.get("metadata") or {}).get("timespan") else asset_id
 
     metadata: list[MetadataField] = [MetadataField(key="title", value=title)]
 
@@ -61,6 +61,7 @@ def transform_item_to_lta_asset(item: VSItem, force_full_domain=False) -> Asset:
             thumbnail=thumbnail, item=item, index=index, force_full_domain=force_full_domain
         )
         for [index, thumbnail] in enumerate(item.getThumbnailObjects())
+        if thumbnail.timecode is not None
     ]
 
     acl = item.getACLMerged()
@@ -114,7 +115,7 @@ def transform_subclips_to_marker_groups(item: VSItem) -> list[MarkerGroup]:
 def _get_subclips_by_group_name(group_name: str, item: VSItem) -> list[SubClip]:
     return [
         subclip
-        for subclip in item.getAnnotationsFromMetadataDocument(item.json_object["metadata"])
+        for subclip in item.getAnnotationsFromMetadataDocument(item.json_object.get("metadata") or {})
         if subclip.getMetadataFieldGroupName() == group_name
     ]
 
@@ -158,39 +159,44 @@ def transform_shape_to_lta_files(shape: VSShape, force_full_domain=False) -> lis
         if _is_same_files(video_vs_files, audio_component.getFiles()):
             # This component belongs to the video, continue
             continue
-        files.append(
-            _tranform_audio_component_to_audio_file(
-                audio_component=audio_component,
-                shape=shape,
-                force_full_domain=force_full_domain,
-            )
+        audio_file = _tranform_audio_component_to_audio_file(
+            audio_component=audio_component,
+            shape=shape,
+            force_full_domain=force_full_domain,
         )
+        if audio_file is not None:
+            files.append(audio_file)
 
     # Shapes may have multiple subtitle files, one file per component
     for subtitle_or_binary_component in subtitle_components + binary_components:
         if _is_same_files(video_vs_files, subtitle_or_binary_component.getFiles()):
             # This component belongs to the video, continue
             continue
-        files.append(
-            _tranform_subtitle_or_binary_component_to_file(
-                subtitle_or_binary_component=subtitle_or_binary_component,
-                shape=shape,
-                force_full_domain=force_full_domain,
-            )
+        subtitle_file = _tranform_subtitle_or_binary_component_to_file(
+            subtitle_or_binary_component=subtitle_or_binary_component,
+            shape=shape,
+            force_full_domain=force_full_domain,
         )
+        if subtitle_file is not None:
+            files.append(subtitle_file)
 
     if len(video_components) == 0:
+        return files
+
+    video_url = _get_url(video_vs_files, shape=shape, force_full_domain=force_full_domain)
+    if not video_url:
         return files
 
     container = Container(videoStreams=[], audioStreams=[], subtitleStreams=[], format=_get_container_format(shape))
 
     # start time
-    start_time_code = container_component.getStartTimecode()
-    time_code_numerator, time_code_denominator = container_component.getTimeCodeTimeBase()
-    if None not in [start_time_code, time_code_numerator, time_code_denominator]:
-        container.startTime = Timecode(
-            frame=start_time_code, numerator=time_code_denominator, denominator=time_code_numerator
-        )
+    if container_component is not None:
+        start_time_code = container_component.getStartTimecode()
+        time_code_numerator, time_code_denominator = container_component.getTimeCodeTimeBase()
+        if None not in [start_time_code, time_code_numerator, time_code_denominator]:
+            container.startTime = Timecode(
+                frame=start_time_code, numerator=time_code_denominator, denominator=time_code_numerator
+            )
 
     for video_component in video_components:
         if video_component.getFramerateAsFraction():
@@ -210,7 +216,7 @@ def transform_shape_to_lta_files(shape: VSShape, force_full_domain=False) -> lis
             id=shape.getId(),
             type=None,
             fileName=get_filename(video_vs_files),
-            url=_get_url(video_vs_files, shape=shape, force_full_domain=force_full_domain) or "",
+            url=video_url,
             container=container,
             metadata=metadata,
         )
@@ -230,16 +236,19 @@ def _is_same_files(a: list[VSFile], b: list[VSFile]) -> bool:
 
 def _tranform_subtitle_or_binary_component_to_file(
     subtitle_or_binary_component: VSBinaryComponent | VSSubtitleComponent, shape: VSShape, force_full_domain=False
-) -> File:
+) -> File | None:
     file_id = f"{shape.getId()}_{subtitle_or_binary_component.getId()}"
     vs_files = subtitle_or_binary_component.getFiles()
+    url = _get_url(vs_files, shape=shape, force_full_domain=force_full_domain)
+    if not url:
+        return None
     container = Container(videoStreams=[], audioStreams=[], subtitleStreams=[], format=_get_container_format(shape))
 
     return File(
         id=file_id,
         type=None,
         fileName=get_filename(vs_files),
-        url=_get_url(vs_files, shape=shape, force_full_domain=force_full_domain) or "",
+        url=url,
         metadata=_get_metadatas(subtitle_or_binary_component),
         container=container,
     )
@@ -252,9 +261,12 @@ def _get_container_format(shape: VSShape) -> str:
 
 def _tranform_audio_component_to_audio_file(
     audio_component: VSAudioComponent, shape: VSShape, force_full_domain=False
-) -> File:
+) -> File | None:
     file_id = f"{shape.getId()}_{audio_component.getId()}"
     vs_files = audio_component.getFiles()
+    url = _get_url(vs_files, shape=shape, force_full_domain=force_full_domain)
+    if not url:
+        return None
     container = Container(
         videoStreams=[],
         audioStreams=[_transform_audio_component_to_audio_stream(audio_component)],
@@ -268,7 +280,7 @@ def _tranform_audio_component_to_audio_file(
         id=file_id,
         type=None,
         fileName=get_filename(vs_files),
-        url=_get_url(vs_files, shape=shape, force_full_domain=force_full_domain) or "",
+        url=url,
         metadata=metadata,
         container=container,
     )
@@ -280,7 +292,6 @@ def get_filename(files: list[VSFile]) -> str:
     for file in files:
         path = file.getPath()
         if not path or path.strip() == "":
-            file_names[1001] = path
             continue
         elif 1000 not in file_names:
             file_names[1000] = path
@@ -297,7 +308,7 @@ def get_filename(files: list[VSFile]) -> str:
         elif upper_path.endswith(".WAV"):
             file_names[5] = path
 
-    return file_names.get(min(file_names.keys()), "")
+    return file_names[min(file_names)] if file_names else ""
 
 
 def _get_url(files: list[VSFile], shape: VSShape, force_full_domain=True) -> str | None:

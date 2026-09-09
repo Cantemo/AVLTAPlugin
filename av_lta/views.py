@@ -189,7 +189,10 @@ class SubtitlePublishView(CView):
             return Response()
         except HTTPError as e:
             log.exception("Failed to publish ttml")
-            vs_error = e.response.json()
+            try:
+                vs_error = e.response.json()
+            except ValueError:
+                vs_error = {"detail": "Failed to publish ttml"}
             return Response(status=e.response.status_code, data=vs_error, exception=True)
         except NotFound as e:
             raise e
@@ -211,6 +214,8 @@ class SubtitlePublishView(CView):
     ):
         item_id = item.json_object["id"]
         filename = get_filename(shape.getAllFiles()) if component is None else get_filename(component.getFiles())
+        if not filename:
+            raise NotFound("Unable to determine subtitle filename")
         self._create_shape_if_needed(shape_tag=plugin_settings.AV_LTA_PUBLISH_SHAPE_TAG, item_helper=item_helper)
 
         storage_id = None
@@ -337,9 +342,10 @@ class ProxyLTAView(View):
         if "text/html" in response.headers.get("content-type", ""):
             # We need to rewrite the base tag as we're not serving from root /
             soup = BeautifulSoup(response.content, "html.parser")
-            base_tag = soup.find("head").find("base")
-            base_tag.attrs.update(href=reverse("av_lta:av_apps"))
-            proxy_response.content = str(soup)
+            base_tag = soup.select_one("head base")
+            if base_tag is not None:
+                base_tag.attrs.update(href=reverse("av_lta:av_apps"))
+                proxy_response.content = str(soup)
 
         excluded_headers = {
             # Hop-by-hop headers
