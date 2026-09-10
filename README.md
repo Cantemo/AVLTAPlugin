@@ -61,14 +61,6 @@ uv run pre-commit install
 
 The `--keepdb` flag is optional, but it speeds up running the tests as the test database does not need to be re-created each time.
 
-Focused media and missing-data regression tests:
-
-```sh
-/opt/cantemo/portal/manage.py test portal.plugins.av_lta.tests.test_transform portal.plugins.av_lta.tests.test_missing_media portal.plugins.av_lta.tests.test_missing_view_data --keepdb
-```
-
-Launch templates omit derivatives with no accessible HTTP(S) media URL, including empty shapes and files filtered out by Portal's archive-storage lookup. Valid sibling shapes and standalone audio remain available. Missing container timecode data is omitted rather than invented. Publishing a subtitle without a source filename returns a not-found response before any write is attempted.
-
 ### Run type checking
 
 ```

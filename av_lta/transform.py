@@ -43,7 +43,9 @@ def transform_item_to_lta_asset(item: VSItem, force_full_domain=False) -> Asset:
 
     marker_groups = transform_subclips_to_marker_groups(item=item)
 
-    title = item.getTitle() if (item.json_object.get("metadata") or {}).get("timespan") else asset_id
+    title = asset_id
+    if (item.json_object.get("metadata") or {}).get("timespan"):
+        title = item.getTitle()
 
     metadata: list[MetadataField] = [MetadataField(key="title", value=title)]
 

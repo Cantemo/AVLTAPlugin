@@ -136,6 +136,21 @@ class TestMissingMedia(TestCase):
         self.assertEqual(files[0].type, "AUDIO")
         self.assertEqual(files[0].container.audioStreams[0].sampleRate, 44100)
 
+    def test_should_use_title_field_from_item_metadata(self):
+        self.item_data["json_object"]["metadata"] = {
+            "timespan": [
+                {
+                    "start": "-INF",
+                    "end": "+INF",
+                    "field": [{"name": "title", "value": [{"value": "Example clip"}]}],
+                }
+            ]
+        }
+
+        asset = transform_item_to_lta_asset(VSItem(**self.item_data))
+
+        self.assertEqual(asset.metadata[0].value, "Example clip")
+
     def test_should_transform_item_without_optional_metadata(self):
         for metadata in (None, {}):
             with self.subTest(metadata=metadata):
