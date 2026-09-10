@@ -161,7 +161,13 @@ class TestTransformVideoComponentNoFramerate(PortalBaseTestCase):
     def setUp(self, mock_authenticate=True):
         super().setUp(mock_authenticate=mock_authenticate)
         super(TestTransformVideoComponentNoFramerate, self).setUp()
-        self.test_item = VSItem(**self.read_json("vsitem2.json"))
+        item_data = self.read_json("vsitem2.json")
+        # This fixture only has file:// URIs; stream tests require browser-accessible media.
+        for shape in item_data["json_object"]["shape"]:
+            for component in shape.get("videoComponent", []) + shape.get("audioComponent", []):
+                for file in component.get("file", []):
+                    file["uri"].append(f"https://media.example.test/{file['id']}")
+        self.test_item = VSItem(**item_data)
         self.test_video_proxy_shape = self.test_item.getShapes()[0]
         self.test_video_original_shape = self.test_item.getShapes()[1]
         self.test_image_shape = self.test_item.getShapes()[2]
